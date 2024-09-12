@@ -16,7 +16,7 @@ members = [
     "consensus/notify",
     "consensus/pow",
     "consensus/wasm",
-    "pyrin",
+    "waglayla",
     "simpa",
     "wasm",
     "wasm/core",
@@ -66,7 +66,7 @@ rust-version = "1.78.0"
 version = "0.14.5"
 authors = ["Waglayla developers", "Waglayla developers"]
 license = "ISC"
-repository = "https://github.com/Waglaylapyi/pyrin"
+repository = "https://github.com/Waglaylapyi/waglayla"
 edition = "2021"
 include = [
     "src/**/*.rs",
@@ -134,7 +134,7 @@ waglayla-wrpc-proxy = { version = "0.14.1", path = "rpc/wrpc/proxy" }
 waglayla-wrpc-server = { version = "0.14.1", path = "rpc/wrpc/server" }
 waglayla-wrpc-wasm = { version = "0.14.1", path = "rpc/wrpc/wasm" }
 waglayla-wrpc-example-subscriber = { version = "0.14.1", path = "rpc/wrpc/examples/subscriber" }
-pyrin = { version = "0.14.1", path = "pyrin" }
+waglayla = { version = "0.14.1", path = "waglayla" }
 waglayla-alloc = { version = "0.14.1", path = "utils/alloc" }
 
 # external
