@@ -3432,7 +3432,7 @@ dependencies = [
  "waglayla-wrpc-server",
  "log",
  "parking_lot",
- "pyrin",
+ "waglaylad",
  "rand 0.8.5",
  "rand_distr 0.4.3",
  "rayon",
@@ -5038,7 +5038,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "pyrin"
+name = "waglayla"
 version = "0.14.5"
 dependencies = [
  "async-channel 2.2.1",
@@ -5085,7 +5085,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "pyrin-sdk"
+name = "waglayla-sdk"
 version = "0.1.9"
 dependencies = [
  "futures",
