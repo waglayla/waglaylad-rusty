@@ -80,7 +80,7 @@ include = [
 ]
 
 [workspace.dependencies]
-# waglayla-testing-integration = { version = "0.14.1", path = "testing/integration" }
+waglayla-testing-integration = { version = "0.14.1", path = "testing/integration" }
 waglayla-addresses = { version = "0.14.1", path = "crypto/addresses" }
 waglayla-addressmanager = { version = "0.14.1", path = "components/addressmanager" }
 waglayla-bip32 = { version = "0.14.1", path = "wallet/bip32" }
