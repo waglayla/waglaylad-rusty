@@ -216,12 +216,12 @@ The framework is compatible with all major desktop and mobile browsers.
   **Start a mainnet node**
 
   ```bash
-  cargo run --release --bin waglayla
+  cargo run --release --bin waglaylad
   ```
   **Start a testnet node**
 
   ```bash
-cargo run --release --bin waglayla -- --testnet
+cargo run --release --bin waglaylad -- --testnet
   ```
 
 <details>
@@ -231,9 +231,9 @@ Using a configuration file
   </summary>
 
   ```bash
-cargo run --release --bin waglayla -- --configfile /path/to/configfile.toml
+cargo run --release --bin waglaylad -- --configfile /path/to/configfile.toml
 # or
-cargo run --release --bin waglayla -- -C /path/to/configfile.toml
+cargo run --release --bin waglaylad -- -C /path/to/configfile.toml
   ```
   - The config file should be a list of \<CLI argument\> = \<value\> separated by newlines. 
   - Whitespace around the `=` is fine, `arg=value` and `arg = value` are both parsed correctly.
@@ -253,7 +253,7 @@ addpeer = ["10.0.0.1", "1.2.3.4"]
  Pass the `--help` flag to view all possible arguments
 
   ```bash
-cargo run --release --bin waglayla -- --help
+cargo run --release --bin waglaylad -- --help
   ```
 </details>
 
@@ -358,7 +358,7 @@ cargo run --release --bin simpa -- -t=200 -d=2 -b=8 -n=1000
 Heap-profiling in `waglayla` and `simpa` can be done by enabling `heap` feature and profile using the `--features` argument
 
 ```bash
-cargo run --bin waglayla --profile heap --features=heap
+cargo run --bin waglaylad --profile heap --features=heap
 ```
 
 It will produce `{bin-name}-heap.json` file in the root of the workdir, that can be inspected by the [dhat-viewer](https://github.com/unofficial-mirror/valgrind/tree/master/dhat)
@@ -414,7 +414,7 @@ Logging in `waglayla` and `simpa` can be [filtered](https://docs.rs/env_logger/0
 2. Adding the --loglevel argument like in the following example:
 
     ```
-    (cargo run --bin waglayla -- --loglevel info,waglayla_rpc_core=trace,waglayla_grpc_core=trace,consensus=trace,waglayla_core=trace) 2>&1 | tee ~/waglayla.log
+    (cargo run --bin waglaylad -- --loglevel info,waglayla_rpc_core=trace,waglayla_grpc_core=trace,consensus=trace,waglayla_core=trace) 2>&1 | tee ~/waglayla.log
     ```
     In this command we set the `loglevel` to `INFO`.
 
