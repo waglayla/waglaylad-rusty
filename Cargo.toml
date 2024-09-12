@@ -16,7 +16,7 @@ members = [
     "consensus/notify",
     "consensus/pow",
     "consensus/wasm",
-    "waglayla",
+    "waglaylad",
     "simpa",
     "wasm",
     "wasm/core",
@@ -134,7 +134,7 @@ waglayla-wrpc-proxy = { version = "0.14.1", path = "rpc/wrpc/proxy" }
 waglayla-wrpc-server = { version = "0.14.1", path = "rpc/wrpc/server" }
 waglayla-wrpc-wasm = { version = "0.14.1", path = "rpc/wrpc/wasm" }
 waglayla-wrpc-example-subscriber = { version = "0.14.1", path = "rpc/wrpc/examples/subscriber" }
-waglayla = { version = "0.14.1", path = "waglayla" }
+waglaylad = { version = "0.14.1", path = "waglaylad" }
 waglayla-alloc = { version = "0.14.1", path = "utils/alloc" }
 
 # external
