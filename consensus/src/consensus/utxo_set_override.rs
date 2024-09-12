@@ -3,11 +3,11 @@ mod utxo_set_override_inner {
     use std::sync::Arc;
 
     use itertools::Itertools;
-    use kaspa_consensus_core::{
+    use waglayla_consensus_core::{
         api::ConsensusApi, config::Config, header::Header, muhash::MuHashExtensions, utxo::utxo_collection::UtxoCollection,
     };
-    use kaspa_hashes::Hash;
-    use kaspa_muhash::MuHash;
+    use waglayla_hashes::Hash;
+    use waglayla_muhash::MuHash;
 
     use crate::consensus::Consensus;
 

@@ -1,9 +1,9 @@
 //!
-//! Kaspa Wallet Core - Multi-platform Rust framework for Kaspa Wallet.
+//! Waglayla Wallet Core - Multi-platform Rust framework for Waglayla Wallet.
 //!
 //! This framework provides a series of APIs and primitives
 //! to simplify building applications that interface with
-//! the Kaspa p2p network.
+//! the Waglayla p2p network.
 //!
 //! Included are low-level primitives
 //! such as [`UtxoProcessor`](crate::utxo::UtxoProcessor)
@@ -34,25 +34,25 @@
 //!
 //! For JavaScript / TypeScript environments, there are two
 //! available NPM modules:
-//! - <https://www.npmjs.com/package/kaspa>
-//! - <https://www.npmjs.com/package/kaspa-wasm>
+//! - <https://www.npmjs.com/package/waglayla>
+//! - <https://www.npmjs.com/package/waglayla-wasm>
 //!
-//! The `kaspa-wasm` module is a pure WASM32 module that includes
+//! The `waglayla-wasm` module is a pure WASM32 module that includes
 //! the entire wallet framework, but does not support RPC due to an absence
 //! of a native WebSocket in NodeJs environment, while
-//! the `kaspa` module includes `websocket` module dependency simulating
+//! the `waglayla` module includes `websocket` module dependency simulating
 //! the W3C WebSocket and thus supports RPC.
 //!
 //! JavaScript examples for using this framework can be found at:
-//! <https://github.com/Pyrinpyi/pyrin/tree/master/wasm/nodejs>
+//! <https://github.com/Waglaylapyi/pyrin/tree/master/wasm/nodejs>
 //!
 //! For pre-built browser-compatible WASM32 redistributables of this
-//! framework please see the releases section of the Rusty Kaspa
-//! repository at <https://github.com/Pyrinpyi/pyrin/releases>.
+//! framework please see the releases section of the Rusty Waglayla
+//! repository at <https://github.com/Waglaylapyi/pyrin/releases>.
 //!
 
 extern crate alloc;
-extern crate self as kaspa_wallet_core;
+extern crate self as waglayla_wallet_core;
 
 // use cfg_if::cfg_if;
 

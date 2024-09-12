@@ -3,11 +3,11 @@ use std::{ops::Deref, sync::Arc};
 use crate::model::stores::{
     pruning::PruningStoreReader, utxo_multisets::UtxoMultisetsStoreReader, virtual_state::VirtualStateStoreReader,
 };
-use kaspa_consensus_core::{
+use waglayla_consensus_core::{
     block::BlockTemplate, blockhash::ORIGIN, coinbase::MinerData, errors::block::RuleError, tx::Transaction,
     utxo::utxo_view::UtxoViewComposition,
 };
-use kaspa_hashes::Hash;
+use waglayla_hashes::Hash;
 
 use super::VirtualStateProcessor;
 

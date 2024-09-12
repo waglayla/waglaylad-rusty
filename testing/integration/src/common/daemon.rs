@@ -1,18 +1,18 @@
-use kaspa_consensus_core::network::NetworkId;
-use kaspa_core::{core::Core, signals::Shutdown, task::runtime::AsyncRuntime};
-use kaspa_database::utils::get_kaspa_tempdir;
-use kaspa_grpc_client::GrpcClient;
-use kaspa_grpc_server::service::GrpcService;
-use kaspa_notify::subscription::context::SubscriptionContext;
-use kaspa_rpc_core::notify::mode::NotificationMode;
-use kaspa_rpc_service::service::RpcCoreService;
-use kaspa_utils::triggers::Listener;
-use kaspad_lib::{args::Args, daemon::create_core_with_runtime};
+use waglayla_consensus_core::network::NetworkId;
+use waglayla_core::{core::Core, signals::Shutdown, task::runtime::AsyncRuntime};
+use waglayla_database::utils::get_waglayla_tempdir;
+use waglayla_grpc_client::GrpcClient;
+use waglayla_grpc_server::service::GrpcService;
+use waglayla_notify::subscription::context::SubscriptionContext;
+use waglayla_rpc_core::notify::mode::NotificationMode;
+use waglayla_rpc_service::service::RpcCoreService;
+use waglayla_utils::triggers::Listener;
+use waglaylad_lib::{args::Args, daemon::create_core_with_runtime};
 use parking_lot::RwLock;
 use std::{ops::Deref, sync::Arc, time::Duration};
 use tempfile::TempDir;
 
-use kaspa_grpc_client::ClientPool;
+use waglayla_grpc_client::ClientPool;
 
 pub struct ClientManager {
     pub args: RwLock<Args>,
@@ -135,7 +135,7 @@ impl Daemon {
     }
 
     pub fn with_manager(client_manager: Arc<ClientManager>, fd_total_budget: i32) -> Daemon {
-        let appdir_tempdir = get_kaspa_tempdir();
+        let appdir_tempdir = get_waglayla_tempdir();
         client_manager.args.write().appdir = Some(appdir_tempdir.path().to_str().unwrap().to_owned());
         let (core, _) = create_core_with_runtime(&Default::default(), &client_manager.args.read(), fd_total_budget);
         let async_service = &Arc::downcast::<AsyncRuntime>(core.find(AsyncRuntime::IDENT).unwrap().arc_any()).unwrap();

@@ -1,11 +1,11 @@
 use crate::matrix::Matrix;
 use js_sys::BigInt;
-use kaspa_consensus_client::Header;
-use kaspa_consensus_core::hashing;
-use kaspa_hashes::Hash;
-use kaspa_hashes::PowHash;
-use kaspa_math::Uint256;
-use kaspa_utils::hex::ToHex;
+use waglayla_consensus_client::Header;
+use waglayla_consensus_core::hashing;
+use waglayla_hashes::Hash;
+use waglayla_hashes::PowHash;
+use waglayla_math::Uint256;
+use waglayla_utils::hex::ToHex;
 use num::Float;
 use wasm_bindgen::prelude::*;
 use workflow_wasm::error::Error;
@@ -62,10 +62,10 @@ impl State {
     }
 }
 
-// https://github.com/tmrlvi/kaspa-miner/blob/bf361d02a46c580f55f46b5dfa773477634a5753/src/client/stratum.rs#L36
+// https://github.com/tmrlvi/waglayla-miner/blob/bf361d02a46c580f55f46b5dfa773477634a5753/src/client/stratum.rs#L36
 const DIFFICULTY_1_TARGET: (u64, i16) = (0xffffu64, 208); // 0xffff 2^208
 
-/// `calculate_difficulty` is based on set_difficulty function: <https://github.com/tmrlvi/kaspa-miner/blob/bf361d02a46c580f55f46b5dfa773477634a5753/src/client/stratum.rs#L375>
+/// `calculate_difficulty` is based on set_difficulty function: <https://github.com/tmrlvi/waglayla-miner/blob/bf361d02a46c580f55f46b5dfa773477634a5753/src/client/stratum.rs#L375>
 /// @category PoW
 #[wasm_bindgen(js_name = calculateDifficulty)]
 pub fn calculate_difficulty(difficulty: f32) -> std::result::Result<BigInt, JsError> {

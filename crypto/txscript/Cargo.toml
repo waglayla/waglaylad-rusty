@@ -1,6 +1,6 @@
 [package]
-name = "kaspa-txscript"
-description = "Kaspa txscript engine library"
+name = "waglayla-txscript"
+description = "Waglayla txscript engine library"
 rust-version.workspace = true
 version.workspace = true
 edition.workspace = true
@@ -14,10 +14,10 @@ blake3.workspace = true
 borsh.workspace = true
 indexmap.workspace = true
 itertools.workspace = true
-kaspa-addresses.workspace = true
-kaspa-consensus-core.workspace = true
-kaspa-hashes.workspace = true
-kaspa-txscript-errors.workspace = true
+waglayla-addresses.workspace = true
+waglayla-consensus-core.workspace = true
+waglayla-hashes.workspace = true
+waglayla-txscript-errors.workspace = true
 log.workspace = true
 parking_lot.workspace = true
 rand.workspace = true

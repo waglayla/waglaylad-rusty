@@ -1,6 +1,6 @@
 [package]
-name = "kaspa-connectionmanager"
-description = "Kaspa connection manager"
+name = "waglayla-connectionmanager"
+description = "Waglayla connection manager"
 rust-version.workspace = true
 version.workspace = true
 edition.workspace = true
@@ -13,10 +13,10 @@ repository.workspace = true
 duration-string.workspace = true
 futures-util.workspace = true
 itertools.workspace = true
-kaspa-addressmanager.workspace = true
-kaspa-core.workspace = true
-kaspa-p2p-lib.workspace = true
-kaspa-utils.workspace = true
+waglayla-addressmanager.workspace = true
+waglayla-core.workspace = true
+waglayla-p2p-lib.workspace = true
+waglayla-utils.workspace = true
 log.workspace = true
 parking_lot.workspace = true
 rand.workspace = true

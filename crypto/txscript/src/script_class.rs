@@ -10,8 +10,8 @@ use thiserror::Error;
 #[cfg(not(target_family = "wasm"))]
 use pyo3::{IntoPy, Py, PyAny, Python};
 
-use kaspa_addresses::Version;
-use kaspa_consensus_core::tx::{ScriptPublicKey, ScriptPublicKeyVersion};
+use waglayla_addresses::Version;
+use waglayla_consensus_core::tx::{ScriptPublicKey, ScriptPublicKeyVersion};
 
 use crate::{MAX_SCRIPT_PUBLIC_KEY_VERSION, opcodes};
 
@@ -152,7 +152,7 @@ impl From<Version> for ScriptClass {
 
 #[cfg(test)]
 mod tests {
-    use kaspa_consensus_core::tx::ScriptVec;
+    use waglayla_consensus_core::tx::ScriptVec;
 
     use super::*;
 

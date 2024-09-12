@@ -1,14 +1,14 @@
-use kaspa_core::debug;
-use kaspa_p2p_lib::echo::EchoFlowInitializer;
+use waglayla_core::debug;
+use waglayla_p2p_lib::echo::EchoFlowInitializer;
 use std::{sync::Arc, time::Duration};
 
 #[tokio::main]
 async fn main() {
     // [-] - init logger
-    kaspa_core::log::init_logger(None, "debug");
+    waglayla_core::log::init_logger(None, "debug");
     // [0] - init p2p-adaptor
     let initializer = Arc::new(EchoFlowInitializer::new());
-    let adaptor = kaspa_p2p_lib::Adaptor::client_only(kaspa_p2p_lib::Hub::new(), initializer, Default::default());
+    let adaptor = waglayla_p2p_lib::Adaptor::client_only(waglayla_p2p_lib::Hub::new(), initializer, Default::default());
     // [1] - connect 128 peers + flows
     let ip_port = String::from("[::1]:50051");
     for i in 0..1 {

@@ -3,10 +3,10 @@
 //!
 
 use crate::utxo::NetworkParams;
-use kaspa_consensus_client::UtxoEntryReference;
-use kaspa_consensus_core::tx::{Transaction, TransactionInput, TransactionOutput, SCRIPT_VECTOR_SIZE};
-use kaspa_consensus_core::{config::params::Params, constants::*, subnets::SUBNETWORK_ID_SIZE};
-use kaspa_hashes::HASH_SIZE;
+use waglayla_consensus_client::UtxoEntryReference;
+use waglayla_consensus_core::tx::{Transaction, TransactionInput, TransactionOutput, SCRIPT_VECTOR_SIZE};
+use waglayla_consensus_core::{config::params::Params, constants::*, subnets::SUBNETWORK_ID_SIZE};
+use waglayla_hashes::HASH_SIZE;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum MassCombinationStrategy {

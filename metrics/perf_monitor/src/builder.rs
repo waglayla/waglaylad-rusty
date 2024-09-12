@@ -1,5 +1,5 @@
 use crate::{CountersSnapshot, Monitor};
-use kaspa_core::task::tick::TickService;
+use waglayla_core::task::tick::TickService;
 use std::time::Duration;
 
 pub struct Unspecified {}

@@ -4,10 +4,10 @@ extern crate core;
 use itertools::Itertools;
 use log::{trace};
 
-use kaspa_consensus_core::hashing::sighash::{calc_ecdsa_signature_hash, calc_schnorr_signature_hash, SigHashReusedValues};
-use kaspa_consensus_core::hashing::sighash_type::SigHashType;
-use kaspa_consensus_core::tx::{ScriptPublicKey, TransactionInput, UtxoEntry, VerifiableTransaction};
-use kaspa_txscript_errors::TxScriptError;
+use waglayla_consensus_core::hashing::sighash::{calc_ecdsa_signature_hash, calc_schnorr_signature_hash, SigHashReusedValues};
+use waglayla_consensus_core::hashing::sighash_type::SigHashType;
+use waglayla_consensus_core::tx::{ScriptPublicKey, TransactionInput, UtxoEntry, VerifiableTransaction};
+use waglayla_txscript_errors::TxScriptError;
 use opcodes::{codes, OpCond, to_small_int};
 use opcodes::codes::OpReturn;
 use script_class::ScriptClass;
@@ -200,7 +200,7 @@ impl<'a, T: VerifiableTransaction> TxScriptEngine<'a, T> {
     }
 
     fn execute_opcode(&mut self, opcode: Box<dyn OpCodeImplementation<T>>) -> Result<(), TxScriptError> {
-        // Different from kaspad: Illegal and disabled opcode are checked on execute instead
+        // Different from waglaylad: Illegal and disabled opcode are checked on execute instead
         // Note that this includes OP_RESERVED which counts as a push operation.
         if !opcode.is_push_opcode() {
             self.num_ops += 1;
@@ -508,7 +508,7 @@ mod tests {
 
     use smallvec::SmallVec;
 
-    use kaspa_consensus_core::tx::{
+    use waglayla_consensus_core::tx::{
         PopulatedTransaction, ScriptPublicKey, Transaction, TransactionId, TransactionOutpoint, TransactionOutput,
     };
 
@@ -926,8 +926,8 @@ mod bitcoind_tests {
     // Bitcoind tests
         use serde::Deserialize;
 
-    use kaspa_consensus_core::constants::MAX_TX_IN_SEQUENCE_NUM;
-    use kaspa_consensus_core::tx::{
+    use waglayla_consensus_core::constants::MAX_TX_IN_SEQUENCE_NUM;
+    use waglayla_consensus_core::tx::{
         PopulatedTransaction, ScriptPublicKey, Transaction, TransactionId, TransactionOutpoint, TransactionOutput,
     };
 

@@ -1,5 +1,5 @@
 use itertools::Itertools;
-use kaspa_consensus_core::tx::Transaction;
+use waglayla_consensus_core::tx::Transaction;
 use std::{
     collections::{HashMap, HashSet, VecDeque},
     iter::{FusedIterator, Map},

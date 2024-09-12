@@ -1,5 +1,5 @@
 use crate::constants::{MAX_SOMPI, TX_VERSION};
-use kaspa_consensus_core::tx::Transaction;
+use waglayla_consensus_core::tx::Transaction;
 use std::collections::HashSet;
 
 use super::{
@@ -30,7 +30,7 @@ impl TransactionValidator {
         self.check_transaction_script_public_keys(tx)
     }
 
-    fn check_coinbase_in_isolation(&self, tx: &kaspa_consensus_core::tx::Transaction) -> TxResult<()> {
+    fn check_coinbase_in_isolation(&self, tx: &waglayla_consensus_core::tx::Transaction) -> TxResult<()> {
         if !tx.is_coinbase() {
             return Ok(());
         }
@@ -99,7 +99,7 @@ fn check_duplicate_transaction_inputs(tx: &Transaction) -> TxResult<()> {
 }
 
 fn check_gas(tx: &Transaction) -> TxResult<()> {
-    // This should be revised if subnetworks are activated (along with other validations that weren't copied from kaspad)
+    // This should be revised if subnetworks are activated (along with other validations that weren't copied from waglaylad)
     if tx.gas > 0 {
         return Err(TxRuleError::TxHasGas);
     }
@@ -107,7 +107,7 @@ fn check_gas(tx: &Transaction) -> TxResult<()> {
 }
 
 fn check_transaction_payload(tx: &Transaction) -> TxResult<()> {
-    // This should be revised if subnetworks are activated (along with other validations that weren't copied from kaspad)
+    // This should be revised if subnetworks are activated (along with other validations that weren't copied from waglaylad)
     if !tx.is_coinbase() && !tx.payload.is_empty() {
         return Err(TxRuleError::NonCoinbaseTxHasPayload);
     }
@@ -148,11 +148,11 @@ fn check_transaction_output_value_ranges(tx: &Transaction) -> TxResult<()> {
 
 #[cfg(test)]
 mod tests {
-    use kaspa_consensus_core::{
+    use waglayla_consensus_core::{
         subnets::{SUBNETWORK_ID_COINBASE, SUBNETWORK_ID_NATIVE},
         tx::{scriptvec, ScriptPublicKey, Transaction, TransactionId, TransactionInput, TransactionOutpoint, TransactionOutput},
     };
-    use kaspa_core::assert_match;
+    use waglayla_core::assert_match;
 
     use crate::{
         constants::TX_VERSION,

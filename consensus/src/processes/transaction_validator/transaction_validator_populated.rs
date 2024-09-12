@@ -1,7 +1,7 @@
 use crate::constants::{MAX_SOMPI, SEQUENCE_LOCK_TIME_DISABLED, SEQUENCE_LOCK_TIME_MASK};
-use kaspa_consensus_core::{hashing::sighash::SigHashReusedValues, tx::VerifiableTransaction};
-use kaspa_core::warn;
-use kaspa_txscript::{get_sig_op_count, TxScriptEngine};
+use waglayla_consensus_core::{hashing::sighash::SigHashReusedValues, tx::VerifiableTransaction};
+use waglayla_core::warn;
+use waglayla_txscript::{get_sig_op_count, TxScriptEngine};
 
 use super::{
     errors::{TxResult, TxRuleError},
@@ -122,7 +122,7 @@ impl TransactionValidator {
                 // lock-time. We subtract one from the relative lock in
                 // order to maintain the original lockTime semantics.
                 //
-                // Note: in the kaspad codebase there's a use in i64 in order to use the -1 value
+                // Note: in the waglaylad codebase there's a use in i64 in order to use the -1 value
                 // as None. Here it's not needed, but we still use it to avoid breaking consensus.
                 let lock_daa_score = entry.block_daa_score as i64 + relative_lock - 1;
 
@@ -161,18 +161,18 @@ mod tests {
     use super::super::errors::TxRuleError;
     use core::str::FromStr;
     use itertools::Itertools;
-    use kaspa_consensus_core::sign::sign;
-    use kaspa_consensus_core::subnets::SubnetworkId;
-    use kaspa_consensus_core::tx::{MutableTransaction, PopulatedTransaction, ScriptVec, TransactionId, UtxoEntry};
-    use kaspa_consensus_core::tx::{ScriptPublicKey, Transaction, TransactionInput, TransactionOutpoint, TransactionOutput};
-    use kaspa_txscript_errors::TxScriptError;
+    use waglayla_consensus_core::sign::sign;
+    use waglayla_consensus_core::subnets::SubnetworkId;
+    use waglayla_consensus_core::tx::{MutableTransaction, PopulatedTransaction, ScriptVec, TransactionId, UtxoEntry};
+    use waglayla_consensus_core::tx::{ScriptPublicKey, Transaction, TransactionInput, TransactionOutpoint, TransactionOutput};
+    use waglayla_txscript_errors::TxScriptError;
     use secp256k1::Secp256k1;
     use smallvec::SmallVec;
     use std::iter::once;
 
     use crate::{params::MAINNET_PARAMS, processes::transaction_validator::TransactionValidator};
 
-    #[ignore] // TODO: Pyrin
+    #[ignore] // TODO: Waglayla
     #[test]
     fn check_signature_test() {
         let mut params = MAINNET_PARAMS.clone();
@@ -296,7 +296,7 @@ mod tests {
         assert!(tv.check_scripts(&populated_tx).is_err(), "Failing Signature Test Failed");
     }
 
-    #[ignore] // TODO: Pyrin
+    #[ignore] // TODO: Waglayla
     #[test]
     fn check_multi_signature_test() {
         let mut params = MAINNET_PARAMS.clone();
@@ -359,7 +359,7 @@ mod tests {
         tv.check_scripts(&populated_tx).expect("Signature check failed");
     }
 
-    #[ignore] // TODO: Pyrin
+    #[ignore] // TODO: Waglayla
     #[test]
     fn check_last_sig_incorrect_multi_signature_test() {
         let mut params = MAINNET_PARAMS.clone();
@@ -423,7 +423,7 @@ mod tests {
         assert!(tv.check_scripts(&populated_tx) == Err(TxRuleError::SignatureInvalid(TxScriptError::NullFail)));
     }
 
-    #[ignore] // TODO: Pyrin
+    #[ignore] // TODO: Waglayla
     #[test]
     fn check_first_sig_incorrect_multi_signature_test() {
         let mut params = MAINNET_PARAMS.clone();

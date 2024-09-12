@@ -1,6 +1,6 @@
 [package]
-name = "kaspa-consensus"
-description = "Kaspa consensus library"
+name = "waglayla-consensus"
+description = "Waglayla consensus library"
 rust-version.workspace = true
 version.workspace = true
 edition.workspace = true
@@ -18,20 +18,20 @@ faster-hex.workspace = true
 futures-util.workspace = true
 indexmap.workspace = true
 itertools.workspace = true
-kaspa-consensus-core.workspace = true
-kaspa-consensus-notify.workspace = true
-kaspa-consensusmanager.workspace = true
-kaspa-core.workspace = true
-kaspa-database.workspace = true
-kaspa-hashes.workspace = true
-kaspa-math.workspace = true
-kaspa-merkle.workspace = true
-kaspa-muhash.workspace = true
-kaspa-notify.workspace = true
-kaspa-pow.workspace = true
-kaspa-txscript.workspace = true
-kaspa-utils.workspace = true
-kaspa-addresses.workspace = true
+waglayla-consensus-core.workspace = true
+waglayla-consensus-notify.workspace = true
+waglayla-consensusmanager.workspace = true
+waglayla-core.workspace = true
+waglayla-database.workspace = true
+waglayla-hashes.workspace = true
+waglayla-math.workspace = true
+waglayla-merkle.workspace = true
+waglayla-muhash.workspace = true
+waglayla-notify.workspace = true
+waglayla-pow.workspace = true
+waglayla-txscript.workspace = true
+waglayla-utils.workspace = true
+waglayla-addresses.workspace = true
 log.workspace = true
 once_cell.workspace = true
 parking_lot.workspace = true
@@ -55,7 +55,7 @@ criterion.workspace = true
 serde_json.workspace = true
 flate2.workspace = true
 rand_distr.workspace = true
-kaspa-txscript-errors.workspace = true
+waglayla-txscript-errors.workspace = true
 
 [[bench]]
 name = "hash_benchmarks"
@@ -63,4 +63,4 @@ harness = false
 
 [features]
 html_reports = []
-devnet-prealloc = ["kaspa-consensus-core/devnet-prealloc"]
+devnet-prealloc = ["waglayla-consensus-core/devnet-prealloc"]

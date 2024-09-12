@@ -11,19 +11,19 @@ use serde_with::{DisplayFromStr, serde_as};
 use toml::from_str;
 
 #[cfg(feature = "devnet-prealloc")]
-use kaspa_addresses::Address;
-use kaspa_consensus_core::{
+use waglayla_addresses::Address;
+use waglayla_consensus_core::{
     config::Config,
     network::{NetworkId, NetworkType},
 };
 // #[cfg(feature = "devnet-prealloc")]
-use kaspa_consensus_core::tx::{TransactionOutpoint, UtxoEntry};
-use kaspa_core::kaspad_env::version;
-use kaspa_notify::address::tracker::Tracker;
+use waglayla_consensus_core::tx::{TransactionOutpoint, UtxoEntry};
+use waglayla_core::waglaylad_env::version;
+use waglayla_notify::address::tracker::Tracker;
 #[cfg(feature = "devnet-prealloc")]
-use kaspa_txscript::pay_to_address_script;
-use kaspa_utils::networking::ContextualNetAddress;
-use kaspa_wrpc_server::address::WrpcNetAddress;
+use waglayla_txscript::pay_to_address_script;
+use waglayla_utils::networking::ContextualNetAddress;
+use waglayla_wrpc_server::address::WrpcNetAddress;
 
 #[serde_as]
 #[derive(Debug, Clone, Deserialize)]
@@ -171,7 +171,7 @@ impl Args {
     }
 
     #[cfg(feature = "devnet-prealloc")]
-    pub fn generate_prealloc_utxos(&self, num_prealloc_utxos: u64) -> kaspa_consensus_core::utxo::utxo_collection::UtxoCollection {
+    pub fn generate_prealloc_utxos(&self, num_prealloc_utxos: u64) -> waglayla_consensus_core::utxo::utxo_collection::UtxoCollection {
         let addr = Address::try_from(&self.prealloc_address.as_ref().unwrap()[..]).unwrap();
         let spk = pay_to_address_script(&addr);
         (1..=num_prealloc_utxos)
@@ -199,7 +199,7 @@ pub fn cli() -> Command {
     let defaults: Args = Default::default();
 
     #[allow(clippy::let_and_return)]
-    let cmd = Command::new("kaspad")
+    let cmd = Command::new("waglaylad")
         .about(format!("{} (pyrin) v{}", env!("CARGO_PKG_DESCRIPTION"), version()))
         .version(env!("CARGO_PKG_VERSION"))
         .arg(arg!(-C --configfile <CONFIG_FILE> "Path of config file."))
@@ -484,9 +484,9 @@ fn arg_match_many_unwrap_or<T: Clone + Send + Sync + 'static>(m: &clap::ArgMatch
 
   -V, --version                             Display version information and exit
   -C, --configfile=                         Path to configuration file (default: /Users/aspect/Library/Application
-                                            Support/Kaspad/kaspad.conf)
+                                            Support/Waglaylad/waglaylad.conf)
   -b, --appdir=                             Directory to store data (default: /Users/aspect/Library/Application
-                                            Support/Kaspad)
+                                            Support/Waglaylad)
       --logdir=                             Directory to log output.
   -a, --addpeer=                            Add a peer to connect with at startup
       --connect=                            Connect only to the specified peers at startup
@@ -507,9 +507,9 @@ fn arg_match_many_unwrap_or<T: Clone + Send + Sync + 'static>(m: &clap::ArgMatch
       --rpclisten=                          Add an interface/port to listen for RPC connections (default port: 13110,
                                             testnet: 16210)
       --rpccert=                            File containing the certificate file (default:
-                                            /Users/aspect/Library/Application Support/Kaspad/rpc.cert)
+                                            /Users/aspect/Library/Application Support/Waglaylad/rpc.cert)
       --rpckey=                             File containing the certificate key (default:
-                                            /Users/aspect/Library/Application Support/Kaspad/rpc.key)
+                                            /Users/aspect/Library/Application Support/Waglaylad/rpc.key)
       --rpcmaxclients=                      Max number of RPC clients for standard connections (default: 128)
       --rpcmaxwebsockets=                   Max number of RPC websocket connections (default: 25)
       --rpcmaxconcurrentreqs=               Max number of concurrent RPC requests that may be processed concurrently

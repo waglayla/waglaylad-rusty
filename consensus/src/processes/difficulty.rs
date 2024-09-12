@@ -3,12 +3,12 @@ use crate::model::stores::{
     ghostdag::{GhostdagData, GhostdagStoreReader},
     headers::HeaderStoreReader,
 };
-use kaspa_consensus_core::{
+use waglayla_consensus_core::{
     config::params::MIN_DIFFICULTY_WINDOW_LEN,
     errors::difficulty::{DifficultyError, DifficultyResult},
     BlockHashSet, BlueWorkType,
 };
-use kaspa_math::{Uint256, Uint320};
+use waglayla_math::{Uint256, Uint320};
 use std::{
     cmp::{max, Ordering},
     iter::once_with,
@@ -164,7 +164,7 @@ impl<T: HeaderStoreReader> DifficultyManagerExtension for FullDifficultyManager<
     }
 }
 
-/// A difficulty manager implementing [KIP-0004](https://github.com/kaspanet/kips/blob/master/kip-0004.md),
+/// A difficulty manager implementing [KIP-0004](https://github.com/waglaylanet/kips/blob/master/kip-0004.md),
 /// so based on sampled windows
 #[derive(Clone)]
 pub struct SampledDifficultyManager<T: HeaderStoreReader> {

@@ -1,13 +1,13 @@
 use crate::imports::*;
 use convert_case::{Case, Casing};
-use kaspa_rpc_core::{api::ops::RpcApiOps, *};
+use waglayla_rpc_core::{api::ops::RpcApiOps, *};
 
 #[derive(Default, Handler)]
-#[help("Execute RPC commands against the connected Kaspa node")]
+#[help("Execute RPC commands against the connected Waglayla node")]
 pub struct Rpc;
 
 impl Rpc {
-    fn println<T>(&self, ctx: &Arc<KaspaCli>, v: T)
+    fn println<T>(&self, ctx: &Arc<WaglaylaCli>, v: T)
     where
         T: core::fmt::Debug,
     {
@@ -15,7 +15,7 @@ impl Rpc {
     }
 
     async fn main(self: Arc<Self>, ctx: &Arc<dyn Context>, mut argv: Vec<String>, cmd: &str) -> Result<()> {
-        let ctx = ctx.clone().downcast_arc::<KaspaCli>()?;
+        let ctx = ctx.clone().downcast_arc::<WaglaylaCli>()?;
         let rpc = ctx.wallet().rpc_api().clone();
         // tprintln!(ctx, "{response}");
 
@@ -153,7 +153,7 @@ impl Rpc {
                 let addresses = argv.iter().map(|s| Address::try_from(s.as_str())).collect::<std::result::Result<Vec<_>, _>>()?;
                 for address in addresses {
                     let result = rpc.get_balance_by_address_call(GetBalanceByAddressRequest { address }).await?;
-                    self.println(&ctx, sompi_to_kaspa(result.balance));
+                    self.println(&ctx, sompi_to_waglayla(result.balance));
                 }
             }
             RpcApiOps::GetBalancesByAddresses => {
@@ -241,7 +241,7 @@ impl Rpc {
         Ok(())
     }
 
-    async fn display_help(self: Arc<Self>, ctx: Arc<KaspaCli>, _argv: Vec<String>) -> Result<()> {
+    async fn display_help(self: Arc<Self>, ctx: Arc<WaglaylaCli>, _argv: Vec<String>) -> Result<()> {
         // RpcApiOps that do not contain docs are not displayed
         let help = RpcApiOps::list()
             .iter()

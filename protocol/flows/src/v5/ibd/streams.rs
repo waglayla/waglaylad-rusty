@@ -2,18 +2,18 @@
 //! Logical stream abstractions used throughout the IBD negotiation protocols
 //!
 
-use kaspa_consensus_core::{
+use waglayla_consensus_core::{
     errors::consensus::ConsensusError,
     header::Header,
     tx::{TransactionOutpoint, UtxoEntry},
 };
-use kaspa_core::{debug, info};
-use kaspa_p2p_lib::{
+use waglayla_core::{debug, info};
+use waglayla_p2p_lib::{
     common::{ProtocolError, DEFAULT_TIMEOUT},
     convert::model::trusted::TrustedDataEntry,
     make_message,
     pb::{
-        kaspad_message::Payload, RequestNextHeadersMessage, RequestNextPruningPointAndItsAnticoneBlocksMessage,
+        waglaylad_message::Payload, RequestNextHeadersMessage, RequestNextPruningPointAndItsAnticoneBlocksMessage,
         RequestNextPruningPointUtxoSetChunkMessage,
     },
     IncomingRoute, Router,

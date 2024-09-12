@@ -4,11 +4,11 @@ use pyo3::exceptions::PyKeyError;
 use pyo3::prelude::*;
 use pyo3::types::{PyDict, PyList};
 
-use kaspa_consensus_core::{BlueWorkType, Hash};
-use kaspa_consensus_core::header::Header;
-use kaspa_consensus_core::tx::TransactionId;
-use kaspa_muhash::Blake2Hash as Blake2Hash;
-use kaspa_rpc_core::{RpcBlock, RpcScriptPublicKey, RpcSubnetworkId, RpcTransaction, RpcTransactionInput, RpcTransactionOutpoint, RpcTransactionOutput};
+use waglayla_consensus_core::{BlueWorkType, Hash};
+use waglayla_consensus_core::header::Header;
+use waglayla_consensus_core::tx::TransactionId;
+use waglayla_muhash::Blake2Hash as Blake2Hash;
+use waglayla_rpc_core::{RpcBlock, RpcScriptPublicKey, RpcSubnetworkId, RpcTransaction, RpcTransactionInput, RpcTransactionOutpoint, RpcTransactionOutput};
 
 use crate::rpc_core::RpcCore;
 

@@ -13,7 +13,7 @@ use workflow_wasm::prelude::*;
 use pyo3::{IntoPy, Py, PyAny, Python};
 
 pub use hashers::*;
-use kaspa_utils::{
+use waglayla_utils::{
     hex::{FromHex, ToHex},
     mem_size::MemSizeEstimator,
     serde_impl_deser_fixed_bytes_ref, serde_impl_ser_fixed_bytes_ref,

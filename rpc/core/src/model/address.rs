@@ -8,7 +8,7 @@ use pyo3::prelude::*;
 #[cfg(not(target_family = "wasm"))]
 use pyo3::pyclass;
 
-pub type RpcAddress = kaspa_addresses::Address;
+pub type RpcAddress = waglayla_addresses::Address;
 
 /// Represents a UTXO entry of an address returned by the `GetUtxosByAddresses` RPC.
 #[derive(Clone, Debug, Serialize, Deserialize, BorshSerialize, BorshDeserialize)]

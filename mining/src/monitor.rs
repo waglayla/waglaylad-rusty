@@ -1,5 +1,5 @@
 use super::MiningCounters;
-use kaspa_core::{
+use waglayla_core::{
     debug, info,
     task::{
         service::{AsyncService, AsyncServiceFuture},
@@ -7,7 +7,7 @@ use kaspa_core::{
     },
     trace,
 };
-use kaspa_txscript::caches::TxScriptCacheCounters;
+use waglayla_txscript::caches::TxScriptCacheCounters;
 use std::{sync::Arc, time::Duration};
 
 const MONITOR: &str = "mempool-monitor";

@@ -1,8 +1,8 @@
 use crate::model::*;
 use borsh::{BorshDeserialize, BorshSerialize};
-use kaspa_consensus_core::api::stats::BlockCount;
-use kaspa_core::debug;
-use kaspa_notify::subscription::{context::SubscriptionContext, single::UtxosChangedSubscription, Command};
+use waglayla_consensus_core::api::stats::BlockCount;
+use waglayla_core::debug;
+use waglayla_notify::subscription::{context::SubscriptionContext, single::UtxosChangedSubscription, Command};
 use serde::{Deserialize, Serialize};
 use std::{
     fmt::{Display, Formatter},
@@ -82,7 +82,7 @@ pub struct SubmitBlockResponse {
 #[derive(Debug, Serialize, Deserialize, BorshSerialize, BorshDeserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct GetBlockTemplateRequest {
-    /// Which kaspa address should the coinbase block reward transaction pay into
+    /// Which waglayla address should the coinbase block reward transaction pay into
     pub pay_address: RpcAddress,
     // TODO: replace with hex serialization
     pub extra_data: RpcExtraData,
@@ -101,9 +101,9 @@ pub struct GetBlockTemplateResponse {
     #[pyo3(get)]
     pub block: RpcBlock,
 
-    /// Whether kaspad thinks that it's synced.
-    /// Callers are discouraged (but not forbidden) from solving blocks when kaspad is not synced.
-    /// That is because when kaspad isn't in sync with the rest of the network there's a high
+    /// Whether waglaylad thinks that it's synced.
+    /// Callers are discouraged (but not forbidden) from solving blocks when waglaylad is not synced.
+    /// That is because when waglaylad isn't in sync with the rest of the network there's a high
     /// chance the block will never be accepted, thus the solving effort would have been wasted.
     #[pyo3(get)]
     pub is_synced: bool,
@@ -115,9 +115,9 @@ pub struct GetBlockTemplateResponse {
 pub struct GetBlockTemplateResponse {
     pub block: RpcBlock,
 
-    /// Whether kaspad thinks that it's synced.
-    /// Callers are discouraged (but not forbidden) from solving blocks when kaspad is not synced.
-    /// That is because when kaspad isn't in sync with the rest of the network there's a high
+    /// Whether waglaylad thinks that it's synced.
+    /// Callers are discouraged (but not forbidden) from solving blocks when waglaylad is not synced.
+    /// That is because when waglaylad isn't in sync with the rest of the network there's a high
     /// chance the block will never be accepted, thus the solving effort would have been wasted.
     pub is_synced: bool,
 }
@@ -1293,7 +1293,7 @@ pub struct FinalityConflictResolvedNotification {
 //
 // If `addresses` is empty, the notifications will start or stop for all addresses.
 //
-// This call is only available when this kaspad was started with `--utxoindex`
+// This call is only available when this waglaylad was started with `--utxoindex`
 //
 // See: UtxosChangedNotification
 #[derive(Clone, Debug, Serialize, Deserialize, BorshSerialize, BorshDeserialize)]

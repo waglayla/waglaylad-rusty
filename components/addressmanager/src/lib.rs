@@ -13,10 +13,10 @@ use itertools::{
     Either::{Left, Right},
     Itertools,
 };
-use kaspa_consensus_core::config::Config;
-use kaspa_core::{debug, info, task::tick::TickService, time::unix_now, warn};
-use kaspa_database::prelude::{CachePolicy, StoreResultExtensions, DB};
-use kaspa_utils::networking::IpAddress;
+use waglayla_consensus_core::config::Config;
+use waglayla_core::{debug, info, task::tick::TickService, time::unix_now, warn};
+use waglayla_database::prelude::{CachePolicy, StoreResultExtensions, DB};
+use waglayla_utils::networking::IpAddress;
 use local_ip_address::list_afinet_netifas;
 use parking_lot::Mutex;
 use stores::banned_address_store::{BannedAddressesStore, BannedAddressesStoreReader, ConnectionBanTimestamp, DbBannedAddressesStore};
@@ -337,8 +337,8 @@ mod address_store_with_cache {
     };
 
     use itertools::Itertools;
-    use kaspa_database::prelude::{CachePolicy, DB};
-    use kaspa_utils::networking::PrefixBucket;
+    use waglayla_database::prelude::{CachePolicy, DB};
+    use waglayla_utils::networking::PrefixBucket;
     use rand::{
         distributions::{WeightedError, WeightedIndex},
         prelude::Distribution,
@@ -515,11 +515,11 @@ mod address_store_with_cache {
 
         use super::*;
         use address_manager::AddressManager;
-        use kaspa_consensus_core::config::{params::SIMNET_PARAMS, Config};
-        use kaspa_core::task::tick::TickService;
-        use kaspa_database::create_temp_db;
-        use kaspa_database::prelude::ConnBuilder;
-        use kaspa_utils::networking::IpAddress;
+        use waglayla_consensus_core::config::{params::SIMNET_PARAMS, Config};
+        use waglayla_core::task::tick::TickService;
+        use waglayla_database::create_temp_db;
+        use waglayla_database::prelude::ConnBuilder;
+        use waglayla_utils::networking::IpAddress;
         use statest::ks::KSTest;
         use statrs::distribution::Uniform;
         use std::net::{IpAddr, Ipv6Addr};
@@ -538,7 +538,7 @@ mod address_store_with_cache {
 
         #[test]
         fn test_network_distribution_weighting() {
-            kaspa_core::log::try_init_logger("info");
+            waglayla_core::log::try_init_logger("info");
 
             // Variables to initialize ip generation with.
             let largest_bucket: u16 = 2048;
@@ -614,7 +614,7 @@ mod address_store_with_cache {
             let significance = 0.10;
 
             // Display and assert the result
-            kaspa_core::info!(
+            waglayla_core::info!(
                 "Kolmogorov–Smirnov test result for weighted network distribution uniformity: p = {0:.4} (p < {1})",
                 adjusted_p,
                 significance

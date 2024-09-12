@@ -1,11 +1,11 @@
 use crate::imports::*;
 use crate::result::Result;
 use js_sys::Array;
-use kaspa_consensus_client::{sign_with_multiple_v3, Transaction};
-use kaspa_consensus_core::tx::PopulatedTransaction;
-use kaspa_consensus_core::{hashing::sighash_type::SIG_HASH_ALL, sign::verify};
-use kaspa_hashes::Hash;
-use kaspa_wallet_keys::privatekey::PrivateKey;
+use waglayla_consensus_client::{sign_with_multiple_v3, Transaction};
+use waglayla_consensus_core::tx::PopulatedTransaction;
+use waglayla_consensus_core::{hashing::sighash_type::SIG_HASH_ALL, sign::verify};
+use waglayla_hashes::Hash;
+use waglayla_wallet_keys::privatekey::PrivateKey;
 use serde_wasm_bindgen::from_value;
 
 #[wasm_bindgen]

@@ -1,6 +1,6 @@
 [package]
-name = "kaspa-p2p-lib"
-description = "Kaspa p2p library"
+name = "waglayla-p2p-lib"
+description = "Waglayla p2p library"
 rust-version.workspace = true
 version.workspace = true
 edition.workspace = true
@@ -13,22 +13,22 @@ repository.workspace = true
 path = "./src/lib.rs"
 
 [[bin]]
-name = "kaspa_p2p_client"
+name = "waglayla_p2p_client"
 path = "./src/bin/client.rs"
 
 [[bin]]
-name = "kaspa_p2p_server"
+name = "waglayla_p2p_server"
 path = "./src/bin/server.rs"
 
 [dependencies]
-kaspa-core.workspace = true
-kaspa-consensus-core.workspace = true
-kaspa-mining-errors.workspace = true
-kaspa-hashes.workspace = true
-kaspa-math.workspace = true
-kaspa-muhash.workspace = true
-kaspa-utils.workspace = true
-kaspa-utils-tower.workspace = true
+waglayla-core.workspace = true
+waglayla-consensus-core.workspace = true
+waglayla-mining-errors.workspace = true
+waglayla-hashes.workspace = true
+waglayla-math.workspace = true
+waglayla-muhash.workspace = true
+waglayla-utils.workspace = true
+waglayla-utils-tower.workspace = true
 
 borsh.workspace = true
 ctrlc.workspace = true

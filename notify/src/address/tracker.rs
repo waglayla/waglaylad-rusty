@@ -1,10 +1,10 @@
 use crate::address::error::{Error, Result};
 use indexmap::{map::Entry, IndexMap};
 use itertools::Itertools;
-use kaspa_addresses::{Address, Prefix};
-use kaspa_consensus_core::tx::ScriptPublicKey;
-use kaspa_core::{debug, trace};
-use kaspa_txscript::{extract_script_pub_key_address, pay_to_address_script};
+use waglayla_addresses::{Address, Prefix};
+use waglayla_consensus_core::tx::ScriptPublicKey;
+use waglayla_core::{debug, trace};
+use waglayla_txscript::{extract_script_pub_key_address, pay_to_address_script};
 use parking_lot::{RwLock, RwLockReadGuard, RwLockWriteGuard};
 use std::{
     collections::{hash_map, hash_set, HashMap, HashSet},
@@ -385,11 +385,11 @@ impl Inner {
     }
 }
 
-/// Tracker of a set of [`Address`](kaspa_addresses::Address), indexing and counting registrations
+/// Tracker of a set of [`Address`](waglayla_addresses::Address), indexing and counting registrations
 ///
 /// #### Implementation design
 ///
-/// Each [`Address`](kaspa_addresses::Address) is stored internally as a [`ScriptPubKey`](kaspa_consensus_core::tx::ScriptPublicKey).
+/// Each [`Address`](waglayla_addresses::Address) is stored internally as a [`ScriptPubKey`](waglayla_consensus_core::tx::ScriptPublicKey).
 /// This prevents inter-network duplication and optimizes UTXOs filtering efficiency.
 ///
 /// But consequently the address network prefix gets lost and must be globally provided when querying for addresses by indexes.
@@ -611,11 +611,11 @@ impl<'a> TrackerReadGuard<'a> {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use kaspa_math::Uint256;
+    use waglayla_math::Uint256;
 
     fn create_addresses(start: usize, count: usize) -> Vec<Address> {
         (start..start + count)
-            .map(|i| Address::new(Prefix::Mainnet, kaspa_addresses::Version::PubKey, &Uint256::from_u64(i as u64).to_le_bytes()))
+            .map(|i| Address::new(Prefix::Mainnet, waglayla_addresses::Version::PubKey, &Uint256::from_u64(i as u64).to_le_bytes()))
             .collect()
     }
 

@@ -8,7 +8,7 @@ use cfb_mode::cipher::AsyncStreamCipher;
 use cfb_mode::cipher::KeyIvInit;
 use evpkdf::evpkdf;
 use faster_hex::{hex_decode, hex_string};
-use kaspa_bip32::{ExtendedPrivateKey, Language, Mnemonic, Prefix, SecretKey};
+use waglayla_bip32::{ExtendedPrivateKey, Language, Mnemonic, Prefix, SecretKey};
 use md5::Md5;
 use pbkdf2::{hmac::Hmac, pbkdf2};
 use serde::{Deserialize, Serialize};
@@ -134,7 +134,7 @@ fn aes_decrypt_v0(key: &[u8], iv: &[u8], content: &mut [u8]) -> Result<String> {
 }
 
 // ---
-// {"type":"kaspa-wallet","encryption":"default","version":1,"generator":"pwa","wallet":{"mnemonic":"hex"}}
+// {"type":"waglayla-wallet","encryption":"default","version":1,"generator":"pwa","wallet":{"mnemonic":"hex"}}
 
 #[derive(Deserialize)]
 struct Wallet {
@@ -155,14 +155,14 @@ struct Envelope {
 fn legacy_v0_keydata_location() -> Result<(PathBuf, Options)> {
     let filename = if runtime::is_windows() {
         let appdata = env::var("APPDATA")?;
-        fs::resolve_path(&format!("{appdata}/Kaspa/kaspa.kpk"))?
+        fs::resolve_path(&format!("{appdata}/Waglayla/waglayla.kpk"))?
     } else if runtime::is_macos() {
-        fs::resolve_path("~/Library/Application Support/Kaspa/kaspa.kpk")?
+        fs::resolve_path("~/Library/Application Support/Waglayla/waglayla.kpk")?
     } else {
-        fs::resolve_path("~/.kaspa/kaspa.kpk")?
+        fs::resolve_path("~/.waglayla/waglayla.kpk")?
     };
 
-    let options = workflow_store::fs::Options::with_local_storage_key("kaspa-wallet");
+    let options = workflow_store::fs::Options::with_local_storage_key("waglayla-wallet");
 
     Ok((filename, options))
 }

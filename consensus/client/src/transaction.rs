@@ -8,12 +8,12 @@ use crate::result::Result;
 use crate::serializable::{numeric, string};
 use crate::utxo::{UtxoEntryId, UtxoEntryReference};
 use ahash::AHashMap;
-use kaspa_consensus_core::network::NetworkType;
-use kaspa_consensus_core::network::NetworkTypeT;
-use kaspa_consensus_core::subnets::{self, SubnetworkId};
-use kaspa_consensus_core::tx::UtxoEntry;
-use kaspa_txscript::extract_script_pub_key_address;
-use kaspa_utils::hex::*;
+use waglayla_consensus_core::network::NetworkType;
+use waglayla_consensus_core::network::NetworkTypeT;
+use waglayla_consensus_core::subnets::{self, SubnetworkId};
+use waglayla_consensus_core::tx::UtxoEntry;
+use waglayla_txscript::extract_script_pub_key_address;
+use waglayla_utils::hex::*;
 
 #[wasm_bindgen(typescript_custom_section)]
 const TS_TRANSACTION: &'static str = r#"
@@ -71,7 +71,7 @@ pub struct TransactionInner {
     pub id: TransactionId,
 }
 
-/// Represents a Kaspa transaction.
+/// Represents a Waglayla transaction.
 /// This is an artificial construct that includes additional
 /// transaction-related data such as additional data from UTXOs
 /// used by transaction inputs.
@@ -162,7 +162,7 @@ impl Transaction {
     /// Returns a list of unique addresses used by transaction inputs.
     /// This method can be used to determine addresses used by transaction inputs
     /// in order to select private keys needed for transaction signing.
-    pub fn addresses(&self, network_type: &NetworkTypeT) -> Result<kaspa_addresses::AddressArrayT> {
+    pub fn addresses(&self, network_type: &NetworkTypeT) -> Result<waglayla_addresses::AddressArrayT> {
         let mut list = std::collections::HashSet::new();
         for input in &self.inner.lock().unwrap().inputs {
             if let Some(utxo) = input.get_utxo() {

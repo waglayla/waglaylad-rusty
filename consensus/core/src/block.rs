@@ -4,7 +4,7 @@ use crate::{
     tx::{Transaction, TransactionId},
     BlueWorkType,
 };
-use kaspa_hashes::Hash;
+use waglayla_hashes::Hash;
 use std::sync::Arc;
 
 /// A mutable block structure where header and transactions within can still be mutated.

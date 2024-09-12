@@ -1,9 +1,9 @@
 use std::sync::Arc;
 
-use kaspa_p2p_lib::{
+use waglayla_p2p_lib::{
     common::ProtocolError,
     dequeue_with_request_id, make_response,
-    pb::{kaspad_message::Payload, PruningPointProofMessage},
+    pb::{waglaylad_message::Payload, PruningPointProofMessage},
     IncomingRoute, Router,
 };
 use log::debug;

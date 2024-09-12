@@ -1,6 +1,6 @@
 [package]
-name = "kaspa-rpc-core"
-description = "Kaspa RPC core"
+name = "waglayla-rpc-core"
+description = "Waglayla RPC core"
 rust-version.workspace = true
 version.workspace = true
 edition.workspace = true
@@ -11,25 +11,25 @@ repository.workspace = true
 
 [features]
 wasm32-sdk = [
-    "kaspa-consensus-client/wasm32-sdk",
-    "kaspa-consensus-wasm/wasm32-sdk"
+    "waglayla-consensus-client/wasm32-sdk",
+    "waglayla-consensus-wasm/wasm32-sdk"
 ]
 
 [dependencies]
-kaspa-addresses.workspace = true
-kaspa-consensus-core.workspace = true
-kaspa-consensus-client.workspace = true
-kaspa-consensus-notify.workspace = true
-kaspa-consensus-wasm.workspace = true
-kaspa-core.workspace = true
-kaspa-hashes.workspace = true
-kaspa-index-core.workspace = true
-kaspa-math.workspace = true
-kaspa-mining-errors.workspace = true
-kaspa-notify.workspace = true
-kaspa-txscript.workspace = true
-kaspa-utils.workspace = true
-kaspa-rpc-macros.workspace = true
+waglayla-addresses.workspace = true
+waglayla-consensus-core.workspace = true
+waglayla-consensus-client.workspace = true
+waglayla-consensus-notify.workspace = true
+waglayla-consensus-wasm.workspace = true
+waglayla-core.workspace = true
+waglayla-hashes.workspace = true
+waglayla-index-core.workspace = true
+waglayla-math.workspace = true
+waglayla-mining-errors.workspace = true
+waglayla-notify.workspace = true
+waglayla-txscript.workspace = true
+waglayla-utils.workspace = true
+waglayla-rpc-macros.workspace = true
 
 async-channel.workspace = true
 async-trait.workspace = true

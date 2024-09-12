@@ -6,20 +6,20 @@ use parking_lot::RwLock;
 use rocksdb::WriteBatch;
 use serde::{Deserialize, Serialize};
 
-use kaspa_consensus_core::config::Config;
-use kaspa_consensus_core::tx::{ScriptPublicKey, TransactionOutpoint, UtxoEntry};
-use kaspa_consensus_core::utxo::utxo_collection::UtxoCollection;
-use kaspa_consensus_notify::root::ConsensusNotificationRoot;
-use kaspa_consensusmanager::{ConsensusFactory, ConsensusInstance, DynConsensusCtl, SessionLock};
-use kaspa_core::{debug, error, info, time::unix_now, warn};
-use kaspa_database::{
+use waglayla_consensus_core::config::Config;
+use waglayla_consensus_core::tx::{ScriptPublicKey, TransactionOutpoint, UtxoEntry};
+use waglayla_consensus_core::utxo::utxo_collection::UtxoCollection;
+use waglayla_consensus_notify::root::ConsensusNotificationRoot;
+use waglayla_consensusmanager::{ConsensusFactory, ConsensusInstance, DynConsensusCtl, SessionLock};
+use waglayla_core::{debug, error, info, time::unix_now, warn};
+use waglayla_database::{
     prelude::{
         BatchDbWriter, CachedDbAccess, CachedDbItem, CachePolicy, DB, DirectDbWriter, StoreError, StoreResult, StoreResultExtensions,
     },
     registry::DatabaseStorePrefixes,
 };
-use kaspa_txscript::caches::TxScriptCacheCounters;
-use kaspa_utils::mem_size::MemSizeEstimator;
+use waglayla_txscript::caches::TxScriptCacheCounters;
+use waglayla_utils::mem_size::MemSizeEstimator;
 use zip::ZipArchive;
 
 use crate::{model::stores::U64Key, pipeline::ProcessingCounters};
@@ -301,7 +301,7 @@ impl ConsensusFactory for Factory {
         };
 
         let dir = self.db_root_dir.join(entry.directory_name.clone());
-        let db = kaspa_database::prelude::ConnBuilder::default()
+        let db = waglayla_database::prelude::ConnBuilder::default()
             .with_db_path(dir)
             .with_parallelism(self.db_parallelism)
             .with_files_limit(self.fd_budget / 2) // active and staging consensuses should have equal budgets
@@ -340,7 +340,7 @@ impl ConsensusFactory for Factory {
 
         let entry = self.management_store.write().new_staging_consensus_entry().unwrap();
         let dir = self.db_root_dir.join(entry.directory_name);
-        let db = kaspa_database::prelude::ConnBuilder::default()
+        let db = waglayla_database::prelude::ConnBuilder::default()
             .with_db_path(dir)
             .with_parallelism(self.db_parallelism)
             .with_files_limit(self.fd_budget / 2) // active and staging consensuses should have equal budgets

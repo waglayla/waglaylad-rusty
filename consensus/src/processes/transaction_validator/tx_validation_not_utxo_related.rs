@@ -1,4 +1,4 @@
-use kaspa_consensus_core::tx::Transaction;
+use waglayla_consensus_core::tx::Transaction;
 
 use crate::constants::LOCK_TIME_THRESHOLD;
 

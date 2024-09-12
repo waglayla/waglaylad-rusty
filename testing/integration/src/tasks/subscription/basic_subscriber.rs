@@ -1,10 +1,10 @@
 use crate::tasks::{subscription::submitter::SubscribeCommand, Task};
 use async_channel::Sender;
 use async_trait::async_trait;
-use kaspa_core::warn;
-use kaspa_grpc_client::GrpcClient;
-use kaspa_notify::scope::Scope;
-use kaspa_utils::triggers::SingleTrigger;
+use waglayla_core::warn;
+use waglayla_grpc_client::GrpcClient;
+use waglayla_notify::scope::Scope;
+use waglayla_utils::triggers::SingleTrigger;
 use std::{sync::Arc, time::Duration};
 use tokio::{sync::oneshot::channel, task::JoinHandle, time::sleep};
 

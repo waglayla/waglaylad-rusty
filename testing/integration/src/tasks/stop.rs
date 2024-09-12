@@ -1,7 +1,7 @@
 use crate::tasks::Task;
 use async_trait::async_trait;
-use kaspa_core::{trace, warn};
-use kaspa_utils::triggers::SingleTrigger;
+use waglayla_core::{trace, warn};
+use waglayla_utils::triggers::SingleTrigger;
 use std::sync::Arc;
 use tokio::task::JoinHandle;
 

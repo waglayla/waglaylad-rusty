@@ -6,28 +6,28 @@ use crate::{
     },
 };
 use futures::future::{join_all, select, try_join_all, Either};
-use kaspa_consensus_core::{
+use waglayla_consensus_core::{
     api::BlockValidationFuture,
     block::Block,
     header::Header,
     pruning::{PruningPointProof, PruningPointsList},
     BlockHashSet,
 };
-use kaspa_consensusmanager::{spawn_blocking, ConsensusProxy, StagingConsensus};
-use kaspa_core::{debug, info, time::unix_now, warn};
-use kaspa_hashes::Hash;
-use kaspa_muhash::MuHash;
-use kaspa_p2p_lib::{
+use waglayla_consensusmanager::{spawn_blocking, ConsensusProxy, StagingConsensus};
+use waglayla_core::{debug, info, time::unix_now, warn};
+use waglayla_hashes::Hash;
+use waglayla_muhash::MuHash;
+use waglayla_p2p_lib::{
     common::ProtocolError,
     convert::model::trusted::TrustedDataPackage,
     dequeue_with_timeout, make_message,
     pb::{
-        kaspad_message::Payload, RequestAntipastMessage, RequestHeadersMessage, RequestIbdBlocksMessage,
+        waglaylad_message::Payload, RequestAntipastMessage, RequestHeadersMessage, RequestIbdBlocksMessage,
         RequestPruningPointAndItsAnticoneMessage, RequestPruningPointProofMessage, RequestPruningPointUtxoSetMessage,
     },
     IncomingRoute, Router,
 };
-use kaspa_utils::channel::JobReceiver;
+use waglayla_utils::channel::JobReceiver;
 use std::{
     sync::Arc,
     time::{Duration, Instant},

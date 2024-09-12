@@ -1,5 +1,5 @@
 //!
-//! Kaspa wallet runtime implementation.
+//! Waglayla wallet runtime implementation.
 //!
 pub mod api;
 pub mod args;
@@ -16,12 +16,12 @@ use crate::storage::interface::{OpenArgs, StorageDescriptor};
 use crate::storage::local::interface::LocalStore;
 use crate::storage::local::Storage;
 use crate::wallet::maps::ActiveAccountMap;
-use kaspa_bip32::{ExtendedKey, Language, Mnemonic, Prefix as KeyPrefix, WordCount};
-use kaspa_notify::{
+use waglayla_bip32::{ExtendedKey, Language, Mnemonic, Prefix as KeyPrefix, WordCount};
+use waglayla_notify::{
     listener::ListenerId,
     scope::{Scope, VirtualDaaScoreChangedScope},
 };
-use kaspa_wrpc_client::{KaspaRpcClient, Resolver, WrpcEncoding};
+use waglayla_wrpc_client::{WaglaylaRpcClient, Resolver, WrpcEncoding};
 use workflow_core::task::spawn;
 
 #[derive(Debug)]
@@ -119,10 +119,10 @@ impl Wallet {
 
     pub fn try_with_wrpc(store: Arc<dyn Interface>, resolver: Option<Resolver>, network_id: Option<NetworkId>) -> Result<Wallet> {
         let rpc_client =
-            Arc::new(KaspaRpcClient::new_with_args(WrpcEncoding::Borsh, Some("wrpc://127.0.0.1:17110"), resolver, network_id, None)?);
+            Arc::new(WaglaylaRpcClient::new_with_args(WrpcEncoding::Borsh, Some("wrpc://127.0.0.1:17110"), resolver, network_id, None)?);
 
         // pub fn try_with_wrpc(store: Arc<dyn Interface>, network_id: Option<NetworkId>) -> Result<Wallet> {
-        //     let rpc_client = Arc::new(KaspaRpcClient::new_with_args(
+        //     let rpc_client = Arc::new(WaglaylaRpcClient::new_with_args(
         //         WrpcEncoding::Borsh,
         //         NotificationMode::MultiListeners,
         //         "wrpc://127.0.0.1:17110",
@@ -458,8 +458,8 @@ impl Wallet {
         Ok(self.get_prv_key_info(account).await?.map(|info| info.is_encrypted()))
     }
 
-    pub fn try_wrpc_client(&self) -> Option<Arc<KaspaRpcClient>> {
-        self.try_rpc_api().and_then(|api| api.clone().downcast_arc::<KaspaRpcClient>().ok())
+    pub fn try_wrpc_client(&self) -> Option<Arc<WaglaylaRpcClient>> {
+        self.try_rpc_api().and_then(|api| api.clone().downcast_arc::<WaglaylaRpcClient>().ok())
     }
 
     pub fn rpc_api(&self) -> Arc<DynRpcApi> {
@@ -582,7 +582,7 @@ impl Wallet {
         self.utxo_processor().network_id()
     }
 
-    pub fn address_prefix(&self) -> Result<kaspa_addresses::Prefix> {
+    pub fn address_prefix(&self) -> Result<waglayla_addresses::Prefix> {
         Ok(self.network_id()?.into())
     }
 
@@ -1191,7 +1191,7 @@ impl Wallet {
     //     Ok(Box::pin(stream))
     // }
 
-    pub async fn import_kaspawallet_golang_single_v1<T: AsRef<[u8]>>(
+    pub async fn import_waglaylawallet_golang_single_v1<T: AsRef<[u8]>>(
         self: &Arc<Wallet>,
         import_secret: &Secret,
         wallet_secret: &Secret,
@@ -1204,8 +1204,8 @@ impl Wallet {
         let mnemonic = decrypt_mnemonic(SingleWalletFileV1::<T>::NUM_THREADS, file.encrypted_mnemonic, import_secret.as_ref())?;
         let mnemonic = Mnemonic::new(mnemonic.trim(), Language::English)?;
         let prv_key_data = storage::PrvKeyData::try_new_from_mnemonic(mnemonic.clone(), None, self.store().encryption_kind()?)?;
-        let prefix = file.xpublic_key.split_at(kaspa_bip32::Prefix::LENGTH).0;
-        let prefix = kaspa_bip32::Prefix::try_from(prefix)?;
+        let prefix = file.xpublic_key.split_at(waglayla_bip32::Prefix::LENGTH).0;
+        let prefix = waglayla_bip32::Prefix::try_from(prefix)?;
 
         if prv_key_data.create_xpub(None, BIP32_ACCOUNT_KIND.into(), 0).await?.to_string(Some(prefix)) != file.xpublic_key {
             return Err(Custom("imported xpub does not equal derived one".to_owned()));
@@ -1213,7 +1213,7 @@ impl Wallet {
         self.import_with_mnemonic(wallet_secret, None, mnemonic, BIP32_ACCOUNT_KIND.into()).await
     }
 
-    pub async fn import_kaspawallet_golang_single_v0<T: AsRef<[u8]>>(
+    pub async fn import_waglaylawallet_golang_single_v0<T: AsRef<[u8]>>(
         self: &Arc<Wallet>,
         import_secret: &Secret,
         wallet_secret: &Secret,
@@ -1226,15 +1226,15 @@ impl Wallet {
         let mnemonic = decrypt_mnemonic(file.num_threads, file.encrypted_mnemonic, import_secret.as_ref())?;
         let mnemonic = Mnemonic::new(mnemonic.trim(), Language::English)?;
         let prv_key_data = storage::PrvKeyData::try_new_from_mnemonic(mnemonic.clone(), None, self.store().encryption_kind()?)?;
-        let prefix = file.xpublic_key.split_at(kaspa_bip32::Prefix::LENGTH).0;
-        let prefix = kaspa_bip32::Prefix::try_from(prefix)?;
+        let prefix = file.xpublic_key.split_at(waglayla_bip32::Prefix::LENGTH).0;
+        let prefix = waglayla_bip32::Prefix::try_from(prefix)?;
         if prv_key_data.create_xpub(None, BIP32_ACCOUNT_KIND.into(), 0).await.unwrap().to_string(Some(prefix)) != file.xpublic_key {
             return Err(Custom("imported xpub does not equal derived one".to_owned()));
         }
         self.import_with_mnemonic(wallet_secret, None, mnemonic, BIP32_ACCOUNT_KIND.into()).await
     }
 
-    pub async fn import_kaspawallet_golang_multisig_v0<T: AsRef<[u8]>>(
+    pub async fn import_waglaylawallet_golang_multisig_v0<T: AsRef<[u8]>>(
         self: &Arc<Wallet>,
         import_secret: &Secret,
         wallet_secret: &Secret,
@@ -1247,8 +1247,8 @@ impl Wallet {
         let Some(first_pub_key) = file.xpublic_keys.first() else {
             return Err(Error::Custom("no public keys".to_owned()));
         };
-        let prefix = first_pub_key.split_at(kaspa_bip32::Prefix::LENGTH).0;
-        let prefix = kaspa_bip32::Prefix::try_from(prefix)?;
+        let prefix = first_pub_key.split_at(waglayla_bip32::Prefix::LENGTH).0;
+        let prefix = waglayla_bip32::Prefix::try_from(prefix)?;
 
         let mnemonics_and_secrets: Vec<(Mnemonic, Option<Secret>)> = file
             .encrypted_mnemonics
@@ -1276,7 +1276,7 @@ impl Wallet {
         self.import_multisig_with_mnemonic(wallet_secret, mnemonics_and_secrets, file.required_signatures, additional_pub_keys).await
     }
 
-    pub async fn import_kaspawallet_golang_multisig_v1<T: AsRef<[u8]>>(
+    pub async fn import_waglaylawallet_golang_multisig_v1<T: AsRef<[u8]>>(
         self: &Arc<Wallet>,
         import_secret: &Secret,
         wallet_secret: &Secret,
@@ -1289,8 +1289,8 @@ impl Wallet {
         let Some(first_pub_key) = file.xpublic_keys.first() else {
             return Err(Error::Custom("no public keys".to_owned()));
         };
-        let prefix = first_pub_key.split_at(kaspa_bip32::Prefix::LENGTH).0;
-        let prefix = kaspa_bip32::Prefix::try_from(prefix)?;
+        let prefix = first_pub_key.split_at(waglayla_bip32::Prefix::LENGTH).0;
+        let prefix = waglayla_bip32::Prefix::try_from(prefix)?;
 
         let mnemonics_and_secrets: Vec<(Mnemonic, Option<Secret>)> = file
             .encrypted_mnemonics
@@ -1305,7 +1305,7 @@ impl Wallet {
 
         let mut all_pub_keys = file.xpublic_keys;
         all_pub_keys.sort_unstable_by(|left, right| {
-            left.split_at(kaspa_bip32::Prefix::LENGTH).1.cmp(right.split_at(kaspa_bip32::Prefix::LENGTH).1)
+            left.split_at(waglayla_bip32::Prefix::LENGTH).1.cmp(right.split_at(waglayla_bip32::Prefix::LENGTH).1)
         });
 
         let mut pubkeys_from_mnemonics = Vec::with_capacity(mnemonics_and_secrets.len());
@@ -1315,7 +1315,7 @@ impl Wallet {
             pubkeys_from_mnemonics.push(xpub_key);
         }
         pubkeys_from_mnemonics.sort_unstable_by(|left, right| {
-            left.split_at(kaspa_bip32::Prefix::LENGTH).1.cmp(right.split_at(kaspa_bip32::Prefix::LENGTH).1)
+            left.split_at(waglayla_bip32::Prefix::LENGTH).1.cmp(right.split_at(waglayla_bip32::Prefix::LENGTH).1)
         });
         all_pub_keys.retain(|v| {
             let found = pubkeys_from_mnemonics.binary_search_by_key(v, |xpub| xpub.as_str());
@@ -1505,7 +1505,7 @@ impl Wallet {
                     xpub.to_string()
                 })
             })
-            .collect::<Result<Vec<_>, kaspa_bip32::Error>>()?;
+            .collect::<Result<Vec<_>, waglayla_bip32::Error>>()?;
 
         let mut generated_xpubs = Vec::with_capacity(mnemonics_secrets.len());
         let mut prv_key_data_ids = Vec::with_capacity(mnemonics_secrets.len());
@@ -1626,18 +1626,18 @@ mod test {
     // use hex_literal::hex;
 
     // use super::*;
-    // use kaspa_addresses::Address;
+    // use waglayla_addresses::Address;
 
     /*
     use workflow_rpc::client::ConnectOptions;
     use std::{str::FromStr, thread::sleep, time};
     use crate::derivation::gen1;
     use crate::utxo::{UtxoContext, UtxoContextBinding, UtxoIterator};
-    use kaspa_addresses::{Prefix, Version};
-    use kaspa_bip32::{ChildNumber, ExtendedPrivateKey, SecretKey};
-    use kaspa_consensus_core::subnets::SUBNETWORK_ID_NATIVE;
-    use kaspa_consensus_wasm::{sign_transaction, SignableTransaction, Transaction, TransactionInput, TransactionOutput};
-    use kaspa_txscript::pay_to_address_script;
+    use waglayla_addresses::{Prefix, Version};
+    use waglayla_bip32::{ChildNumber, ExtendedPrivateKey, SecretKey};
+    use waglayla_consensus_core::subnets::SUBNETWORK_ID_NATIVE;
+    use waglayla_consensus_wasm::{sign_transaction, SignableTransaction, Transaction, TransactionInput, TransactionOutput};
+    use waglayla_txscript::pay_to_address_script;
 
     async fn create_utxos_context_with_addresses(
         rpc: Arc<DynRpcApi>,
@@ -1677,7 +1677,7 @@ mod test {
         let result = wallet.get_info().await;
         println!("wallet.get_info(): {result:#?}");
 
-        let address = Address::try_from("kaspatest:qz7ulu4c25dh7fzec9zjyrmlhnkzrg4wmf89q7gzr3gfrsj3uz6xjceef60sd")?;
+        let address = Address::try_from("waglaylatest:qz7ulu4c25dh7fzec9zjyrmlhnkzrg4wmf89q7gzr3gfrsj3uz6xjceef60sd")?;
 
         let utxo_context =
             self::create_utxos_context_with_addresses(rpc_api.clone(), vec![address.clone()], current_daa_score, utxo_processor)
@@ -1686,7 +1686,7 @@ mod test {
         let utxo_set_balance = utxo_context.calculate_balance().await;
         println!("get_utxos_by_addresses: {utxo_set_balance:?}");
 
-        let to_address = Address::try_from("kaspatest:qpakxqlesqywgkq7rg4wyhjd93kmw7trkl3gpa3vd5flyt59a43yyn8vu0w8c")?;
+        let to_address = Address::try_from("waglaylatest:qpakxqlesqywgkq7rg4wyhjd93kmw7trkl3gpa3vd5flyt59a43yyn8vu0w8c")?;
         let mut iter = UtxoIterator::new(&utxo_context);
         let utxo = iter.next().unwrap();
         let utxo = (*utxo.utxo).clone();
@@ -1713,7 +1713,7 @@ mod test {
         let mtx = SignableTransaction::new(tx, (*entries).clone().into());
 
         let derivation_path =
-            gen1::WalletDerivationManager::build_derivate_path(false, 0, None, Some(kaspa_bip32::AddressType::Receive))?;
+            gen1::WalletDerivationManager::build_derivate_path(false, 0, None, Some(waglayla_bip32::AddressType::Receive))?;
 
         let xprv = "kprv5y2qurMHCsXYrNfU3GCihuwG3vMqFji7PZXajMEqyBkNh9UZUJgoHYBLTKu1eM4MvUtomcXPQ3Sw9HZ5ebbM4byoUciHo1zrPJBQfqpLorQ";
 

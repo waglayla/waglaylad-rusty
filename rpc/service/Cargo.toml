@@ -1,6 +1,6 @@
 [package]
-name = "kaspa-rpc-service"
-description = "Kaspa RPC service"
+name = "waglayla-rpc-service"
+description = "Waglayla RPC service"
 rust-version.workspace = true
 version.workspace = true
 edition.workspace = true
@@ -10,24 +10,24 @@ license.workspace = true
 repository.workspace = true
 
 [dependencies]
-kaspa-addresses.workspace = true
-kaspa-consensus-core.workspace = true
-kaspa-consensus-notify.workspace = true
-kaspa-consensusmanager.workspace = true
-kaspa-core.workspace = true
-kaspa-hashes.workspace = true
-kaspa-index-core.workspace = true
-kaspa-math.workspace = true
-kaspa-mining.workspace = true
-kaspa-notify.workspace = true
-kaspa-p2p-flows.workspace = true
-kaspa-p2p-lib.workspace = true
-kaspa-perf-monitor.workspace = true
-kaspa-rpc-core.workspace = true
-kaspa-txscript.workspace = true
-kaspa-utils.workspace = true
-kaspa-utils-tower.workspace = true
-kaspa-utxoindex.workspace = true
+waglayla-addresses.workspace = true
+waglayla-consensus-core.workspace = true
+waglayla-consensus-notify.workspace = true
+waglayla-consensusmanager.workspace = true
+waglayla-core.workspace = true
+waglayla-hashes.workspace = true
+waglayla-index-core.workspace = true
+waglayla-math.workspace = true
+waglayla-mining.workspace = true
+waglayla-notify.workspace = true
+waglayla-p2p-flows.workspace = true
+waglayla-p2p-lib.workspace = true
+waglayla-perf-monitor.workspace = true
+waglayla-rpc-core.workspace = true
+waglayla-txscript.workspace = true
+waglayla-utils.workspace = true
+waglayla-utils-tower.workspace = true
+waglayla-utxoindex.workspace = true
 
 async-trait.workspace = true
 log.workspace = true

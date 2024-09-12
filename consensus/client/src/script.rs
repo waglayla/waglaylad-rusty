@@ -1,16 +1,16 @@
 use std::cell::{Ref, RefCell, RefMut};
 use std::rc::Rc;
 
-use kaspa_wasm_core::types::{BinaryT, HexString};
+use waglayla_wasm_core::types::{BinaryT, HexString};
 
 use crate::imports::*;
 use crate::result::Result;
-use kaspa_txscript::script_builder as native;
+use waglayla_txscript::script_builder as native;
 
 #[wasm_bindgen(typescript_custom_section)]
 const TS_SCRIPT_OPCODES: &'static str = r#"
 /**
- * Kaspa Transaction Script Opcodes
+ * Waglayla Transaction Script Opcodes
  * @see {@link ScriptBuilder}
  * @category Consensus
  */
@@ -361,7 +361,7 @@ impl ScriptBuilder {
 
 impl Default for ScriptBuilder {
     fn default() -> Self {
-        Self { script_builder: Rc::new(RefCell::new(kaspa_txscript::script_builder::ScriptBuilder::new())) }
+        Self { script_builder: Rc::new(RefCell::new(waglayla_txscript::script_builder::ScriptBuilder::new())) }
     }
 }
 
@@ -420,11 +420,11 @@ impl ScriptBuilder {
     /// chooses canonical opcodes depending on the length of the data.
     ///
     /// A zero length buffer will lead to a push of empty data onto the stack (Op0 = OpFalse)
-    /// and any push of data greater than [`MAX_SCRIPT_ELEMENT_SIZE`](kaspa_txscript::MAX_SCRIPT_ELEMENT_SIZE) will not modify
+    /// and any push of data greater than [`MAX_SCRIPT_ELEMENT_SIZE`](waglayla_txscript::MAX_SCRIPT_ELEMENT_SIZE) will not modify
     /// the script since that is not allowed by the script engine.
     ///
     /// Also, the script will not be modified if pushing the data would cause the script to
-    /// exceed the maximum allowed script engine size [`MAX_SCRIPTS_SIZE`](kaspa_txscript::MAX_SCRIPTS_SIZE).
+    /// exceed the maximum allowed script engine size [`MAX_SCRIPTS_SIZE`](waglayla_txscript::MAX_SCRIPTS_SIZE).
     #[wasm_bindgen(js_name = addData)]
     pub fn add_data(&self, data: BinaryT) -> Result<ScriptBuilder> {
         let data = data.try_as_vec_u8()?;

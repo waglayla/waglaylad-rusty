@@ -1,11 +1,11 @@
 use std::sync::Arc;
 
-use kaspa_database::prelude::CachePolicy;
-use kaspa_database::prelude::StoreResult;
-use kaspa_database::prelude::DB;
-use kaspa_database::prelude::{BatchDbWriter, CachedDbItem};
-use kaspa_database::registry::DatabaseStorePrefixes;
-use kaspa_hashes::Hash;
+use waglayla_database::prelude::CachePolicy;
+use waglayla_database::prelude::StoreResult;
+use waglayla_database::prelude::DB;
+use waglayla_database::prelude::{BatchDbWriter, CachedDbItem};
+use waglayla_database::registry::DatabaseStorePrefixes;
+use waglayla_hashes::Hash;
 use rocksdb::WriteBatch;
 
 use super::utxo_set::DbUtxoSetStore;

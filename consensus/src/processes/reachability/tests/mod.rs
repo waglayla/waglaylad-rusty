@@ -15,12 +15,12 @@ use crate::{
     },
 };
 use itertools::Itertools;
-use kaspa_consensus_core::{
+use waglayla_consensus_core::{
     blockhash::{BlockHashExtensions, BlockHashes, ORIGIN},
     BlockHashMap, BlockHashSet,
 };
-use kaspa_database::prelude::{DirectWriter, StoreError};
-use kaspa_hashes::Hash;
+use waglayla_database::prelude::{DirectWriter, StoreError};
+use waglayla_hashes::Hash;
 use std::collections::{
     hash_map::Entry::{Occupied, Vacant},
     VecDeque,

@@ -1,20 +1,20 @@
 use async_channel::Sender;
-use kaspa_consensus_core::coinbase::MinerData;
-use kaspa_consensus_core::tx::ScriptPublicKey;
-use kaspa_consensus_core::{
+use waglayla_consensus_core::coinbase::MinerData;
+use waglayla_consensus_core::tx::ScriptPublicKey;
+use waglayla_consensus_core::{
     api::ConsensusApi, block::MutableBlock, blockstatus::BlockStatus, header::Header, merkle::calc_hash_merkle_root,
     subnets::SUBNETWORK_ID_COINBASE, tx::Transaction,
 };
-use kaspa_consensus_notify::{notification::Notification, root::ConsensusNotificationRoot};
-use kaspa_consensusmanager::{ConsensusFactory, ConsensusInstance, DynConsensusCtl};
-use kaspa_core::{core::Core, service::Service};
-use kaspa_database::utils::DbLifetime;
-use kaspa_hashes::Hash;
-use kaspa_notify::subscription::context::SubscriptionContext;
+use waglayla_consensus_notify::{notification::Notification, root::ConsensusNotificationRoot};
+use waglayla_consensusmanager::{ConsensusFactory, ConsensusInstance, DynConsensusCtl};
+use waglayla_core::{core::Core, service::Service};
+use waglayla_database::utils::DbLifetime;
+use waglayla_hashes::Hash;
+use waglayla_notify::subscription::context::SubscriptionContext;
 use parking_lot::RwLock;
 
-use kaspa_database::create_temp_db;
-use kaspa_database::prelude::ConnBuilder;
+use waglayla_database::create_temp_db;
+use waglayla_database::prelude::ConnBuilder;
 use std::future::Future;
 use std::{sync::Arc, thread::JoinHandle};
 

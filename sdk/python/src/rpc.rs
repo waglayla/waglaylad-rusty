@@ -11,15 +11,15 @@ use pyo3::types::{PyDict, PyFunction, PyList, PyTuple};
 use workflow_core::channel::Channel;
 use workflow_core::prelude::spawn;
 
-use kaspa_addresses::Address;
-use kaspa_consensus_core::network::{NetworkId, NetworkType};
-use kaspa_consensus_core::tx::TransactionId;
-use kaspa_notify::scope::{BlockAddedScope, FinalityConflictResolvedScope, FinalityConflictScope, NewBlockTemplateScope, PruningPointUtxoSetOverrideScope, Scope, SinkBlueScoreChangedScope, UtxosChangedScope, VirtualChainChangedScope, VirtualDaaScoreChangedScope};
-use kaspa_rpc_core::{Notification, RpcAddress, RpcBlock, RpcContextualPeerAddress, RpcExtraData, RpcHash, RpcIpAddress, RpcSubnetworkId};
-use kaspa_rpc_core::api::ctl::RpcState;
-use kaspa_rpc_core::notify::connection::{ChannelConnection, ChannelType};
-use kaspa_wallet_core::prelude::KaspaRpcClient;
-use kaspa_wallet_core::rpc::WrpcEncoding;
+use waglayla_addresses::Address;
+use waglayla_consensus_core::network::{NetworkId, NetworkType};
+use waglayla_consensus_core::tx::TransactionId;
+use waglayla_notify::scope::{BlockAddedScope, FinalityConflictResolvedScope, FinalityConflictScope, NewBlockTemplateScope, PruningPointUtxoSetOverrideScope, Scope, SinkBlueScoreChangedScope, UtxosChangedScope, VirtualChainChangedScope, VirtualDaaScoreChangedScope};
+use waglayla_rpc_core::{Notification, RpcAddress, RpcBlock, RpcContextualPeerAddress, RpcExtraData, RpcHash, RpcIpAddress, RpcSubnetworkId};
+use waglayla_rpc_core::api::ctl::RpcState;
+use waglayla_rpc_core::notify::connection::{ChannelConnection, ChannelType};
+use waglayla_wallet_core::prelude::WaglaylaRpcClient;
+use waglayla_wallet_core::rpc::WrpcEncoding;
 
 use crate::rpc_core::RpcCore;
 use crate::rpc_types::{py_rpc_block_type, py_rpc_transaction_type};
@@ -53,7 +53,7 @@ macro_rules! listen_event {
 #[pyclass]
 pub struct RPC {
     url: Option<String>,
-    client: Option<KaspaRpcClient>,
+    client: Option<WaglaylaRpcClient>,
     is_connected: AtomicBool,
     notification_channel: Channel<Notification>,
     listeners: ListenerCallback,
@@ -75,7 +75,7 @@ impl RPC {
     pub fn connect<'a>(&mut self, py: Python<'a>) -> PyResult<&'a PyAny> {
         // let url = self.url.clone().unwrap_or("grpc://127.0.0.1:13110".to_string());
         let url = self.url.clone().unwrap_or("ws://127.0.0.1:17110".to_string());
-        self.client = Some(KaspaRpcClient::new(WrpcEncoding::Borsh, Some(url.as_str().as_ref()), None, Some(NetworkId::new(NetworkType::Mainnet)), None).unwrap());
+        self.client = Some(WaglaylaRpcClient::new(WrpcEncoding::Borsh, Some(url.as_str().as_ref()), None, Some(NetworkId::new(NetworkType::Mainnet)), None).unwrap());
         let client = self.client.clone().unwrap();
         let notification_channel_receiver = self.notification_channel.receiver.clone();
         let listeners = Arc::clone(&self.listeners);
@@ -191,7 +191,7 @@ impl RPC {
             });
 
             // let client = Arc::new(
-            //     KaspaRpcClient::new(, url.as_deref(), resolver.clone().map(Into::into), network_id, None)
+            //     WaglaylaRpcClient::new(, url.as_deref(), resolver.clone().map(Into::into), network_id, None)
             //         .unwrap_or_else(|err| panic!("{err}")),
             // );
             //
@@ -316,10 +316,10 @@ impl RPC {
             let result = client.rpc_api().submit_block(block, allow_non_daa_blocks).await.unwrap().report;
 
             let result = match result {
-                kaspa_rpc_core::SubmitBlockReport::Success => 0,
-                kaspa_rpc_core::SubmitBlockReport::Reject(kaspa_rpc_core::SubmitBlockRejectReason::BlockInvalid) => 1,
-                kaspa_rpc_core::SubmitBlockReport::Reject(kaspa_rpc_core::SubmitBlockRejectReason::IsInIBD) => 2,
-                kaspa_rpc_core::SubmitBlockReport::Reject(kaspa_rpc_core::SubmitBlockRejectReason::RouteIsFull) => 0,
+                waglayla_rpc_core::SubmitBlockReport::Success => 0,
+                waglayla_rpc_core::SubmitBlockReport::Reject(waglayla_rpc_core::SubmitBlockRejectReason::BlockInvalid) => 1,
+                waglayla_rpc_core::SubmitBlockReport::Reject(waglayla_rpc_core::SubmitBlockRejectReason::IsInIBD) => 2,
+                waglayla_rpc_core::SubmitBlockReport::Reject(waglayla_rpc_core::SubmitBlockRejectReason::RouteIsFull) => 0,
             };
 
             Ok(result)
@@ -334,10 +334,10 @@ impl RPC {
             let result = client.rpc_api().submit_block(block, allow_non_daa_blocks).await.unwrap().report;
 
             let result = match result {
-                kaspa_rpc_core::SubmitBlockReport::Success => 0,
-                kaspa_rpc_core::SubmitBlockReport::Reject(kaspa_rpc_core::SubmitBlockRejectReason::BlockInvalid) => 1,
-                kaspa_rpc_core::SubmitBlockReport::Reject(kaspa_rpc_core::SubmitBlockRejectReason::IsInIBD) => 2,
-                kaspa_rpc_core::SubmitBlockReport::Reject(kaspa_rpc_core::SubmitBlockRejectReason::RouteIsFull) => 0,
+                waglayla_rpc_core::SubmitBlockReport::Success => 0,
+                waglayla_rpc_core::SubmitBlockReport::Reject(waglayla_rpc_core::SubmitBlockRejectReason::BlockInvalid) => 1,
+                waglayla_rpc_core::SubmitBlockReport::Reject(waglayla_rpc_core::SubmitBlockRejectReason::IsInIBD) => 2,
+                waglayla_rpc_core::SubmitBlockReport::Reject(waglayla_rpc_core::SubmitBlockRejectReason::RouteIsFull) => 0,
             };
 
             Ok(result)

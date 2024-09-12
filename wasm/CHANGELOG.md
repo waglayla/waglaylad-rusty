@@ -1,4 +1,4 @@
-Latest online documentation available at: https://kaspa.aspectron.org/docs/
+Latest online documentation available at: https://waglayla.aspectron.org/docs/
 ### Release 2024-04-27
  - IAccountsCreateRequest interface simplified by flattering it and now it is union for future expansion for multisig etc.
  - IWalletEvent interface updated for Events with TransactionRecord
@@ -19,7 +19,7 @@ Latest online documentation available at: https://kaspa.aspectron.org/docs/
 
 ### Release 2024-04-14
 
-- Merge with Rusty Kaspa master (0.13.6)
+- Merge with Rusty Waglayla master (0.13.6)
 
 ### Release 2024-04-13
 
@@ -31,7 +31,7 @@ Latest online documentation available at: https://kaspa.aspectron.org/docs/
 
 ### Release 2024-03-31
 
-- Rename `kaspa-beacon` app to `kaspa-resolver`
+- Rename `waglayla-beacon` app to `waglayla-resolver`
 - Change RpcClient, UtxoProcessor and Wallet event handlers in typescript to receive typed event data
 - UtxoProcessor and Wallet event handlers now deliver TransactionRecord events (Discovery, Pending, etc.)
 as Rust or WASM objects, allowing user to call `hasAddress(<address>)` on the received `event.data.record` object.
@@ -88,9 +88,9 @@ as Rust or WASM objects, allowing user to call `hasAddress(<address>)` on the re
 - Fix event processing in UtxoContext
 - Renamed `XPrivateKey` to `PrivateKeyGenerator` and `XPublicKey` to `PublicKeyGenerator`
 - Simplify conversion between different key types (`XPrv->Keypair`, `XPrv->XPub->Pubkey`, etc)
-- Introduced `Beacon` class that provides connectivity to the community-operated public node infrastructure (backed by `kaspa-beacon` load balancer & node status monitor)
+- Introduced `Beacon` class that provides connectivity to the community-operated public node infrastructure (backed by `waglayla-beacon` load balancer & node status monitor)
 - Created TypeScript type definitions across the entire SDK and refactored `RpcClient` class (as well as many other components) to use TypeScript interfaces
-- Changed documentation structure to use `typedoc` available as a part of redistributables or online at https://kaspa.aspectron.org/docs/
+- Changed documentation structure to use `typedoc` available as a part of redistributables or online at https://waglayla.aspectron.org/docs/
 - Project-wide documentation updates
 - Additional self-contained Web Browser examples
 - Modified the structure of WASM32 SDK release to include all variants of libraries (both release and dev builds), examples and documentation in a single package.

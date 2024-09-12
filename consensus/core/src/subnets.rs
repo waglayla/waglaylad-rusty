@@ -2,8 +2,8 @@ use std::fmt::{Debug, Display, Formatter};
 use std::str::{self, FromStr};
 
 use borsh::{BorshDeserialize, BorshSerialize};
-use kaspa_utils::hex::{FromHex, ToHex};
-use kaspa_utils::{serde_impl_deser_fixed_bytes_ref, serde_impl_ser_fixed_bytes_ref};
+use waglayla_utils::hex::{FromHex, ToHex};
+use waglayla_utils::{serde_impl_deser_fixed_bytes_ref, serde_impl_ser_fixed_bytes_ref};
 use thiserror::Error;
 
 #[cfg(not(target_family = "wasm"))]

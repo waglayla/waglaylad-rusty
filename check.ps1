@@ -2,12 +2,12 @@ cargo fmt --all
 cargo clippy
 
 $crates = @(
-  "kaspa-wrpc-wasm",
-  "kaspa-wallet-cli-wasm",
-  "kaspa-wasm",
-  "kaspa-cli",
-  "kaspa-os",
-  "kaspa-daemon"
+  "waglayla-wrpc-wasm",
+  "waglayla-wallet-cli-wasm",
+  "waglayla-wasm",
+  "waglayla-cli",
+  "waglayla-os",
+  "waglayla-daemon"
 )
 
 $env:AR="llvm-ar"

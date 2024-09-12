@@ -2,22 +2,22 @@ use std::{str::FromStr, sync::Arc, time::Duration};
 
 use crate::common::{client_notify::ChannelNotify, daemon::Daemon};
 use futures_util::future::try_join_all;
-use kaspa_addresses::{Address, Prefix, Version};
-use kaspa_consensus::params::SIMNET_GENESIS;
-use kaspa_consensus_core::{constants::MAX_SOMPI, subnets::SubnetworkId, tx::Transaction};
-use kaspa_core::info;
-use kaspa_grpc_core::ops::KaspadPayloadOps;
-use kaspa_hashes::Hash;
-use kaspa_notify::{
+use waglayla_addresses::{Address, Prefix, Version};
+use waglayla_consensus::params::SIMNET_GENESIS;
+use waglayla_consensus_core::{constants::MAX_SOMPI, subnets::SubnetworkId, tx::Transaction};
+use waglayla_core::info;
+use waglayla_grpc_core::ops::WaglayladPayloadOps;
+use waglayla_hashes::Hash;
+use waglayla_notify::{
     connection::{ChannelConnection, ChannelType},
     scope::{
         BlockAddedScope, FinalityConflictScope, NewBlockTemplateScope, PruningPointUtxoSetOverrideScope, Scope,
         SinkBlueScoreChangedScope, UtxosChangedScope, VirtualChainChangedScope, VirtualDaaScoreChangedScope,
     },
 };
-use kaspa_rpc_core::{api::rpc::RpcApi, model::*, Notification};
-use kaspa_utils::{fd_budget, networking::ContextualNetAddress};
-use kaspad_lib::args::Args;
+use waglayla_rpc_core::{api::rpc::RpcApi, model::*, Notification};
+use waglayla_utils::{fd_budget, networking::ContextualNetAddress};
+use waglaylad_lib::args::Args;
 use tokio::task::JoinHandle;
 
 #[macro_export]
@@ -36,12 +36,12 @@ macro_rules! tst {
     };
 }
 
-/// `cargo test --release --package kaspa-testing-integration --lib -- rpc_tests::sanity_test`
+/// `cargo test --release --package waglayla-testing-integration --lib -- rpc_tests::sanity_test`
 #[tokio::test]
 async fn sanity_test() {
-    kaspa_core::log::try_init_logger("info");
+    waglayla_core::log::try_init_logger("info");
     // As we log the panic, we want to set it up after the logger
-    kaspa_core::panic::configure_panic();
+    waglayla_core::panic::configure_panic();
 
     let args = Args {
         simnet: true,
@@ -64,10 +64,10 @@ async fn sanity_test() {
     // The intent of this for/match design (emphasizing the absence of an arm with fallback pattern in the match)
     // is to force any implementor of a new RpcApi method to add a matching arm here and to strongly incentivize
     // the adding of an actual sanity test of said new method.
-    for op in KaspadPayloadOps::list() {
+    for op in WaglayladPayloadOps::list() {
         let network_id = daemon.network;
         let task: JoinHandle<()> = match op {
-            KaspadPayloadOps::SubmitBlock => {
+            WaglayladPayloadOps::SubmitBlock => {
                 let rpc_client = client.clone();
                 tst!(op, {
                     // Register to basic virtual events in order to keep track of block submission
@@ -151,11 +151,11 @@ async fn sanity_test() {
                 })
             }
 
-            KaspadPayloadOps::GetBlockTemplate => {
+            WaglayladPayloadOps::GetBlockTemplate => {
                 tst!(op, "see SubmitBlock")
             }
 
-            KaspadPayloadOps::GetCurrentNetwork => {
+            WaglayladPayloadOps::GetCurrentNetwork => {
                 let rpc_client = client.clone();
                 tst!(op, {
                     let response = rpc_client.get_current_network_call(GetCurrentNetworkRequest {}).await.unwrap();
@@ -163,7 +163,7 @@ async fn sanity_test() {
                 })
             }
 
-            KaspadPayloadOps::GetBlock => {
+            WaglayladPayloadOps::GetBlock => {
                 let rpc_client = client.clone();
                 tst!(op, {
                     let result = rpc_client.get_block_call(GetBlockRequest { hash: 0.into(), include_transactions: false }).await;
@@ -177,7 +177,7 @@ async fn sanity_test() {
                 })
             }
 
-            KaspadPayloadOps::GetBlocks => {
+            WaglayladPayloadOps::GetBlocks => {
                 let rpc_client = client.clone();
                 tst!(op, {
                     let response = rpc_client
@@ -190,11 +190,11 @@ async fn sanity_test() {
                 })
             }
 
-            KaspadPayloadOps::GetInfo => {
+            WaglayladPayloadOps::GetInfo => {
                 let rpc_client = client.clone();
                 tst!(op, {
                     let response = rpc_client.get_info_call(GetInfoRequest {}).await.unwrap();
-                    assert_eq!(response.server_version, kaspa_core::kaspad_env::version().to_string());
+                    assert_eq!(response.server_version, waglayla_core::waglaylad_env::version().to_string());
                     assert_eq!(response.mempool_size, 0);
                     assert!(response.is_utxo_indexed);
                     assert!(response.has_message_id);
@@ -202,21 +202,21 @@ async fn sanity_test() {
                 })
             }
 
-            KaspadPayloadOps::Shutdown => {
+            WaglayladPayloadOps::Shutdown => {
                 // This test is purposely left blank since shutdown can only be tested after all other
                 // tests completed
                 tst!(op, "must be run in the end")
             }
 
-            KaspadPayloadOps::GetPeerAddresses => {
+            WaglayladPayloadOps::GetPeerAddresses => {
                 tst!(op, "see AddPeer, Ban")
             }
 
-            KaspadPayloadOps::GetSink => {
+            WaglayladPayloadOps::GetSink => {
                 tst!(op, "see SubmitBlock")
             }
 
-            KaspadPayloadOps::GetMempoolEntry => {
+            WaglayladPayloadOps::GetMempoolEntry => {
                 let rpc_client = client.clone();
                 tst!(op, {
                     let response_result = rpc_client
@@ -232,7 +232,7 @@ async fn sanity_test() {
                 })
             }
 
-            KaspadPayloadOps::GetMempoolEntries => {
+            WaglayladPayloadOps::GetMempoolEntries => {
                 let rpc_client = client.clone();
                 tst!(op, {
                     let response = rpc_client
@@ -246,7 +246,7 @@ async fn sanity_test() {
                 })
             }
 
-            KaspadPayloadOps::GetConnectedPeerInfo => {
+            WaglayladPayloadOps::GetConnectedPeerInfo => {
                 let rpc_client = client.clone();
                 tst!(op, {
                     let response = rpc_client.get_connected_peer_info_call(GetConnectedPeerInfoRequest {}).await.unwrap();
@@ -254,7 +254,7 @@ async fn sanity_test() {
                 })
             }
 
-            KaspadPayloadOps::AddPeer => {
+            WaglayladPayloadOps::AddPeer => {
                 let rpc_client = client.clone();
                 tst!(op, {
                     let peer_address = ContextualNetAddress::from_str("1.2.3.4").unwrap();
@@ -268,7 +268,7 @@ async fn sanity_test() {
                 })
             }
 
-            KaspadPayloadOps::Ban => {
+            WaglayladPayloadOps::Ban => {
                 let rpc_client = client.clone();
                 tst!(op, {
                     let peer_address = ContextualNetAddress::from_str("5.6.7.8").unwrap();
@@ -286,11 +286,11 @@ async fn sanity_test() {
                 })
             }
 
-            KaspadPayloadOps::Unban => {
+            WaglayladPayloadOps::Unban => {
                 tst!(op, "see Ban")
             }
 
-            KaspadPayloadOps::SubmitTransaction => {
+            WaglayladPayloadOps::SubmitTransaction => {
                 let rpc_client = client.clone();
                 tst!(op, {
                     // Build an erroneous transaction...
@@ -301,7 +301,7 @@ async fn sanity_test() {
                 })
             }
 
-            KaspadPayloadOps::GetSubnetwork => {
+            WaglayladPayloadOps::GetSubnetwork => {
                 let rpc_client = client.clone();
                 tst!(op, {
                     let result =
@@ -312,15 +312,15 @@ async fn sanity_test() {
                 })
             }
 
-            KaspadPayloadOps::GetVirtualChainFromBlock => {
+            WaglayladPayloadOps::GetVirtualChainFromBlock => {
                 tst!(op, "see SubmitBlock")
             }
 
-            KaspadPayloadOps::GetBlockCount => {
+            WaglayladPayloadOps::GetBlockCount => {
                 tst!(op, "see SubmitBlock")
             }
 
-            KaspadPayloadOps::GetBlockDagInfo => {
+            WaglayladPayloadOps::GetBlockDagInfo => {
                 let rpc_client = client.clone();
                 tst!(op, {
                     let response = rpc_client.get_block_dag_info_call(GetBlockDagInfoRequest {}).await.unwrap();
@@ -328,7 +328,7 @@ async fn sanity_test() {
                 })
             }
 
-            KaspadPayloadOps::ResolveFinalityConflict => {
+            WaglayladPayloadOps::ResolveFinalityConflict => {
                 let rpc_client = client.clone();
                 tst!(op, {
                     let response_result = rpc_client
@@ -342,7 +342,7 @@ async fn sanity_test() {
                 })
             }
 
-            KaspadPayloadOps::GetHeaders => {
+            WaglayladPayloadOps::GetHeaders => {
                 let rpc_client = client.clone();
                 tst!(op, {
                     let response_result = rpc_client
@@ -354,7 +354,7 @@ async fn sanity_test() {
                 })
             }
 
-            KaspadPayloadOps::GetUtxosByAddresses => {
+            WaglayladPayloadOps::GetUtxosByAddresses => {
                 let rpc_client = client.clone();
                 tst!(op, {
                     let addresses = vec![Address::new(Prefix::Simnet, Version::PubKey, &[0u8; 32])];
@@ -363,7 +363,7 @@ async fn sanity_test() {
                 })
             }
 
-            KaspadPayloadOps::GetBalanceByAddress => {
+            WaglayladPayloadOps::GetBalanceByAddress => {
                 let rpc_client = client.clone();
                 tst!(op, {
                     let response = rpc_client
@@ -376,7 +376,7 @@ async fn sanity_test() {
                 })
             }
 
-            KaspadPayloadOps::GetBalancesByAddresses => {
+            WaglayladPayloadOps::GetBalancesByAddresses => {
                 let rpc_client = client.clone();
                 tst!(op, {
                     let addresses = vec![Address::new(Prefix::Simnet, Version::PubKey, &[1u8; 32])];
@@ -394,7 +394,7 @@ async fn sanity_test() {
                 })
             }
 
-            KaspadPayloadOps::GetSinkBlueScore => {
+            WaglayladPayloadOps::GetSinkBlueScore => {
                 let rpc_client = client.clone();
                 tst!(op, {
                     let response = rpc_client.get_sink_blue_score_call(GetSinkBlueScoreRequest {}).await.unwrap();
@@ -403,7 +403,7 @@ async fn sanity_test() {
                 })
             }
 
-            KaspadPayloadOps::EstimateNetworkHashesPerSecond => {
+            WaglayladPayloadOps::EstimateNetworkHashesPerSecond => {
                 let rpc_client = client.clone();
                 tst!(op, {
                     let response_result = rpc_client
@@ -417,7 +417,7 @@ async fn sanity_test() {
                 })
             }
 
-            KaspadPayloadOps::GetMempoolEntriesByAddresses => {
+            WaglayladPayloadOps::GetMempoolEntriesByAddresses => {
                 let rpc_client = client.clone();
                 tst!(op, {
                     let addresses = vec![Address::new(Prefix::Simnet, Version::PubKey, &[0u8; 32])];
@@ -436,7 +436,7 @@ async fn sanity_test() {
                 })
             }
 
-            KaspadPayloadOps::GetCoinSupply => {
+            WaglayladPayloadOps::GetCoinSupply => {
                 let rpc_client = client.clone();
                 tst!(op, {
                     let response = rpc_client.get_coin_supply_call(GetCoinSupplyRequest {}).await.unwrap();
@@ -445,14 +445,14 @@ async fn sanity_test() {
                 })
             }
 
-            KaspadPayloadOps::Ping => {
+            WaglayladPayloadOps::Ping => {
                 let rpc_client = client.clone();
                 tst!(op, {
                     let _ = rpc_client.ping_call(PingRequest {}).await.unwrap();
                 })
             }
 
-            KaspadPayloadOps::GetMetrics => {
+            WaglayladPayloadOps::GetMetrics => {
                 let rpc_client = client.clone();
                 tst!(op, {
                     let get_metrics_call_response = rpc_client
@@ -505,7 +505,7 @@ async fn sanity_test() {
                 })
             }
 
-            KaspadPayloadOps::GetServerInfo => {
+            WaglayladPayloadOps::GetServerInfo => {
                 let rpc_client = client.clone();
                 tst!(op, {
                     let response = rpc_client.get_server_info_call(GetServerInfoRequest {}).await.unwrap();
@@ -514,14 +514,14 @@ async fn sanity_test() {
                 })
             }
 
-            KaspadPayloadOps::GetSyncStatus => {
+            WaglayladPayloadOps::GetSyncStatus => {
                 let rpc_client = client.clone();
                 tst!(op, {
                     let _ = rpc_client.get_sync_status_call(GetSyncStatusRequest {}).await.unwrap();
                 })
             }
 
-            KaspadPayloadOps::GetDaaScoreTimestampEstimate => {
+            WaglayladPayloadOps::GetDaaScoreTimestampEstimate => {
                 let rpc_client = client.clone();
                 tst!(op, {
                     let results = rpc_client
@@ -546,7 +546,7 @@ async fn sanity_test() {
                 })
             }
 
-            KaspadPayloadOps::NotifyBlockAdded => {
+            WaglayladPayloadOps::NotifyBlockAdded => {
                 let rpc_client = client.clone();
                 let id = listener_id;
                 tst!(op, {
@@ -554,7 +554,7 @@ async fn sanity_test() {
                 })
             }
 
-            KaspadPayloadOps::NotifyNewBlockTemplate => {
+            WaglayladPayloadOps::NotifyNewBlockTemplate => {
                 let rpc_client = client.clone();
                 let id = listener_id;
                 tst!(op, {
@@ -562,42 +562,42 @@ async fn sanity_test() {
                 })
             }
 
-            KaspadPayloadOps::NotifyFinalityConflict => {
+            WaglayladPayloadOps::NotifyFinalityConflict => {
                 let rpc_client = client.clone();
                 let id = listener_id;
                 tst!(op, {
                     rpc_client.start_notify(id, FinalityConflictScope {}.into()).await.unwrap();
                 })
             }
-            KaspadPayloadOps::NotifyUtxosChanged => {
+            WaglayladPayloadOps::NotifyUtxosChanged => {
                 let rpc_client = client.clone();
                 let id = listener_id;
                 tst!(op, {
                     rpc_client.start_notify(id, UtxosChangedScope::new(vec![]).into()).await.unwrap();
                 })
             }
-            KaspadPayloadOps::NotifySinkBlueScoreChanged => {
+            WaglayladPayloadOps::NotifySinkBlueScoreChanged => {
                 let rpc_client = client.clone();
                 let id = listener_id;
                 tst!(op, {
                     rpc_client.start_notify(id, SinkBlueScoreChangedScope {}.into()).await.unwrap();
                 })
             }
-            KaspadPayloadOps::NotifyPruningPointUtxoSetOverride => {
+            WaglayladPayloadOps::NotifyPruningPointUtxoSetOverride => {
                 let rpc_client = client.clone();
                 let id = listener_id;
                 tst!(op, {
                     rpc_client.start_notify(id, PruningPointUtxoSetOverrideScope {}.into()).await.unwrap();
                 })
             }
-            KaspadPayloadOps::NotifyVirtualDaaScoreChanged => {
+            WaglayladPayloadOps::NotifyVirtualDaaScoreChanged => {
                 let rpc_client = client.clone();
                 let id = listener_id;
                 tst!(op, {
                     rpc_client.start_notify(id, VirtualDaaScoreChangedScope {}.into()).await.unwrap();
                 })
             }
-            KaspadPayloadOps::NotifyVirtualChainChanged => {
+            WaglayladPayloadOps::NotifyVirtualChainChanged => {
                 let rpc_client = client.clone();
                 let id = listener_id;
                 tst!(op, {
@@ -607,14 +607,14 @@ async fn sanity_test() {
                         .unwrap();
                 })
             }
-            KaspadPayloadOps::StopNotifyingUtxosChanged => {
+            WaglayladPayloadOps::StopNotifyingUtxosChanged => {
                 let rpc_client = client.clone();
                 let id = listener_id;
                 tst!(op, {
                     rpc_client.stop_notify(id, UtxosChangedScope::new(vec![]).into()).await.unwrap();
                 })
             }
-            KaspadPayloadOps::StopNotifyingPruningPointUtxoSetOverride => {
+            WaglayladPayloadOps::StopNotifyingPruningPointUtxoSetOverride => {
                 let rpc_client = client.clone();
                 let id = listener_id;
                 tst!(op, {

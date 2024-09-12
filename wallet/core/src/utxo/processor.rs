@@ -7,11 +7,11 @@
 
 use crate::imports::*;
 // use futures::pin_mut;
-use kaspa_notify::{
+use waglayla_notify::{
     listener::ListenerId,
     scope::{Scope, UtxosChangedScope, VirtualDaaScoreChangedScope},
 };
-use kaspa_rpc_core::{
+use waglayla_rpc_core::{
     api::{
         ctl::{RpcCtl, RpcState},
         ops::RPC_API_VERSION,
@@ -19,7 +19,7 @@ use kaspa_rpc_core::{
     message::UtxosChangedNotification,
     GetServerInfoResponse,
 };
-use kaspa_wrpc_client::KaspaRpcClient;
+use waglayla_wrpc_client::WaglaylaRpcClient;
 use workflow_core::channel::{Channel, DuplexChannel};
 use workflow_core::task::spawn;
 
@@ -29,12 +29,12 @@ use crate::utxo::{
     Maturity, OutgoingTransaction, PendingUtxoEntryReference, SyncMonitor, UtxoContext, UtxoEntryId, UtxoEntryReference,
 };
 use crate::wallet::WalletBusMessage;
-use kaspa_rpc_core::{
+use waglayla_rpc_core::{
     notify::connection::{ChannelConnection, ChannelType},
     Notification,
 };
 // use workflow_core::task;
-// use kaspa_metrics_core::{Metrics,Metric};
+// use waglayla_metrics_core::{Metrics,Metric};
 
 pub struct Inner {
     /// Coinbase UTXOs in stasis
@@ -131,8 +131,8 @@ impl UtxoProcessor {
         self.rpc_ctl().descriptor()
     }
 
-    pub fn rpc_client(&self) -> Option<Arc<KaspaRpcClient>> {
-        self.rpc_api().clone().downcast_arc::<KaspaRpcClient>().ok()
+    pub fn rpc_client(&self) -> Option<Arc<WaglaylaRpcClient>> {
+        self.rpc_api().clone().downcast_arc::<WaglaylaRpcClient>().ok()
     }
 
     pub async fn bind_rpc(&self, rpc: Option<Rpc>) -> Result<()> {
@@ -463,7 +463,7 @@ impl UtxoProcessor {
 
         self.inner.current_daa_score.store(virtual_daa_score, Ordering::SeqCst);
 
-        // log_trace!("Connected to kaspad: '{server_version}' on '{server_network_id}';  SYNC: {is_synced}  DAA: {virtual_daa_score}");
+        // log_trace!("Connected to waglaylad: '{server_version}' on '{server_network_id}';  SYNC: {is_synced}  DAA: {virtual_daa_score}");
         self.notify(Events::ServerStatus { server_version, is_synced, network_id, url: self.rpc_url() }).await?;
 
         Ok(is_synced)

@@ -4,12 +4,12 @@ use crate::model::{
     stores::{children::ChildrenStore, relations::RelationsStore},
 };
 use itertools::Itertools;
-use kaspa_consensus_core::{
+use waglayla_consensus_core::{
     blockhash::{BlockHashIteratorExtensions, BlockHashes, ORIGIN},
     BlockHashSet,
 };
-use kaspa_database::prelude::{BatchDbWriter, DbWriter, DirectWriter, StoreError};
-use kaspa_hashes::Hash;
+use waglayla_database::prelude::{BatchDbWriter, DbWriter, DirectWriter, StoreError};
+use waglayla_hashes::Hash;
 use rocksdb::WriteBatch;
 
 /// Initializes this relations store with an `origin` root
@@ -152,9 +152,9 @@ impl<S: RelationsStore + ChildrenStore + ?Sized> RelationsStoreExtensions for S 
 mod tests {
     use super::*;
     use crate::model::stores::relations::{DbRelationsStore, RelationsStoreReader, StagingRelationsStore};
-    use kaspa_core::assert_match;
-    use kaspa_database::prelude::{CachePolicy, ConnBuilder};
-    use kaspa_database::{create_temp_db, prelude::MemoryWriter};
+    use waglayla_core::assert_match;
+    use waglayla_database::prelude::{CachePolicy, ConnBuilder};
+    use waglayla_database::{create_temp_db, prelude::MemoryWriter};
     use std::sync::Arc;
 
     #[test]

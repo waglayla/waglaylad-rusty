@@ -1,6 +1,6 @@
 [package]
-name = "kaspa-hashes"
-description = "Kaspa hashing functions"
+name = "waglayla-hashes"
+description = "Waglayla hashing functions"
 rust-version.workspace = true
 version.workspace = true
 edition.workspace = true
@@ -17,8 +17,8 @@ blake3.workspace = true
 borsh.workspace = true
 faster-hex.workspace = true
 js-sys.workspace = true
-kaspa-utils.workspace = true
-kaspa-math.workspace = true
+waglayla-utils.workspace = true
+waglayla-math.workspace = true
 keccak = { workspace = true, optional = true }
 once_cell.workspace = true
 serde.workspace = true

@@ -1,11 +1,11 @@
 use std::sync::Arc;
 
-use kaspa_consensus_core::{
+use waglayla_consensus_core::{
     blockhash::{self, BlockHashExtensions, BlockHashes},
     BlockHashMap, BlueWorkType, HashMapCustomHasher,
 };
-use kaspa_hashes::Hash;
-use kaspa_utils::refs::Refs;
+use waglayla_hashes::Hash;
+use waglayla_utils::refs::Refs;
 
 use crate::{
     model::{

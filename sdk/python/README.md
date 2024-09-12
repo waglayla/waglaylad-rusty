@@ -1,6 +1,6 @@
 
 
-#### Pyrin SDK Python Bindings 
+#### Waglayla SDK Python Bindings 
 [SDK Documentation](https://docs.pyrin.network/7.-sdk/python/getting-started)
 
 Built using [PyO3](https://github.com/PyO3/pyo3)

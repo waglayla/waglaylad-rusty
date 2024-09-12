@@ -64,9 +64,9 @@ members = [
 [workspace.package]
 rust-version = "1.78.0"
 version = "0.14.5"
-authors = ["Pyrin developers", "Kaspa developers"]
+authors = ["Waglayla developers", "Waglayla developers"]
 license = "ISC"
-repository = "https://github.com/Pyrinpyi/pyrin"
+repository = "https://github.com/Waglaylapyi/pyrin"
 edition = "2021"
 include = [
     "src/**/*.rs",
@@ -80,62 +80,62 @@ include = [
 ]
 
 [workspace.dependencies]
-# kaspa-testing-integration = { version = "0.14.1", path = "testing/integration" }
-kaspa-addresses = { version = "0.14.1", path = "crypto/addresses" }
-kaspa-addressmanager = { version = "0.14.1", path = "components/addressmanager" }
-kaspa-bip32 = { version = "0.14.1", path = "wallet/bip32" }
-kaspa-resolver = { version = "0.14.1", path = "rpr/wrpc/resolver" }
-kaspa-cli = { version = "0.14.1", path = "cli" }
-kaspa-connectionmanager = { version = "0.14.1", path = "components/connectionmanager" }
-kaspa-consensus = { version = "0.14.1", path = "consensus" }
-kaspa-consensus-core = { version = "0.14.1", path = "consensus/core" }
-kaspa-consensus-client = { version = "0.14.1", path = "consensus/client" }
-kaspa-consensus-notify = { version = "0.14.1", path = "consensus/notify" }
-kaspa-consensus-wasm = { version = "0.14.1", path = "consensus/wasm" }
-kaspa-consensusmanager = { version = "0.14.1", path = "components/consensusmanager" }
-kaspa-core = { version = "0.14.1", path = "core" }
-kaspa-daemon = { version = "0.14.1", path = "daemon" }
-kaspa-database = { version = "0.14.1", path = "database" }
-kaspa-grpc-client = { version = "0.14.1", path = "rpc/grpc/client" }
-kaspa-grpc-core = { version = "0.14.1", path = "rpc/grpc/core" }
-kaspa-grpc-server = { version = "0.14.1", path = "rpc/grpc/server" }
-kaspa-hashes = { version = "0.14.1", path = "crypto/hashes" }
-kaspa-index-core = { version = "0.14.1", path = "indexes/core" }
-kaspa-index-processor = { version = "0.14.1", path = "indexes/processor" }
-kaspa-math = { version = "0.14.1", path = "math" }
-kaspa-merkle = { version = "0.14.1", path = "crypto/merkle" }
-kaspa-metrics-core = { version = "0.14.1", path = "metrics/core" }
-kaspa-mining = { version = "0.14.1", path = "mining" }
-kaspa-mining-errors = { version = "0.14.1", path = "mining/errors" }
-kaspa-muhash = { version = "0.14.1", path = "crypto/muhash" }
-kaspa-notify = { version = "0.14.1", path = "notify" }
-kaspa-p2p-flows = { version = "0.14.1", path = "protocol/flows" }
-kaspa-p2p-lib = { version = "0.14.1", path = "protocol/p2p" }
-kaspa-perf-monitor = { version = "0.14.1", path = "metrics/perf_monitor" }
-kaspa-pow = { version = "0.14.1", path = "consensus/pow" }
-kaspa-rpc-core = { version = "0.14.1", path = "rpc/core" }
-kaspa-rpc-macros = { version = "0.14.1", path = "rpc/macros" }
-kaspa-rpc-service = { version = "0.14.1", path = "rpc/service" }
-kaspa-txscript = { version = "0.14.1", path = "crypto/txscript" }
-kaspa-txscript-errors = { version = "0.14.1", path = "crypto/txscript/errors" }
-kaspa-utils = { version = "0.14.1", path = "utils" }
-kaspa-utils-tower = { version = "0.14.1", path = "utils/tower" }
-kaspa-utxoindex = { version = "0.14.1", path = "indexes/utxoindex" }
-kaspa-wallet = { version = "0.14.1", path = "wallet/native" }
-kaspa-wallet-cli-wasm = { version = "0.14.1", path = "wallet/wasm" }
-kaspa-wallet-keys = { version = "0.14.1", path = "wallet/keys" }
-kaspa-wallet-core = { version = "0.14.1", path = "wallet/core" }
-kaspa-wallet-macros = { version = "0.14.1", path = "wallet/macros" }
-kaspa-wasm = { version = "0.14.1", path = "wasm" }
-kaspa-wasm-core = { version = "0.14.1", path = "wasm/core" }
-kaspa-wrpc-client = { version = "0.14.1", path = "rpc/wrpc/client" }
-kaspa-wrpc-core = { version = "0.14.1", path = "rpc/wrpc/core" }
-kaspa-wrpc-proxy = { version = "0.14.1", path = "rpc/wrpc/proxy" }
-kaspa-wrpc-server = { version = "0.14.1", path = "rpc/wrpc/server" }
-kaspa-wrpc-wasm = { version = "0.14.1", path = "rpc/wrpc/wasm" }
-kaspa-wrpc-example-subscriber = { version = "0.14.1", path = "rpc/wrpc/examples/subscriber" }
+# waglayla-testing-integration = { version = "0.14.1", path = "testing/integration" }
+waglayla-addresses = { version = "0.14.1", path = "crypto/addresses" }
+waglayla-addressmanager = { version = "0.14.1", path = "components/addressmanager" }
+waglayla-bip32 = { version = "0.14.1", path = "wallet/bip32" }
+waglayla-resolver = { version = "0.14.1", path = "rpr/wrpc/resolver" }
+waglayla-cli = { version = "0.14.1", path = "cli" }
+waglayla-connectionmanager = { version = "0.14.1", path = "components/connectionmanager" }
+waglayla-consensus = { version = "0.14.1", path = "consensus" }
+waglayla-consensus-core = { version = "0.14.1", path = "consensus/core" }
+waglayla-consensus-client = { version = "0.14.1", path = "consensus/client" }
+waglayla-consensus-notify = { version = "0.14.1", path = "consensus/notify" }
+waglayla-consensus-wasm = { version = "0.14.1", path = "consensus/wasm" }
+waglayla-consensusmanager = { version = "0.14.1", path = "components/consensusmanager" }
+waglayla-core = { version = "0.14.1", path = "core" }
+waglayla-daemon = { version = "0.14.1", path = "daemon" }
+waglayla-database = { version = "0.14.1", path = "database" }
+waglayla-grpc-client = { version = "0.14.1", path = "rpc/grpc/client" }
+waglayla-grpc-core = { version = "0.14.1", path = "rpc/grpc/core" }
+waglayla-grpc-server = { version = "0.14.1", path = "rpc/grpc/server" }
+waglayla-hashes = { version = "0.14.1", path = "crypto/hashes" }
+waglayla-index-core = { version = "0.14.1", path = "indexes/core" }
+waglayla-index-processor = { version = "0.14.1", path = "indexes/processor" }
+waglayla-math = { version = "0.14.1", path = "math" }
+waglayla-merkle = { version = "0.14.1", path = "crypto/merkle" }
+waglayla-metrics-core = { version = "0.14.1", path = "metrics/core" }
+waglayla-mining = { version = "0.14.1", path = "mining" }
+waglayla-mining-errors = { version = "0.14.1", path = "mining/errors" }
+waglayla-muhash = { version = "0.14.1", path = "crypto/muhash" }
+waglayla-notify = { version = "0.14.1", path = "notify" }
+waglayla-p2p-flows = { version = "0.14.1", path = "protocol/flows" }
+waglayla-p2p-lib = { version = "0.14.1", path = "protocol/p2p" }
+waglayla-perf-monitor = { version = "0.14.1", path = "metrics/perf_monitor" }
+waglayla-pow = { version = "0.14.1", path = "consensus/pow" }
+waglayla-rpc-core = { version = "0.14.1", path = "rpc/core" }
+waglayla-rpc-macros = { version = "0.14.1", path = "rpc/macros" }
+waglayla-rpc-service = { version = "0.14.1", path = "rpc/service" }
+waglayla-txscript = { version = "0.14.1", path = "crypto/txscript" }
+waglayla-txscript-errors = { version = "0.14.1", path = "crypto/txscript/errors" }
+waglayla-utils = { version = "0.14.1", path = "utils" }
+waglayla-utils-tower = { version = "0.14.1", path = "utils/tower" }
+waglayla-utxoindex = { version = "0.14.1", path = "indexes/utxoindex" }
+waglayla-wallet = { version = "0.14.1", path = "wallet/native" }
+waglayla-wallet-cli-wasm = { version = "0.14.1", path = "wallet/wasm" }
+waglayla-wallet-keys = { version = "0.14.1", path = "wallet/keys" }
+waglayla-wallet-core = { version = "0.14.1", path = "wallet/core" }
+waglayla-wallet-macros = { version = "0.14.1", path = "wallet/macros" }
+waglayla-wasm = { version = "0.14.1", path = "wasm" }
+waglayla-wasm-core = { version = "0.14.1", path = "wasm/core" }
+waglayla-wrpc-client = { version = "0.14.1", path = "rpc/wrpc/client" }
+waglayla-wrpc-core = { version = "0.14.1", path = "rpc/wrpc/core" }
+waglayla-wrpc-proxy = { version = "0.14.1", path = "rpc/wrpc/proxy" }
+waglayla-wrpc-server = { version = "0.14.1", path = "rpc/wrpc/server" }
+waglayla-wrpc-wasm = { version = "0.14.1", path = "rpc/wrpc/wasm" }
+waglayla-wrpc-example-subscriber = { version = "0.14.1", path = "rpc/wrpc/examples/subscriber" }
 pyrin = { version = "0.14.1", path = "pyrin" }
-kaspa-alloc = { version = "0.14.1", path = "utils/alloc" }
+waglayla-alloc = { version = "0.14.1", path = "utils/alloc" }
 
 # external
 aes = "0.8.3"

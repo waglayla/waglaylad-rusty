@@ -1,28 +1,28 @@
 {
-  "name": "kaspa",
+  "name": "waglayla",
   "version": "0.13.5",
-  "description": "Kaspa SDK",
+  "description": "Waglayla SDK",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Pyrinpyi/pyrin.git"
+    "url": "git+https://github.com/Waglaylapyi/pyrin.git"
   },
   "keywords": [
-    "kaspa",
+    "waglayla",
     "wasm",
     "sdk"
   ],
-  "author": "Kaspa developers",
+  "author": "Waglayla developers",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Pyrinpyi/pyrin/issues"
+    "url": "https://github.com/Waglaylapyi/pyrin/issues"
   },
-  "homepage": "https://github.com/Pyrinpyi/pyrin#readme",
+  "homepage": "https://github.com/Waglaylapyi/pyrin#readme",
   "dependencies": {
     "websocket": "1.0.34",
-    "kaspa-wasm": "0.13.5"
+    "waglayla-wasm": "0.13.5"
   }
 }

@@ -1,6 +1,6 @@
 use crate::mempool::{errors::RuleResult, model::pool::Pool, Mempool};
-use kaspa_consensus_core::{api::ConsensusApi, constants::UNACCEPTED_DAA_SCORE, tx::MutableTransaction, tx::UtxoEntry};
-use kaspa_mining_errors::mempool::RuleError;
+use waglayla_consensus_core::{api::ConsensusApi, constants::UNACCEPTED_DAA_SCORE, tx::MutableTransaction, tx::UtxoEntry};
+use waglayla_mining_errors::mempool::RuleError;
 
 impl Mempool {
     pub(crate) fn populate_mempool_entries(&self, transaction: &mut MutableTransaction) {

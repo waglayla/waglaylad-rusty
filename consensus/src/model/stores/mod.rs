@@ -6,7 +6,7 @@ pub mod daa;
 pub mod selected_chain;
 use std::{fmt::Display, mem::size_of};
 
-pub use kaspa_database;
+pub use waglayla_database;
 pub mod depth;
 pub mod ghostdag;
 pub mod headers;
@@ -23,7 +23,7 @@ pub mod utxo_multisets;
 pub mod utxo_set;
 pub mod virtual_state;
 
-pub use kaspa_database::prelude::DB;
+pub use waglayla_database::prelude::DB;
 
 #[derive(PartialEq, Eq, Clone, Copy, Hash)]
 pub(crate) struct U64Key([u8; size_of::<u64>()]);

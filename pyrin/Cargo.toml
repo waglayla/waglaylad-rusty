@@ -1,7 +1,7 @@
 [package]
 name = "pyrin"
-description = "Pyrin full node daemon"
-keywords = ["pyrin", "kaspa", "blockdag"]
+description = "Waglayla full node daemon"
+keywords = ["pyrin", "waglayla", "blockdag"]
 rust-version.workspace = true
 version.workspace = true
 edition.workspace = true
@@ -11,34 +11,34 @@ license.workspace = true
 repository.workspace = true
 
 [lib]
-name = "kaspad_lib"
+name = "waglaylad_lib"
 crate-type = ["cdylib", "lib"]
 
 [dependencies]
-kaspa-alloc.workspace = true # This changes the global allocator for all of the next dependencies so should be kept first
+waglayla-alloc.workspace = true # This changes the global allocator for all of the next dependencies so should be kept first
 
-kaspa-addresses.workspace = true
-kaspa-addressmanager.workspace = true
-kaspa-consensus-core.workspace = true
-kaspa-consensus-notify.workspace = true
-kaspa-consensus.workspace = true
-kaspa-consensusmanager.workspace = true
-kaspa-core.workspace = true
-kaspa-database.workspace = true
-kaspa-grpc-server.workspace = true
-kaspa-hashes.workspace = true
-kaspa-index-processor.workspace = true
-kaspa-mining.workspace = true
-kaspa-notify.workspace = true
-kaspa-p2p-flows.workspace = true
-kaspa-perf-monitor.workspace = true
-kaspa-rpc-core.workspace = true
-kaspa-rpc-service.workspace = true
-kaspa-txscript.workspace = true
-kaspa-utils.workspace = true
-kaspa-utils-tower.workspace = true
-kaspa-utxoindex.workspace = true
-kaspa-wrpc-server.workspace = true
+waglayla-addresses.workspace = true
+waglayla-addressmanager.workspace = true
+waglayla-consensus-core.workspace = true
+waglayla-consensus-notify.workspace = true
+waglayla-consensus.workspace = true
+waglayla-consensusmanager.workspace = true
+waglayla-core.workspace = true
+waglayla-database.workspace = true
+waglayla-grpc-server.workspace = true
+waglayla-hashes.workspace = true
+waglayla-index-processor.workspace = true
+waglayla-mining.workspace = true
+waglayla-notify.workspace = true
+waglayla-p2p-flows.workspace = true
+waglayla-perf-monitor.workspace = true
+waglayla-rpc-core.workspace = true
+waglayla-rpc-service.workspace = true
+waglayla-txscript.workspace = true
+waglayla-utils.workspace = true
+waglayla-utils-tower.workspace = true
+waglayla-utxoindex.workspace = true
+waglayla-wrpc-server.workspace = true
 
 async-channel.workspace = true
 clap.workspace = true
@@ -60,5 +60,5 @@ serde_with = "3.7.0"
 bincode = "1.3.3"
 
 [features]
-heap = ["dhat", "kaspa-alloc/heap"]
-devnet-prealloc = ["kaspa-consensus/devnet-prealloc"]
+heap = ["dhat", "waglayla-alloc/heap"]
+devnet-prealloc = ["waglayla-consensus/devnet-prealloc"]

@@ -3,11 +3,11 @@ use crate::imports::*;
 
 ///
 /// Helper class to generate private keys from an extended private key (XPrv).
-/// This class accepts the master Kaspa XPrv string (e.g. `xprv1...`) and generates
+/// This class accepts the master Waglayla XPrv string (e.g. `xprv1...`) and generates
 /// private keys for the receive and change paths given the pre-set parameters
 /// such as account index, multisig purpose and cosigner index.
 ///
-/// Please note that in Kaspa master private keys use `kprv` prefix.
+/// Please note that in Waglayla master private keys use `kprv` prefix.
 ///
 /// @see {@link PublicKeyGenerator}, {@link XPub}, {@link XPrv}, {@link Mnemonic}
 /// @category Wallet SDK
@@ -27,13 +27,13 @@ impl PrivateKeyGenerator {
             is_multisig,
             account_index,
             cosigner_index,
-            Some(kaspa_bip32::AddressType::Receive),
+            Some(waglayla_bip32::AddressType::Receive),
         )?)?;
         let change = xprv.clone().derive_path(&WalletDerivationManager::build_derivate_path(
             is_multisig,
             account_index,
             cosigner_index,
-            Some(kaspa_bip32::AddressType::Change),
+            Some(waglayla_bip32::AddressType::Change),
         )?)?;
 
         Ok(Self { receive, change })

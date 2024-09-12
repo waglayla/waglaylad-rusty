@@ -1,6 +1,6 @@
 use itertools::Itertools;
-use kaspa_consensus_core::api::{ConsensusApi, DynConsensus};
-use kaspa_core::{core::Core, debug, service::Service};
+use waglayla_consensus_core::api::{ConsensusApi, DynConsensus};
+use waglayla_core::{core::Core, debug, service::Service};
 use parking_lot::RwLock;
 use std::{collections::VecDeque, ops::Deref, sync::Arc, thread::JoinHandle};
 

@@ -1,6 +1,6 @@
 [package]
-name = "kaspa-mining"
-description = "Kaspa mining"
+name = "waglayla-mining"
+description = "Waglayla mining"
 rust-version.workspace = true
 version.workspace = true
 edition.workspace = true
@@ -10,15 +10,15 @@ license.workspace = true
 repository.workspace = true
 
 [dependencies]
-kaspa-addresses.workspace = true
-kaspa-consensus-core.workspace = true
-kaspa-consensusmanager.workspace = true
-kaspa-core.workspace = true
-kaspa-hashes.workspace = true
-kaspa-mining-errors.workspace = true
-kaspa-muhash.workspace = true
-kaspa-txscript.workspace = true
-kaspa-utils.workspace = true
+waglayla-addresses.workspace = true
+waglayla-consensus-core.workspace = true
+waglayla-consensusmanager.workspace = true
+waglayla-core.workspace = true
+waglayla-hashes.workspace = true
+waglayla-mining-errors.workspace = true
+waglayla-muhash.workspace = true
+waglayla-txscript.workspace = true
+waglayla-utils.workspace = true
 
 futures-util.workspace = true
 itertools.workspace = true
@@ -31,7 +31,7 @@ thiserror.workspace = true
 tokio = { workspace = true, features = [ "rt-multi-thread", "macros", "signal" ] }
 
 [dev-dependencies]
-kaspa-txscript.workspace = true
+waglayla-txscript.workspace = true
 criterion.workspace = true
 secp256k1.workspace = true
 

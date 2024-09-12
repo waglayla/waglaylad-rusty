@@ -1,29 +1,29 @@
-# Kaspa WASM SDK
+# Waglayla WASM SDK
 
-An integration wrapper around [`kaspa-wasm`](https://www.npmjs.com/package/kaspa-wasm) module that uses [`websocket`](https://www.npmjs.com/package/websocket) W3C adaptor for WebSocket communication.
+An integration wrapper around [`waglayla-wasm`](https://www.npmjs.com/package/waglayla-wasm) module that uses [`websocket`](https://www.npmjs.com/package/websocket) W3C adaptor for WebSocket communication.
 
-This is a Node.js module that provides bindings to the Kaspa WASM SDK strictly for use in the Node.js environment. The web browser version of the SDK is available as part of official SDK releases at [https://github.com/Pyrinpyi/pyrin/releases](https://github.com/Pyrinpyi/pyrin/releases)
+This is a Node.js module that provides bindings to the Waglayla WASM SDK strictly for use in the Node.js environment. The web browser version of the SDK is available as part of official SDK releases at [https://github.com/Waglaylapyi/pyrin/releases](https://github.com/Waglaylapyi/pyrin/releases)
 
 ## Usage
 
-Kaspa NPM module exports include all WASM32 bindings.
+Waglayla NPM module exports include all WASM32 bindings.
 ```javascript
-const kaspa = require('kaspa');
-console.log(kaspa.version());
+const waglayla = require('waglayla');
+console.log(waglayla.version());
 ```
 
 ## Documentation
 
-Documentation is available at [https://kaspa.aspectron.org/docs/](https://kaspa.aspectron.org/docs/)
+Documentation is available at [https://waglayla.aspectron.org/docs/](https://waglayla.aspectron.org/docs/)
 
 
 ## Building from source & Examples
 
-SDK examples as well as information on building the project from source can be found at [https://github.com/Pyrinpyi/pyrin/tree/master/wasm](https://github.com/Pyrinpyi/pyrin/tree/master/wasm)
+SDK examples as well as information on building the project from source can be found at [https://github.com/Waglaylapyi/pyrin/tree/master/wasm](https://github.com/Waglaylapyi/pyrin/tree/master/wasm)
 
 ## Releases
 
-Official releases as well as releases for Web Browsers are available at [https://github.com/Pyrinpyi/pyrin/releases](https://github.com/Pyrinpyi/pyrin/releases).
+Official releases as well as releases for Web Browsers are available at [https://github.com/Waglaylapyi/pyrin/releases](https://github.com/Waglaylapyi/pyrin/releases).
 
-Nightly / developer builds are available at: [https://aspectron.org/en/projects/kaspa-wasm.html](https://aspectron.org/en/projects/kaspa-wasm.html)
+Nightly / developer builds are available at: [https://aspectron.org/en/projects/waglayla-wasm.html](https://aspectron.org/en/projects/waglayla-wasm.html)
 

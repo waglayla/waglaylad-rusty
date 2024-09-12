@@ -1,6 +1,6 @@
 [package]
-name = "kaspa-grpc-client"
-description = "Kaspa gRPC client"
+name = "waglayla-grpc-client"
+description = "Waglayla gRPC client"
 rust-version.workspace = true
 version.workspace = true
 edition.workspace = true
@@ -10,12 +10,12 @@ license.workspace = true
 repository.workspace = true
 
 [dependencies]
-kaspa-core.workspace = true
-kaspa-grpc-core.workspace = true
-kaspa-notify.workspace = true
-kaspa-rpc-core.workspace = true
-kaspa-utils.workspace = true
-kaspa-utils-tower.workspace = true
+waglayla-core.workspace = true
+waglayla-grpc-core.workspace = true
+waglayla-notify.workspace = true
+waglayla-rpc-core.workspace = true
+waglayla-utils.workspace = true
+waglayla-utils-tower.workspace = true
 
 async-channel.workspace = true
 async-stream.workspace = true

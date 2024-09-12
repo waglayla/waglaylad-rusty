@@ -1,13 +1,13 @@
 <html>
     <head>
         <script type="module">
-            import * as kaspa from './kaspa/kaspa_wasm.js';
-            let {PublicKeyGenerator, createAddress, NetworkType, Mnemonic, XPrv} = kaspa;
+            import * as waglayla from './waglayla/waglayla_wasm.js';
+            let {PublicKeyGenerator, createAddress, NetworkType, Mnemonic, XPrv} = waglayla;
             window.XPublicKey = PublicKeyGenerator;
             (async () => {
-                const wasm = await kaspa.default('./kaspa/kaspa_wasm_bg.wasm');
-                console.log("kaspa", kaspa);
-                console.log("version", kaspa.version());
+                const wasm = await waglayla.default('./waglayla/waglayla_wasm_bg.wasm');
+                console.log("waglayla", waglayla);
+                console.log("version", waglayla.version());
                 tests();
             })();
 

@@ -1,7 +1,7 @@
 // use sha3::CShake256;
 use once_cell::sync::Lazy;
 
-pub type BlueWorkType = kaspa_math::Uint192;
+pub type BlueWorkType = waglayla_math::Uint192;
 
 pub trait HasherBase {
     fn update<A: AsRef<[u8]>>(&mut self, data: A) -> &mut Self;
@@ -38,7 +38,7 @@ pub trait HasherExtensions {
     fn write_u64(&mut self, element: u64) -> &mut Self;
 
     /// Writes blue work as big endian bytes w/o the leading zeros
-    /// (emulates bigint.bytes() in the kaspad golang ref)
+    /// (emulates bigint.bytes() in the waglaylad golang ref)
     fn write_blue_work(&mut self, work: BlueWorkType) -> &mut Self;
 
     /// Writes the number of bytes followed by the bytes themselves

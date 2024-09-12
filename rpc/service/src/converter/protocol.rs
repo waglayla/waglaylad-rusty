@@ -1,8 +1,8 @@
 use std::sync::Arc;
 
-use kaspa_p2p_flows::flow_context::FlowContext;
-use kaspa_p2p_lib::{Peer, PeerKey};
-use kaspa_rpc_core::RpcPeerInfo;
+use waglayla_p2p_flows::flow_context::FlowContext;
+use waglayla_p2p_lib::{Peer, PeerKey};
+use waglayla_rpc_core::RpcPeerInfo;
 
 pub struct ProtocolConverter {
     flow_context: Arc<FlowContext>,

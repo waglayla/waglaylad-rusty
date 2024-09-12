@@ -2,8 +2,8 @@ use crate::account as native;
 use crate::imports::*;
 use crate::tx::PaymentOutputs;
 use crate::wasm::utxo::UtxoContext;
-use kaspa_consensus_core::network::NetworkTypeT;
-use kaspa_wallet_keys::keypair::Keypair;
+use waglayla_consensus_core::network::NetworkTypeT;
+use waglayla_wallet_keys::keypair::Keypair;
 use workflow_core::abortable::Abortable;
 
 ///

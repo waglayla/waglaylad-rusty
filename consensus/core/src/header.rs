@@ -4,8 +4,8 @@ use serde::{Deserialize, Serialize};
 #[cfg(not(target_family = "wasm"))]
 use pyo3::pyclass;
 
-use kaspa_hashes::Hash;
-use kaspa_muhash::Blake2Hash;
+use waglayla_hashes::Hash;
+use waglayla_muhash::Blake2Hash;
 
 use crate::{BlueWorkType, hashing};
 
@@ -139,7 +139,7 @@ impl Header {
 mod tests {
     use serde_json::Value;
 
-    use kaspa_math::Uint192;
+    use waglayla_math::Uint192;
 
     use super::*;
 

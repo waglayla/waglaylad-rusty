@@ -1,12 +1,12 @@
 use std::sync::Arc;
 
 use itertools::Itertools;
-use kaspa_consensus_core::BlockHashMap;
-use kaspa_p2p_lib::{
+use waglayla_consensus_core::BlockHashMap;
+use waglayla_p2p_lib::{
     common::ProtocolError,
     dequeue, dequeue_with_request_id, make_response,
     pb::{
-        self, kaspad_message::Payload, BlockWithTrustedDataV4Message, DoneBlocksWithTrustedDataMessage, PruningPointsMessage,
+        self, waglaylad_message::Payload, BlockWithTrustedDataV4Message, DoneBlocksWithTrustedDataMessage, PruningPointsMessage,
         TrustedDataMessage,
     },
     IncomingRoute, Router,

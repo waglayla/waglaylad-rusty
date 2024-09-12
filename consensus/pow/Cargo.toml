@@ -1,6 +1,6 @@
 [package]
-name = "kaspa-pow"
-description = "Kaspa proof-of-work"
+name = "waglayla-pow"
+description = "Waglayla proof-of-work"
 rust-version.workspace = true
 version.workspace = true
 edition.workspace = true
@@ -14,11 +14,11 @@ wasm32-sdk = []
 
 [dependencies]
 js-sys.workspace = true
-kaspa-consensus-core.workspace = true
-kaspa-consensus-client.workspace = true
-kaspa-hashes.workspace = true
-kaspa-math.workspace = true
-kaspa-utils.workspace = true
+waglayla-consensus-core.workspace = true
+waglayla-consensus-client.workspace = true
+waglayla-hashes.workspace = true
+waglayla-math.workspace = true
+waglayla-utils.workspace = true
 wasm-bindgen.workspace = true
 workflow-wasm.workspace = true
 num.workspace = true

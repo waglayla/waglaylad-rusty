@@ -1,11 +1,11 @@
 use crate::{flow_context::FlowContext, flow_trait::Flow};
-use kaspa_consensus_core::errors::consensus::ConsensusError;
-use kaspa_core::debug;
-use kaspa_hashes::Hash;
-use kaspa_p2p_lib::{
+use waglayla_consensus_core::errors::consensus::ConsensusError;
+use waglayla_core::debug;
+use waglayla_hashes::Hash;
+use waglayla_p2p_lib::{
     common::ProtocolError,
     dequeue_with_request_id, make_response,
-    pb::{kaspad_message::Payload, BlockHeadersMessage, DoneHeadersMessage},
+    pb::{waglaylad_message::Payload, BlockHeadersMessage, DoneHeadersMessage},
     IncomingRoute, Router,
 };
 use std::sync::Arc;

@@ -9,10 +9,10 @@ pub mod xoshiro;
 use std::cmp::max;
 
 use crate::matrix::Matrix;
-use kaspa_consensus_core::{hashing, header::Header, BlockLevel};
-use kaspa_consensus_core::config::params::MAINNET_PARAMS;
-use kaspa_hashes::PowHash;
-use kaspa_math::Uint256;
+use waglayla_consensus_core::{hashing, header::Header, BlockLevel};
+use waglayla_consensus_core::config::params::MAINNET_PARAMS;
+use waglayla_hashes::PowHash;
+use waglayla_math::Uint256;
 
 /// State is an intermediate data structure with pre-computed values to speed up mining.
 pub struct State {

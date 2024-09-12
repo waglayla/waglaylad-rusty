@@ -48,18 +48,18 @@ macro_rules! full_featured {
             $($(#[$variant_meta])* $variant_name($field_name)),*
         }
 
-        impl std::convert::From<&$name> for kaspa_notify::events::EventType {
+        impl std::convert::From<&$name> for waglayla_notify::events::EventType {
             fn from(value: &$name) -> Self {
                 match value {
-                    $($name::$variant_name(_) => kaspa_notify::events::EventType::$variant_name),*
+                    $($name::$variant_name(_) => waglayla_notify::events::EventType::$variant_name),*
                 }
             }
         }
 
-        impl std::convert::From<&$name> for kaspa_notify::scope::Scope {
+        impl std::convert::From<&$name> for waglayla_notify::scope::Scope {
             fn from(value: &$name) -> Self {
                 match value {
-                    $($name::$variant_name(_) => kaspa_notify::scope::Scope::$variant_name(kaspa_notify::scope::[<$variant_name Scope>]::default())),*
+                    $($name::$variant_name(_) => waglayla_notify::scope::Scope::$variant_name(waglayla_notify::scope::[<$variant_name Scope>]::default())),*
                 }
             }
         }
@@ -80,8 +80,8 @@ pub mod test_helpers {
 
     use super::*;
     use derive_more::Display;
-    use kaspa_addresses::Address;
-    use kaspa_core::trace;
+    use waglayla_addresses::Address;
+    use waglayla_core::trace;
     use std::sync::Arc;
 
     #[derive(Clone, Debug, Default, PartialEq, Eq)]

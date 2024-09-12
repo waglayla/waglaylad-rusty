@@ -1,10 +1,10 @@
 use std::sync::Arc;
 
-use kaspa_database::prelude::{BatchDbWriter, CachedDbAccess, DirectDbWriter};
-use kaspa_database::prelude::{CachePolicy, DB};
-use kaspa_database::prelude::{StoreError, StoreResult};
-use kaspa_database::registry::DatabaseStorePrefixes;
-use kaspa_hashes::Hash;
+use waglayla_database::prelude::{BatchDbWriter, CachedDbAccess, DirectDbWriter};
+use waglayla_database::prelude::{CachePolicy, DB};
+use waglayla_database::prelude::{StoreError, StoreResult};
+use waglayla_database::registry::DatabaseStorePrefixes;
+use waglayla_hashes::Hash;
 use rocksdb::WriteBatch;
 
 use super::U64Key;

@@ -1,6 +1,6 @@
 [package]
-name = "kaspa-consensusmanager"
-description = "Kaspa consensus library"
+name = "waglayla-consensusmanager"
+description = "Waglayla consensus library"
 rust-version.workspace = true
 version.workspace = true
 edition.workspace = true
@@ -14,10 +14,10 @@ duration-string.workspace = true
 futures-util.workspace = true
 futures.workspace = true
 itertools.workspace = true
-kaspa-consensus-core.workspace = true
-kaspa-consensus-notify.workspace = true
-kaspa-core.workspace = true
-kaspa-utils.workspace = true
+waglayla-consensus-core.workspace = true
+waglayla-consensus-notify.workspace = true
+waglayla-core.workspace = true
+waglayla-utils.workspace = true
 log.workspace = true
 parking_lot.workspace = true
 rand.workspace = true

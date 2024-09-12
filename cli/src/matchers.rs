@@ -8,7 +8,7 @@ use workflow_core::task::dispatch;
 use workflow_dom::{clipboard, link};
 use workflow_wasm::jserror::*;
 
-pub fn register_link_matchers(cli: &Arc<KaspaCli>) -> Result<()> {
+pub fn register_link_matchers(cli: &Arc<WaglaylaCli>) -> Result<()> {
     if !is_wasm() {
         return Ok(());
     }
@@ -25,16 +25,16 @@ pub fn register_link_matchers(cli: &Arc<KaspaCli>) -> Result<()> {
         })),
     )?;
 
-    // addresses (open,copy) https://explorer.kaspa.org/addresses/
+    // addresses (open,copy) https://explorer.waglayla.org/addresses/
     let cli_ = cli.clone();
     cli.term().register_link_matcher(
-        &js_sys::RegExp::new(r"(kaspa|kaspatest):\S+", "i"),
+        &js_sys::RegExp::new(r"(waglayla|waglaylatest):\S+", "i"),
         Arc::new(Box::new(move |modifiers, uri| {
             if modifiers.ctrl || modifiers.meta {
-                if uri.starts_with("kaspatest") {
+                if uri.starts_with("waglaylatest") {
                     cli_.term().writeln("testnet addresses can not be currently looked up with the block explorer");
                 } else {
-                    let url = format!("https://explorer.kaspa.org/addresses/{uri}");
+                    let url = format!("https://explorer.waglayla.org/addresses/{uri}");
                     if is_nw() {
                         nw_sys::shell::open_external(&url);
                     } else {
@@ -47,7 +47,7 @@ pub fn register_link_matchers(cli: &Arc<KaspaCli>) -> Result<()> {
         })),
     )?;
 
-    // blocks (open,copy) https://explorer.kaspa.org/blocks/
+    // blocks (open,copy) https://explorer.waglayla.org/blocks/
     let cli_ = cli.clone();
     cli.term().register_link_matcher(
         &js_sys::RegExp::new(r"(block|pool):?\s+[0-9a-fA-F]{64}", "i"),
@@ -56,7 +56,7 @@ pub fn register_link_matchers(cli: &Arc<KaspaCli>) -> Result<()> {
             let uri = re.replace(text, "");
 
             if modifiers.ctrl || modifiers.meta {
-                nw_sys::shell::open_external(&format!("https://explorer.kaspa.org/blocks/{uri}"));
+                nw_sys::shell::open_external(&format!("https://explorer.waglayla.org/blocks/{uri}"));
             } else {
                 write_to_clipboard(&cli_, uri.to_string().as_str());
             }
@@ -72,7 +72,7 @@ pub fn register_link_matchers(cli: &Arc<KaspaCli>) -> Result<()> {
             let uri = re.replace(text, "");
 
             if modifiers.ctrl || modifiers.meta {
-                nw_sys::shell::open_external(&format!("https://explorer.kaspa.org/txs/{uri}"));
+                nw_sys::shell::open_external(&format!("https://explorer.waglayla.org/txs/{uri}"));
             } else {
                 write_to_clipboard(&cli_, uri.to_string().as_str());
             }
@@ -93,7 +93,7 @@ pub fn register_link_matchers(cli: &Arc<KaspaCli>) -> Result<()> {
     Ok(())
 }
 
-fn write_to_clipboard(cli: &Arc<KaspaCli>, text: &str) {
+fn write_to_clipboard(cli: &Arc<WaglaylaCli>, text: &str) {
     if is_nw() {
         let clipboard = nw_sys::clipboard::get();
         clipboard.set(text);

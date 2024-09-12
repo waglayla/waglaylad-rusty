@@ -1,11 +1,11 @@
 use crate::model::{CirculatingSupply, CirculatingSupplyDiff};
-use kaspa_consensus::test_helpers::*;
-use kaspa_consensus_core::{
+use waglayla_consensus::test_helpers::*;
+use waglayla_consensus_core::{
     tx::ScriptPublicKey,
     utxo::{utxo_collection::UtxoCollection, utxo_diff::UtxoDiff},
     BlockHashSet, HashMapCustomHasher,
 };
-use kaspa_hashes::Hash;
+use waglayla_hashes::Hash;
 #[cfg(test)]
 use rand::Rng;
 use rand::{rngs::SmallRng, SeedableRng};

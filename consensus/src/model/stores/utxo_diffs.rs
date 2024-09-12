@@ -1,12 +1,12 @@
 use std::sync::Arc;
 
-use kaspa_consensus_core::{utxo::utxo_diff::UtxoDiff, BlockHasher};
-use kaspa_database::prelude::CachePolicy;
-use kaspa_database::prelude::StoreError;
-use kaspa_database::prelude::DB;
-use kaspa_database::prelude::{BatchDbWriter, CachedDbAccess, DirectDbWriter};
-use kaspa_database::registry::DatabaseStorePrefixes;
-use kaspa_hashes::Hash;
+use waglayla_consensus_core::{utxo::utxo_diff::UtxoDiff, BlockHasher};
+use waglayla_database::prelude::CachePolicy;
+use waglayla_database::prelude::StoreError;
+use waglayla_database::prelude::DB;
+use waglayla_database::prelude::{BatchDbWriter, CachedDbAccess, DirectDbWriter};
+use waglayla_database::registry::DatabaseStorePrefixes;
+use waglayla_hashes::Hash;
 use rocksdb::WriteBatch;
 
 /// Store for holding the UTXO difference (delta) of a block relative to its selected parent.

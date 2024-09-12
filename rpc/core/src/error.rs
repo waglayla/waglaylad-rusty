@@ -6,8 +6,8 @@ use workflow_core::channel::ChannelError;
 #[cfg(not(target_family = "wasm"))]
 use pyo3::{exceptions::PyException, PyErr};
 
-use kaspa_consensus_core::{subnets::SubnetworkConversionError, tx::TransactionId};
-use kaspa_utils::networking::IpAddress;
+use waglayla_consensus_core::{subnets::SubnetworkConversionError, tx::TransactionId};
+use waglayla_utils::networking::IpAddress;
 
 use crate::{api::ctl::RpcState, RpcHash, RpcTransactionId, SubmitBlockRejectReason};
 
@@ -86,25 +86,25 @@ pub enum RpcError {
     SubmitBlockError(SubmitBlockRejectReason),
 
     #[error(transparent)]
-    AddressError(#[from] kaspa_addresses::AddressError),
+    AddressError(#[from] waglayla_addresses::AddressError),
 
     #[error(transparent)]
-    NetworkTypeError(#[from] kaspa_consensus_core::network::NetworkTypeError),
+    NetworkTypeError(#[from] waglayla_consensus_core::network::NetworkTypeError),
 
     #[error(transparent)]
-    NetworkIdError(#[from] kaspa_consensus_core::network::NetworkIdError),
+    NetworkIdError(#[from] waglayla_consensus_core::network::NetworkIdError),
 
     #[error(transparent)]
-    NotificationError(#[from] kaspa_notify::error::Error),
+    NotificationError(#[from] waglayla_notify::error::Error),
 
     #[error(transparent)]
-    MiningManagerError(#[from] kaspa_mining_errors::manager::MiningManagerError),
+    MiningManagerError(#[from] waglayla_mining_errors::manager::MiningManagerError),
 
     #[error(transparent)]
-    ConsensusError(#[from] kaspa_consensus_core::errors::consensus::ConsensusError),
+    ConsensusError(#[from] waglayla_consensus_core::errors::consensus::ConsensusError),
 
     #[error(transparent)]
-    ScriptClassError(#[from] kaspa_txscript::script_class::Error),
+    ScriptClassError(#[from] waglayla_txscript::script_class::Error),
 
     #[error(transparent)]
     NodeIdError(#[from] uuid::Error),
@@ -131,7 +131,7 @@ pub enum RpcError {
     SerdeWasmBindgen(String),
 
     #[error(transparent)]
-    ConsensusClient(#[from] kaspa_consensus_client::error::Error),
+    ConsensusClient(#[from] waglayla_consensus_client::error::Error),
 }
 
 #[cfg(not(target_family = "wasm"))]

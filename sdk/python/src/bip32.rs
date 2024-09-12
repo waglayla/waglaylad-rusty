@@ -1,10 +1,10 @@
 use pyo3::prelude::*;
 
-use kaspa_addresses::{Address, Prefix, Version};
-use kaspa_bip32::{Language, Mnemonic, WordCount};
-use kaspa_wallet_core::account::BIP32_ACCOUNT_KIND;
-use kaspa_wallet_core::prelude::{EncryptionKind, Secret};
-use kaspa_wallet_core::storage::PrvKeyData;
+use waglayla_addresses::{Address, Prefix, Version};
+use waglayla_bip32::{Language, Mnemonic, WordCount};
+use waglayla_wallet_core::account::BIP32_ACCOUNT_KIND;
+use waglayla_wallet_core::prelude::{EncryptionKind, Secret};
+use waglayla_wallet_core::storage::PrvKeyData;
 
 #[pyclass]
 pub struct Bip32 {

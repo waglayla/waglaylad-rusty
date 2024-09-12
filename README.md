@@ -1,7 +1,7 @@
 
-#### Pyrin Node
+#### Waglayla Node
 
-Pyrin node built on rust, based on [rusty-kaspa](https://github.com/kaspanet/rusty-kaspa)
+Waglayla node built on rust, based on [rusty-waglayla](https://github.com/waglaylanet/rusty-waglayla)
 
 ## Installation
   <details>
@@ -42,7 +42,7 @@ Pyrin node built on rust, based on [rusty-kaspa](https://github.com/kaspanet/rus
       ```      
   5. Clone the repo
       ```bash
-      git clone https://github.com/Pyrinpyi/pyrin
+      git clone https://github.com/Waglaylapyi/pyrin
       cd pyrin
       ```
   </details>
@@ -79,7 +79,7 @@ Pyrin node built on rust, based on [rusty-kaspa](https://github.com/kaspanet/rus
       ```      
   7. Clone the repo
       ```bash
-      git clone https://github.com/Pyrinpyi/pyrin
+      git clone https://github.com/Waglaylapyi/pyrin
       cd pyrin
       ```
  </details>      
@@ -139,7 +139,7 @@ To build WASM on MacOS you need to install `llvm` from homebrew (at the time of 
       ```      
   5. Clone the repo
       ```bash
-      git clone https://github.com/Pyrinpyi/pyrin
+      git clone https://github.com/Waglaylapyi/pyrin
       cd pyrin
       ```
 
@@ -168,16 +168,16 @@ To build WASM on MacOS you need to install `llvm` from homebrew (at the time of 
 
 ### Builds & documentation
 
-  - Release builds: https://github.com/Pyrinpyi/pyrin/releases
+  - Release builds: https://github.com/Waglaylapyi/pyrin/releases
 
   </details>
 <details>
 
 <summary>
-Pyrin CLI + Wallet
+Waglayla CLI + Wallet
 </summary>
 `pyrin-cli` crate provides cli-driven RPC interface to the node and a
-terminal interface to the Pyrin Wallet runtime. These wallets are
+terminal interface to the Waglayla Wallet runtime. These wallets are
 compatible with WASM SDK Wallet API.
 
 
@@ -278,7 +278,7 @@ wRPC
 
   **Sidenote:**
 
-  Pyrin integrates an optional wRPC
+  Waglayla integrates an optional wRPC
   subsystem. wRPC is a high-performance, platform-neutral, Rust-centric, WebSocket-framed RPC 
   implementation that can use [Borsh](https://borsh.io/) and JSON protocol encoding.
 
@@ -290,10 +290,10 @@ wRPC
   both client and server should be built from the same codebase.  
 
   JSON protocol is based on 
-  Pyrin data structures and is data-structure-version agnostic. You can connect to the
+  Waglayla data structures and is data-structure-version agnostic. You can connect to the
   JSON endpoint using any WebSocket library. Built-in RPC clients for JavaScript and
   TypeScript capable of running in web browsers and Node.js are available as a part of
-  the Pyrin WASM framework.
+  the Waglayla WASM framework.
 
   **wRPC to gRPC Proxy is deprecated and no longer supported.**
 
@@ -309,17 +309,17 @@ Mining
 
 Mining is currently supported only on testnet, so once you've setup a test node, follow these instructions.
 
-1. Download and unzip the latest binaries bundle of [Pyrinpyi/pyrin](https://github.com/Pyrinpyi/pyrin/releases).
+1. Download and unzip the latest binaries bundle of [Waglaylapyi/pyrin](https://github.com/Waglaylapyi/pyrin/releases).
 
-2. In a separate terminal run the Pyrinpyi/pyrin miner:
+2. In a separate terminal run the Waglaylapyi/pyrin miner:
 
     ```
-    kaspaminer --testnet --miningaddr kaspatest:qrcqat6l9zcjsu7swnaztqzrv0s7hu04skpaezxk43y4etj8ncwfk308jlcew
+    waglaylaminer --testnet --miningaddr waglaylatest:qrcqat6l9zcjsu7swnaztqzrv0s7hu04skpaezxk43y4etj8ncwfk308jlcew
     ```
 
     This will create and feed a DAG with the miner getting block templates from the node and submitting them back when mined. The node processes and stores the blocks while applying all currently implemented logic. Execution can be stopped and resumed, the data is persisted in a database.
 
-    You can replace the above mining address with your own address by creating one as described [here](https://github.com/kaspanet/docs/blob/main/Getting%20Started/Full%20Node%20Installation.md#creating-a-wallet-optional). 
+    You can replace the above mining address with your own address by creating one as described [here](https://github.com/waglaylanet/docs/blob/main/Getting%20Started/Full%20Node%20Installation.md#creating-a-wallet-optional). 
 
 </details>
 
@@ -414,7 +414,7 @@ Logging in `pyrin` and `simpa` can be [filtered](https://docs.rs/env_logger/0.10
 2. Adding the --loglevel argument like in the following example:
 
     ```
-    (cargo run --bin pyrin -- --loglevel info,kaspa_rpc_core=trace,kaspa_grpc_core=trace,consensus=trace,kaspa_core=trace) 2>&1 | tee ~/pyrin.log
+    (cargo run --bin pyrin -- --loglevel info,waglayla_rpc_core=trace,waglayla_grpc_core=trace,consensus=trace,waglayla_core=trace) 2>&1 | tee ~/pyrin.log
     ```
     In this command we set the `loglevel` to `INFO`.
 

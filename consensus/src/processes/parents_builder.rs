@@ -1,7 +1,7 @@
 use indexmap::IndexSet;
 use itertools::Itertools;
-use kaspa_consensus_core::{blockhash::ORIGIN, header::Header, BlockHashMap, BlockHasher, BlockLevel};
-use kaspa_hashes::Hash;
+use waglayla_consensus_core::{blockhash::ORIGIN, header::Header, BlockHashMap, BlockHasher, BlockLevel};
+use waglayla_hashes::Hash;
 use smallvec::{smallvec, SmallVec};
 use std::sync::Arc;
 
@@ -199,13 +199,13 @@ mod tests {
 
     use super::ParentsManager;
     use itertools::Itertools;
-    use kaspa_consensus_core::{
+    use waglayla_consensus_core::{
         blockhash::{BlockHashes, ORIGIN},
         header::Header,
         BlockHashSet, HashMapCustomHasher,
     };
-    use kaspa_database::prelude::{ReadLock, StoreError, StoreResult};
-    use kaspa_hashes::Hash;
+    use waglayla_database::prelude::{ReadLock, StoreError, StoreResult};
+    use waglayla_hashes::Hash;
     use parking_lot::RwLock;
 
     struct HeaderStoreMock {
@@ -220,34 +220,34 @@ mod tests {
 
     #[allow(unused_variables)]
     impl HeaderStoreReader for HeaderStoreMock {
-        fn get_daa_score(&self, hash: kaspa_hashes::Hash) -> Result<u64, StoreError> {
+        fn get_daa_score(&self, hash: waglayla_hashes::Hash) -> Result<u64, StoreError> {
             unimplemented!()
         }
 
-        fn get_timestamp(&self, hash: kaspa_hashes::Hash) -> Result<u64, StoreError> {
+        fn get_timestamp(&self, hash: waglayla_hashes::Hash) -> Result<u64, StoreError> {
             unimplemented!()
         }
 
-        fn get_bits(&self, hash: kaspa_hashes::Hash) -> Result<u32, StoreError> {
+        fn get_bits(&self, hash: waglayla_hashes::Hash) -> Result<u32, StoreError> {
             unimplemented!()
         }
 
-        fn get_header(&self, hash: kaspa_hashes::Hash) -> Result<Arc<Header>, StoreError> {
+        fn get_header(&self, hash: waglayla_hashes::Hash) -> Result<Arc<Header>, StoreError> {
             Ok(self.map.read().get(&hash).unwrap().header.clone())
         }
 
         fn get_compact_header_data(
             &self,
-            hash: kaspa_hashes::Hash,
+            hash: waglayla_hashes::Hash,
         ) -> Result<crate::model::stores::headers::CompactHeaderData, StoreError> {
             unimplemented!()
         }
 
-        fn get_blue_score(&self, hash: kaspa_hashes::Hash) -> Result<u64, StoreError> {
+        fn get_blue_score(&self, hash: waglayla_hashes::Hash) -> Result<u64, StoreError> {
             unimplemented!()
         }
 
-        fn get_header_with_block_level(&self, hash: kaspa_hashes::Hash) -> Result<HeaderWithBlockLevel, StoreError> {
+        fn get_header_with_block_level(&self, hash: waglayla_hashes::Hash) -> Result<HeaderWithBlockLevel, StoreError> {
             Ok(self.map.read().get(&hash).unwrap().clone())
         }
     }
@@ -258,7 +258,7 @@ mod tests {
 
     #[allow(unused_variables)]
     impl RelationsStoreReader for RelationsStoreMock {
-        fn get_parents(&self, hash: Hash) -> Result<kaspa_consensus_core::blockhash::BlockHashes, StoreError> {
+        fn get_parents(&self, hash: Hash) -> Result<waglayla_consensus_core::blockhash::BlockHashes, StoreError> {
             unimplemented!()
         }
 

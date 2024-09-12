@@ -1,6 +1,6 @@
 [package]
-name = "kaspa-grpc-server"
-description = "Kaspa gRPC server"
+name = "waglayla-grpc-server"
+description = "Waglayla gRPC server"
 rust-version.workspace = true
 version.workspace = true
 edition.workspace = true
@@ -10,15 +10,15 @@ license.workspace = true
 repository.workspace = true
 
 [dependencies]
-kaspa-consensus-core.workspace = true
-kaspa-core.workspace = true
-kaspa-grpc-core.workspace = true
-kaspa-notify.workspace = true
-kaspa-rpc-core.workspace = true
-kaspa-rpc-macros.workspace = true
-kaspa-rpc-service.workspace = true
-kaspa-utils-tower.workspace = true
-kaspa-utils.workspace = true
+waglayla-consensus-core.workspace = true
+waglayla-core.workspace = true
+waglayla-grpc-core.workspace = true
+waglayla-notify.workspace = true
+waglayla-rpc-core.workspace = true
+waglayla-rpc-macros.workspace = true
+waglayla-rpc-service.workspace = true
+waglayla-utils-tower.workspace = true
+waglayla-utils.workspace = true
 
 async-channel.workspace = true
 async-stream.workspace = true
@@ -41,4 +41,4 @@ triggered.workspace = true
 uuid.workspace = true
 
 [dev-dependencies]
-kaspa-grpc-client.workspace = true
+waglayla-grpc-client.workspace = true

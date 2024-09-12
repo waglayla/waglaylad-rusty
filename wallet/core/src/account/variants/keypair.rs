@@ -4,10 +4,10 @@
 
 use crate::account::Inner;
 use crate::imports::*;
-use kaspa_addresses::Version;
+use waglayla_addresses::Version;
 use secp256k1::PublicKey;
 
-pub const KEYPAIR_ACCOUNT_KIND: &str = "kaspa-keypair-standard";
+pub const KEYPAIR_ACCOUNT_KIND: &str = "waglayla-keypair-standard";
 
 pub struct Ctor {}
 

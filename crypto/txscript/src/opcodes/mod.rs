@@ -9,8 +9,8 @@ use crate::{
     SEQUENCE_LOCK_TIME_DISABLED, SEQUENCE_LOCK_TIME_MASK,
 };
 use core::cmp::{max, min};
-use kaspa_consensus_core::hashing::sighash_type::SigHashType;
-use kaspa_consensus_core::tx::VerifiableTransaction;
+use waglayla_consensus_core::hashing::sighash_type::SigHashType;
+use waglayla_consensus_core::tx::VerifiableTransaction;
 use sha2::{Digest, Sha256};
 use std::fmt::{Debug, Formatter};
 
@@ -351,7 +351,7 @@ opcode_list! {
         let mut cond = OpCond::Skip;
         if vm.is_executing() {
             // This code seems identical to pop_bool, but was written this way to preserve
-            // the similar flow of go-kaspad
+            // the similar flow of go-waglaylad
             if let Some(mut cond_buf) = vm.dstack.pop() {
                 if cond_buf.len() > 1 {
                     return Err(TxScriptError::InvalidState("expected boolean".to_string()));
@@ -976,11 +976,11 @@ mod test {
     use crate::data_stack::Stack;
     use crate::opcodes::{OpCodeExecution, OpCodeImplementation};
     use crate::{opcodes, pay_to_address_script, TxScriptEngine, TxScriptError, LOCK_TIME_THRESHOLD};
-    use kaspa_addresses::{Address, Prefix, Version};
-    use kaspa_consensus_core::constants::{LEOR_PER_PYRIN, TX_VERSION};
-    use kaspa_consensus_core::hashing::sighash::SigHashReusedValues;
-    use kaspa_consensus_core::subnets::SUBNETWORK_ID_NATIVE;
-    use kaspa_consensus_core::tx::{
+    use waglayla_addresses::{Address, Prefix, Version};
+    use waglayla_consensus_core::constants::{LEOR_PER_PYRIN, TX_VERSION};
+    use waglayla_consensus_core::hashing::sighash::SigHashReusedValues;
+    use waglayla_consensus_core::subnets::SUBNETWORK_ID_NATIVE;
+    use waglayla_consensus_core::tx::{
         PopulatedTransaction, ScriptPublicKey, Transaction, TransactionInput, TransactionOutpoint, TransactionOutput, UtxoEntry,
         VerifiableTransaction,
     };
@@ -2713,7 +2713,7 @@ mod test {
     }
 
     fn make_mock_transaction(lock_time: u64) -> (VerifiableTransactionMock, TransactionInput, UtxoEntry) {
-        let dummy_prev_out = TransactionOutpoint::new(kaspa_hashes::Hash::from_u64_word(1), 1);
+        let dummy_prev_out = TransactionOutpoint::new(waglayla_hashes::Hash::from_u64_word(1), 1);
         let dummy_sig_script = vec![0u8; 65];
         let dummy_tx_input = TransactionInput::new(dummy_prev_out, dummy_sig_script, 10, 1);
         let addr_hash = vec![1u8; 32];

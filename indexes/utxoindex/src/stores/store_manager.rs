@@ -1,12 +1,12 @@
 use std::{collections::HashSet, sync::Arc};
 
-use kaspa_consensus_core::{
+use waglayla_consensus_core::{
     tx::{ScriptPublicKeys, TransactionOutpoint},
     BlockHashSet,
 };
-use kaspa_core::trace;
-use kaspa_database::prelude::{CachePolicy, StoreResult, DB};
-use kaspa_index_core::indexed_utxos::BalanceByScriptPublicKey;
+use waglayla_core::trace;
+use waglayla_database::prelude::{CachePolicy, StoreResult, DB};
+use waglayla_index_core::indexed_utxos::BalanceByScriptPublicKey;
 
 use crate::{
     model::UtxoSetByScriptPublicKey,

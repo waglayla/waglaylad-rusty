@@ -1,16 +1,16 @@
-use kaspa_grpc_core::protowire::{kaspad_request, kaspad_response, KaspadRequest, KaspadResponse};
+use waglayla_grpc_core::protowire::{waglaylad_request, waglaylad_response, WaglayladRequest, WaglayladResponse};
 
 pub(crate) trait Matcher<T> {
     fn is_matching(&self, response: T) -> bool;
 }
 
-impl Matcher<&kaspad_response::Payload> for kaspad_request::Payload {
-    fn is_matching(&self, response: &kaspad_response::Payload) -> bool {
-        use kaspad_request::Payload;
+impl Matcher<&waglaylad_response::Payload> for waglaylad_request::Payload {
+    fn is_matching(&self, response: &waglaylad_response::Payload) -> bool {
+        use waglaylad_request::Payload;
         match self {
             // TODO: implement for each payload variant supporting request/response pairing
             Payload::GetBlockRequest(ref request) => {
-                if let kaspad_response::Payload::GetBlockResponse(ref response) = response {
+                if let waglaylad_response::Payload::GetBlockResponse(ref response) = response {
                     if let Some(block) = response.block.as_ref() {
                         if let Some(verbose_data) = block.verbose_data.as_ref() {
                             return verbose_data.hash == request.hash;
@@ -29,8 +29,8 @@ impl Matcher<&kaspad_response::Payload> for kaspad_request::Payload {
     }
 }
 
-impl Matcher<&KaspadResponse> for KaspadRequest {
-    fn is_matching(&self, response: &KaspadResponse) -> bool {
+impl Matcher<&WaglayladResponse> for WaglayladRequest {
+    fn is_matching(&self, response: &WaglayladResponse) -> bool {
         if let Some(ref response) = response.payload {
             if let Some(ref request) = self.payload {
                 return request.is_matching(response);

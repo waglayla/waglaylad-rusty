@@ -1,4 +1,4 @@
-use kaspa_consensus_core::{api::BlockValidationFuture, block::Block};
+use waglayla_consensus_core::{api::BlockValidationFuture, block::Block};
 use std::fmt::Debug;
 
 pub struct BlockProcessingBatch {

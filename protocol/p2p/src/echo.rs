@@ -1,11 +1,11 @@
 use crate::{
     common::ProtocolError,
     core::adaptor::ConnectionInitializer,
-    handshake::KaspadHandshake,
+    handshake::WaglayladHandshake,
     pb::{self, VersionMessage},
-    IncomingRoute, KaspadMessagePayloadType, Router,
+    IncomingRoute, WaglayladMessagePayloadType, Router,
 };
-use kaspa_core::{debug, time::unix_now, trace, warn};
+use waglayla_core::{debug, time::unix_now, trace, warn};
 use std::sync::Arc;
 use tonic::async_trait;
 use uuid::Uuid;
@@ -21,49 +21,49 @@ impl EchoFlow {
         // Subscribe to messages
         trace!("EchoFlow, subscribe to all p2p messages");
         let receiver = router.subscribe(vec![
-            KaspadMessagePayloadType::Addresses,
-            KaspadMessagePayloadType::Block,
-            KaspadMessagePayloadType::Transaction,
-            KaspadMessagePayloadType::BlockLocator,
-            KaspadMessagePayloadType::RequestAddresses,
-            KaspadMessagePayloadType::RequestRelayBlocks,
-            KaspadMessagePayloadType::RequestTransactions,
-            KaspadMessagePayloadType::IbdBlock,
-            KaspadMessagePayloadType::InvRelayBlock,
-            KaspadMessagePayloadType::InvTransactions,
-            KaspadMessagePayloadType::Ping,
-            KaspadMessagePayloadType::Pong,
-            // KaspadMessagePayloadType::Verack,
-            // KaspadMessagePayloadType::Version,
-            // KaspadMessagePayloadType::Ready,
-            KaspadMessagePayloadType::TransactionNotFound,
-            KaspadMessagePayloadType::Reject,
-            KaspadMessagePayloadType::PruningPointUtxoSetChunk,
-            KaspadMessagePayloadType::RequestIbdBlocks,
-            KaspadMessagePayloadType::UnexpectedPruningPoint,
-            KaspadMessagePayloadType::IbdBlockLocator,
-            KaspadMessagePayloadType::IbdBlockLocatorHighestHash,
-            KaspadMessagePayloadType::RequestNextPruningPointUtxoSetChunk,
-            KaspadMessagePayloadType::DonePruningPointUtxoSetChunks,
-            KaspadMessagePayloadType::IbdBlockLocatorHighestHashNotFound,
-            KaspadMessagePayloadType::BlockWithTrustedData,
-            KaspadMessagePayloadType::DoneBlocksWithTrustedData,
-            KaspadMessagePayloadType::RequestPruningPointAndItsAnticone,
-            KaspadMessagePayloadType::BlockHeaders,
-            KaspadMessagePayloadType::RequestNextHeaders,
-            KaspadMessagePayloadType::DoneHeaders,
-            KaspadMessagePayloadType::RequestPruningPointUtxoSet,
-            KaspadMessagePayloadType::RequestHeaders,
-            KaspadMessagePayloadType::RequestBlockLocator,
-            KaspadMessagePayloadType::PruningPoints,
-            KaspadMessagePayloadType::RequestPruningPointProof,
-            KaspadMessagePayloadType::PruningPointProof,
-            KaspadMessagePayloadType::BlockWithTrustedDataV4,
-            KaspadMessagePayloadType::TrustedData,
-            KaspadMessagePayloadType::RequestIbdChainBlockLocator,
-            KaspadMessagePayloadType::IbdChainBlockLocator,
-            KaspadMessagePayloadType::RequestAntipast,
-            KaspadMessagePayloadType::RequestNextPruningPointAndItsAnticoneBlocks,
+            WaglayladMessagePayloadType::Addresses,
+            WaglayladMessagePayloadType::Block,
+            WaglayladMessagePayloadType::Transaction,
+            WaglayladMessagePayloadType::BlockLocator,
+            WaglayladMessagePayloadType::RequestAddresses,
+            WaglayladMessagePayloadType::RequestRelayBlocks,
+            WaglayladMessagePayloadType::RequestTransactions,
+            WaglayladMessagePayloadType::IbdBlock,
+            WaglayladMessagePayloadType::InvRelayBlock,
+            WaglayladMessagePayloadType::InvTransactions,
+            WaglayladMessagePayloadType::Ping,
+            WaglayladMessagePayloadType::Pong,
+            // WaglayladMessagePayloadType::Verack,
+            // WaglayladMessagePayloadType::Version,
+            // WaglayladMessagePayloadType::Ready,
+            WaglayladMessagePayloadType::TransactionNotFound,
+            WaglayladMessagePayloadType::Reject,
+            WaglayladMessagePayloadType::PruningPointUtxoSetChunk,
+            WaglayladMessagePayloadType::RequestIbdBlocks,
+            WaglayladMessagePayloadType::UnexpectedPruningPoint,
+            WaglayladMessagePayloadType::IbdBlockLocator,
+            WaglayladMessagePayloadType::IbdBlockLocatorHighestHash,
+            WaglayladMessagePayloadType::RequestNextPruningPointUtxoSetChunk,
+            WaglayladMessagePayloadType::DonePruningPointUtxoSetChunks,
+            WaglayladMessagePayloadType::IbdBlockLocatorHighestHashNotFound,
+            WaglayladMessagePayloadType::BlockWithTrustedData,
+            WaglayladMessagePayloadType::DoneBlocksWithTrustedData,
+            WaglayladMessagePayloadType::RequestPruningPointAndItsAnticone,
+            WaglayladMessagePayloadType::BlockHeaders,
+            WaglayladMessagePayloadType::RequestNextHeaders,
+            WaglayladMessagePayloadType::DoneHeaders,
+            WaglayladMessagePayloadType::RequestPruningPointUtxoSet,
+            WaglayladMessagePayloadType::RequestHeaders,
+            WaglayladMessagePayloadType::RequestBlockLocator,
+            WaglayladMessagePayloadType::PruningPoints,
+            WaglayladMessagePayloadType::RequestPruningPointProof,
+            WaglayladMessagePayloadType::PruningPointProof,
+            WaglayladMessagePayloadType::BlockWithTrustedDataV4,
+            WaglayladMessagePayloadType::TrustedData,
+            WaglayladMessagePayloadType::RequestIbdChainBlockLocator,
+            WaglayladMessagePayloadType::IbdChainBlockLocator,
+            WaglayladMessagePayloadType::RequestAntipast,
+            WaglayladMessagePayloadType::RequestNextPruningPointAndItsAnticoneBlocks,
         ]);
         let mut echo_flow = EchoFlow { router, receiver };
         debug!("EchoFlow, start app-layer receiving loop");
@@ -79,7 +79,7 @@ impl EchoFlow {
         });
     }
 
-    async fn call(&self, msg: pb::KaspadMessage) -> bool {
+    async fn call(&self, msg: pb::WaglayladMessage) -> bool {
         // echo
         trace!("EchoFlow, got message:{:?}", msg);
         self.router.enqueue(msg).await.is_ok()
@@ -114,11 +114,11 @@ impl EchoFlowInitializer {
 impl ConnectionInitializer for EchoFlowInitializer {
     async fn initialize_connection(&self, router: Arc<Router>) -> Result<(), ProtocolError> {
         //
-        // Example code to illustrate kaspa P2P handshaking
+        // Example code to illustrate waglayla P2P handshaking
         //
 
         // Build the handshake object and subscribe to handshake messages
-        let mut handshake = KaspadHandshake::new(&router);
+        let mut handshake = WaglayladHandshake::new(&router);
 
         // We start the router receive loop only after we registered to handshake routes
         router.start();
@@ -149,12 +149,12 @@ mod tests {
 
     use super::*;
     use crate::{Adaptor, Hub};
-    use kaspa_core::debug;
-    use kaspa_utils::networking::NetAddress;
+    use waglayla_core::debug;
+    use waglayla_utils::networking::NetAddress;
 
     #[tokio::test]
     async fn test_handshake() {
-        kaspa_core::log::try_init_logger("debug");
+        waglayla_core::log::try_init_logger("debug");
 
         let address1 = NetAddress::from_str("[::1]:50053").unwrap();
         let adaptor1 = Adaptor::bidirectional(address1, Hub::new(), Arc::new(EchoFlowInitializer::new()), Default::default()).unwrap();

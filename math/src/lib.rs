@@ -1,7 +1,7 @@
 use borsh::{BorshDeserialize, BorshSerialize};
 use wasm_bindgen::JsValue;
 use workflow_core::sendable::Sendable;
-use kaspa_utils::hex::ToHex;
+use waglayla_utils::hex::ToHex;
 
 #[cfg(not(target_family = "wasm"))]
 use pyo3::{IntoPy, Py, PyAny, Python};
@@ -153,7 +153,7 @@ impl TryFrom<Uint256> for Uint192 {
 
 #[cfg(test)]
 mod tests {
-    use kaspa_utils::hex::ToHex;
+    use waglayla_utils::hex::ToHex;
     use crate::{Uint192, Uint256, Uint3072};
 
     #[test]

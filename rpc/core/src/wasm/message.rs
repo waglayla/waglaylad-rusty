@@ -3,11 +3,11 @@
 use crate::error::RpcError as Error;
 use crate::error::RpcResult as Result;
 use crate::model::*;
-use kaspa_addresses::Address;
-use kaspa_addresses::AddressOrStringArrayT;
-use kaspa_consensus_client::Transaction;
-use kaspa_consensus_client::UtxoEntryReference;
-use kaspa_rpc_macros::declare_typescript_wasm_interface as declare;
+use waglayla_addresses::Address;
+use waglayla_addresses::AddressOrStringArrayT;
+use waglayla_consensus_client::Transaction;
+use waglayla_consensus_client::UtxoEntryReference;
+use waglayla_rpc_macros::declare_typescript_wasm_interface as declare;
 pub use serde_wasm_bindgen::from_value;
 use wasm_bindgen::prelude::*;
 use workflow_wasm::convert::*;

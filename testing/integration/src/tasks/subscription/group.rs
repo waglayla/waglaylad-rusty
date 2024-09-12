@@ -10,9 +10,9 @@ use crate::{
 };
 use async_trait::async_trait;
 use itertools::{chain, Itertools};
-use kaspa_addresses::Address;
-use kaspa_notify::scope::Scope;
-use kaspa_utils::triggers::SingleTrigger;
+use waglayla_addresses::Address;
+use waglayla_notify::scope::Scope;
+use waglayla_utils::triggers::SingleTrigger;
 use std::sync::Arc;
 use tokio::task::JoinHandle;
 

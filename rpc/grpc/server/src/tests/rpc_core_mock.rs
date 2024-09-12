@@ -1,13 +1,13 @@
 use async_channel::{unbounded, Receiver};
 use async_trait::async_trait;
-use kaspa_notify::events::EVENT_TYPE_ARRAY;
-use kaspa_notify::listener::{ListenerId, ListenerLifespan};
-use kaspa_notify::notifier::{Notifier, Notify};
-use kaspa_notify::scope::Scope;
-use kaspa_notify::subscription::context::SubscriptionContext;
-use kaspa_notify::subscription::{MutationPolicies, UtxosChangedMutationPolicy};
-use kaspa_rpc_core::{api::rpc::RpcApi, *};
-use kaspa_rpc_core::{notify::connection::ChannelConnection, RpcResult};
+use waglayla_notify::events::EVENT_TYPE_ARRAY;
+use waglayla_notify::listener::{ListenerId, ListenerLifespan};
+use waglayla_notify::notifier::{Notifier, Notify};
+use waglayla_notify::scope::Scope;
+use waglayla_notify::subscription::context::SubscriptionContext;
+use waglayla_notify::subscription::{MutationPolicies, UtxosChangedMutationPolicy};
+use waglayla_rpc_core::{api::rpc::RpcApi, *};
+use waglayla_rpc_core::{notify::connection::ChannelConnection, RpcResult};
 use std::sync::Arc;
 
 pub(super) type RpcCoreNotifier = Notifier<Notification, ChannelConnection>;
@@ -44,7 +44,7 @@ impl RpcCoreMock {
     }
 
     #[allow(dead_code)]
-    pub(super) fn notify_new_block_template(&self) -> kaspa_notify::error::Result<()> {
+    pub(super) fn notify_new_block_template(&self) -> waglayla_notify::error::Result<()> {
         let notification = Notification::NewBlockTemplate(NewBlockTemplateNotification {});
         self.core_notifier.notify(notification)
     }

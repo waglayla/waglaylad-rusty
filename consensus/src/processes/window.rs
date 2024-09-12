@@ -7,15 +7,15 @@ use crate::{
     },
     processes::ghostdag::ordering::SortableBlock,
 };
-use kaspa_consensus_core::{
+use waglayla_consensus_core::{
     blockhash::BlockHashExtensions,
     config::genesis::GenesisBlock,
     errors::{block::RuleError, difficulty::DifficultyResult},
     BlockHashSet, BlueWorkType,
 };
-use kaspa_hashes::Hash;
-use kaspa_math::Uint256;
-use kaspa_utils::refs::Refs;
+use waglayla_hashes::Hash;
+use waglayla_math::Uint256;
+use waglayla_utils::refs::Refs;
 use once_cell::unsync::Lazy;
 use std::{cmp::Reverse, iter::once, ops::Deref, sync::Arc};
 
@@ -239,7 +239,7 @@ enum SampledBlock {
     NonDaa(Hash),
 }
 
-/// A sampled window manager implementing [KIP-0004](https://github.com/kaspanet/kips/blob/master/kip-0004.md)
+/// A sampled window manager implementing [KIP-0004](https://github.com/waglaylanet/kips/blob/master/kip-0004.md)
 #[derive(Clone)]
 pub struct SampledWindowManager<T: GhostdagStoreReader, U: BlockWindowCacheReader, V: HeaderStoreReader, W: DaaStoreReader> {
     genesis_hash: Hash,

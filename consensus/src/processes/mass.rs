@@ -1,4 +1,4 @@
-use kaspa_consensus_core::{
+use waglayla_consensus_core::{
     mass::transaction_estimated_serialized_size,
     tx::{Transaction, VerifiableTransaction},
 };
@@ -138,7 +138,7 @@ impl MassCalculator {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use kaspa_consensus_core::{
+    use waglayla_consensus_core::{
         constants::{LEOR_PER_PYRIN, STORAGE_MASS_PARAMETER},
         subnets::SubnetworkId,
         tx::*,

@@ -11,7 +11,7 @@ use js_sys::Array;
 use serde_wasm_bindgen::from_value;
 use workflow_wasm::serde::to_value;
 
-use kaspa_wallet_macros::declare_typescript_wasm_interface as declare;
+use waglayla_wallet_macros::declare_typescript_wasm_interface as declare;
 
 macro_rules! try_from {
     ($name:ident : $from_type:ty, $to_type:ty, $body:block) => {
@@ -28,7 +28,7 @@ macro_rules! try_from {
 const TS_CATEGORY_WALLET: &'static str = r#"
 /**
  * @categoryDescription Wallet API
- * Wallet API for interfacing with Rusty Kaspa Wallet implementation.
+ * Wallet API for interfacing with Rusty Waglayla Wallet implementation.
  */
 "#;
 
@@ -369,7 +369,7 @@ declare! {
      * 
      * If filename is not supplied, the filename will be derived from the wallet title.
      * If both wallet title and filename are not supplied, the wallet will be create
-     * with the default filename `kaspa`.
+     * with the default filename `waglayla`.
      * 
      * @category Wallet API
      */

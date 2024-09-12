@@ -4,47 +4,47 @@ use std::io::{Cursor, Read};
 use async_channel::unbounded;
 use serde::{Deserialize, Serialize};
 
-use kaspa_addressmanager::AddressManager;
-use kaspa_consensus::{consensus::factory::Factory as ConsensusFactory, pipeline::ProcessingCounters};
-use kaspa_consensus::{
+use waglayla_addressmanager::AddressManager;
+use waglayla_consensus::{consensus::factory::Factory as ConsensusFactory, pipeline::ProcessingCounters};
+use waglayla_consensus::{
     consensus::factory::MultiConsensusManagementStore, model::stores::headers::DbHeadersStore, pipeline::monitor::ConsensusMonitor,
 };
-use kaspa_consensus_core::{
+use waglayla_consensus_core::{
     config::ConfigBuilder,
     errors::config::{ConfigError, ConfigResult},
 };
-use kaspa_consensus_core::config::Config;
-use kaspa_consensus_core::utxo::utxo_collection::UtxoCollection;
-use kaspa_consensus_notify::{root::ConsensusNotificationRoot, service::NotifyService};
-use kaspa_consensusmanager::ConsensusManager;
-use kaspa_core::{core::Core, error, info, trace};
-use kaspa_core::{kaspad_env::version, task::tick::TickService};
-use kaspa_core::task::runtime::AsyncRuntime;
-use kaspa_database::prelude::CachePolicy;
-use kaspa_grpc_server::service::GrpcService;
-use kaspa_index_processor::service::IndexService;
-use kaspa_mining::{
+use waglayla_consensus_core::config::Config;
+use waglayla_consensus_core::utxo::utxo_collection::UtxoCollection;
+use waglayla_consensus_notify::{root::ConsensusNotificationRoot, service::NotifyService};
+use waglayla_consensusmanager::ConsensusManager;
+use waglayla_core::{core::Core, error, info, trace};
+use waglayla_core::{waglaylad_env::version, task::tick::TickService};
+use waglayla_core::task::runtime::AsyncRuntime;
+use waglayla_database::prelude::CachePolicy;
+use waglayla_grpc_server::service::GrpcService;
+use waglayla_index_processor::service::IndexService;
+use waglayla_mining::{
     manager::{MiningManager, MiningManagerProxy},
     MiningCounters,
     monitor::MiningMonitor,
 };
-use kaspa_notify::{address::tracker::Tracker, subscription::context::SubscriptionContext};
-use kaspa_p2p_flows::{flow_context::FlowContext, service::P2pService};
-use kaspa_perf_monitor::{builder::Builder as PerfMonitorBuilder, counters::CountersSnapshot};
-use kaspa_rpc_service::service::RpcCoreService;
-use kaspa_txscript::caches::TxScriptCacheCounters;
-use kaspa_utils::networking::ContextualNetAddress;
-use kaspa_utils_tower::counters::TowerConnectionCounters;
-use kaspa_utxoindex::{api::UtxoIndexProxy, UtxoIndex};
-use kaspa_wrpc_server::service::{Options as WrpcServerOptions, WebSocketCounters as WrpcServerCounters, WrpcEncoding, WrpcService};
+use waglayla_notify::{address::tracker::Tracker, subscription::context::SubscriptionContext};
+use waglayla_p2p_flows::{flow_context::FlowContext, service::P2pService};
+use waglayla_perf_monitor::{builder::Builder as PerfMonitorBuilder, counters::CountersSnapshot};
+use waglayla_rpc_service::service::RpcCoreService;
+use waglayla_txscript::caches::TxScriptCacheCounters;
+use waglayla_utils::networking::ContextualNetAddress;
+use waglayla_utils_tower::counters::TowerConnectionCounters;
+use waglayla_utxoindex::{api::UtxoIndexProxy, UtxoIndex};
+use waglayla_wrpc_server::service::{Options as WrpcServerOptions, WebSocketCounters as WrpcServerCounters, WrpcEncoding, WrpcService};
 
 use crate::args::Args;
 
 /// Desired soft FD limit that needs to be configured
-/// for the kaspad process.
+/// for the waglaylad process.
 pub const DESIRED_DAEMON_SOFT_FD_LIMIT: u64 = 8 * 1024;
-/// Minimum acceptable soft FD limit for the kaspad
-/// process. (Rusty Kaspa will operate with the minimal
+/// Minimum acceptable soft FD limit for the waglaylad
+/// process. (Rusty Waglayla will operate with the minimal
 /// acceptable limit of `4096`, but a setting below
 /// this value may impact the database performance).
 pub const MINIMUM_DAEMON_SOFT_FD_LIMIT: u64 = 4 * 1024;
@@ -133,7 +133,7 @@ pub struct Runtime {
 
 /// Get the application directory from the supplied [`Args`].
 /// This function can be used to identify the location of
-/// the application folder that contains kaspad logs and the database.
+/// the application folder that contains waglaylad logs and the database.
 pub fn get_app_dir_from_args(args: &Args) -> PathBuf {
     let app_dir = args
         .appdir
@@ -164,11 +164,11 @@ impl Runtime {
         let log_dir = get_log_dir(args);
 
         // Initialize the logger
-        kaspa_core::log::init_logger(log_dir.as_deref(), &args.log_level);
+        waglayla_core::log::init_logger(log_dir.as_deref(), &args.log_level);
 
         // Configure the panic behavior
         // As we log the panic, we want to set it up after the logger
-        kaspa_core::panic::configure_panic();
+        waglayla_core::panic::configure_panic();
 
         Self { log_dir: log_dir.map(|log_dir| log_dir.to_owned()) }
     }
@@ -253,7 +253,7 @@ pub fn create_core_with_runtime(runtime: &Runtime, args: &Args, fd_total_budget:
     // Reset Condition: User explicitly requested a reset
     if is_db_reset_needed && db_dir.exists() {
         let msg = "Reset DB was requested -- this means the current databases will be fully deleted,
-do you confirm? (answer y/n or pass --yes to the Pyrin command line to confirm all interactive questions)";
+do you confirm? (answer y/n or pass --yes to the Waglayla command line to confirm all interactive questions)";
         get_user_approval_or_exit(msg, args.yes);
         info!("Deleting databases");
         fs::remove_dir_all(&db_dir).unwrap();
@@ -267,7 +267,7 @@ do you confirm? (answer y/n or pass --yes to the Pyrin command line to confirm a
     }
 
     // DB used for addresses store and for multi-consensus management
-    let mut meta_db = kaspa_database::prelude::ConnBuilder::default()
+    let mut meta_db = waglayla_database::prelude::ConnBuilder::default()
         .with_db_path(meta_db_dir.clone())
         .with_files_limit(META_DB_FILE_LIMIT)
         .build()
@@ -282,7 +282,7 @@ do you confirm? (answer y/n or pass --yes to the Pyrin command line to confirm a
 
         match active_consensus_dir_name {
             Some(dir_name) => {
-                let consensus_db = kaspa_database::prelude::ConnBuilder::default()
+                let consensus_db = waglayla_database::prelude::ConnBuilder::default()
                     .with_db_path(consensus_db_dir.clone().join(dir_name))
                     .with_files_limit(1)
                     .build()
@@ -305,17 +305,17 @@ do you confirm? (answer y/n or pass --yes to the Pyrin command line to confirm a
         }
     }
 
-    // Reset Condition: Need to reset if we're upgrading from kaspad DB version
+    // Reset Condition: Need to reset if we're upgrading from waglaylad DB version
     // TEMP: upgrade from Alpha version or any version before this one
     if !is_db_reset_needed
         && (meta_db.get_pinned(b"multi-consensus-metadata-key").is_ok_and(|r| r.is_some())
             || MultiConsensusManagementStore::new(meta_db.clone()).should_upgrade().unwrap())
     {
         let msg =
-            "Node database is from a different Pyrin *DB* version and needs to be fully deleted, do you confirm the delete? (y/n)";
+            "Node database is from a different Waglayla *DB* version and needs to be fully deleted, do you confirm the delete? (y/n)";
         get_user_approval_or_exit(msg, args.yes);
 
-        info!("Deleting databases from previous Pyrin version");
+        info!("Deleting databases from previous Waglayla version");
 
         is_db_reset_needed = true;
     }
@@ -338,7 +338,7 @@ do you confirm? (answer y/n or pass --yes to the Pyrin command line to confirm a
         }
 
         // Reopen the DB
-        meta_db = kaspa_database::prelude::ConnBuilder::default()
+        meta_db = waglayla_database::prelude::ConnBuilder::default()
             .with_db_path(meta_db_dir)
             .with_files_limit(META_DB_FILE_LIMIT)
             .build()
@@ -395,10 +395,10 @@ do you confirm? (answer y/n or pass --yes to the Pyrin command line to confirm a
         .with_tick_service(tick_service.clone());
     let perf_monitor = if args.perf_metrics {
         let cb = move |counters: CountersSnapshot| {
-            trace!("[{}] {}", kaspa_perf_monitor::SERVICE_NAME, counters.to_process_metrics_display());
-            trace!("[{}] {}", kaspa_perf_monitor::SERVICE_NAME, counters.to_io_metrics_display());
+            trace!("[{}] {}", waglayla_perf_monitor::SERVICE_NAME, counters.to_process_metrics_display());
+            trace!("[{}] {}", waglayla_perf_monitor::SERVICE_NAME, counters.to_io_metrics_display());
             #[cfg(feature = "heap")]
-            trace!("[{}] heap stats: {:?}", kaspa_perf_monitor::SERVICE_NAME, dhat::HeapStats::get());
+            trace!("[{}] heap stats: {:?}", waglayla_perf_monitor::SERVICE_NAME, dhat::HeapStats::get());
         };
         Arc::new(perf_monitor_builder.with_fetch_cb(cb).build())
     } else {
@@ -408,7 +408,7 @@ do you confirm? (answer y/n or pass --yes to the Pyrin command line to confirm a
     let notify_service = Arc::new(NotifyService::new(notification_root.clone(), notification_recv, subscription_context.clone()));
     let index_service: Option<Arc<IndexService>> = if args.utxoindex {
         // Use only a single thread for none-consensus databases
-        let utxoindex_db = kaspa_database::prelude::ConnBuilder::default()
+        let utxoindex_db = waglayla_database::prelude::ConnBuilder::default()
             .with_db_path(utxoindex_db_dir)
             .with_files_limit(utxo_files_limit)
             .build()

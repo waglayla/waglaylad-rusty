@@ -1,10 +1,10 @@
-use kaspa_consensus_core::{
+use waglayla_consensus_core::{
     tx::{TransactionOutpoint, UtxoEntry},
     utxo::utxo_diff::UtxoDiff,
     BlockHashSet, HashMapCustomHasher,
 };
-use kaspa_hashes::Hash;
-use kaspa_utils::hashmap::NestedHashMapExtensions;
+use waglayla_hashes::Hash;
+use waglayla_utils::hashmap::NestedHashMapExtensions;
 
 use crate::model::{CirculatingSupplyDiff, CompactUtxoEntry, UtxoChanges, UtxoSetByScriptPublicKey};
 

@@ -1,6 +1,6 @@
 [package]
-name = "kaspa-p2p-flows"
-description = "Kaspa p2p flows"
+name = "waglayla-p2p-flows"
+description = "Waglayla p2p flows"
 rust-version.workspace = true
 version.workspace = true
 edition.workspace = true
@@ -10,19 +10,19 @@ license.workspace = true
 repository.workspace = true
 
 [dependencies]
-kaspa-core.workspace = true
-kaspa-consensus-core.workspace = true
-kaspa-consensus-notify.workspace = true
-kaspa-p2p-lib.workspace = true
-kaspa-utils.workspace = true
-kaspa-utils-tower.workspace = true
-kaspa-hashes.workspace = true
-kaspa-muhash.workspace = true
-kaspa-connectionmanager.workspace = true
-kaspa-addressmanager.workspace = true
-kaspa-consensusmanager.workspace = true
-kaspa-mining.workspace = true
-kaspa-notify.workspace = true
+waglayla-core.workspace = true
+waglayla-consensus-core.workspace = true
+waglayla-consensus-notify.workspace = true
+waglayla-p2p-lib.workspace = true
+waglayla-utils.workspace = true
+waglayla-utils-tower.workspace = true
+waglayla-hashes.workspace = true
+waglayla-muhash.workspace = true
+waglayla-connectionmanager.workspace = true
+waglayla-addressmanager.workspace = true
+waglayla-consensusmanager.workspace = true
+waglayla-mining.workspace = true
+waglayla-notify.workspace = true
 
 async-trait.workspace = true
 futures = { workspace = true, features = ["alloc"] }

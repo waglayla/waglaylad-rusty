@@ -1,4 +1,4 @@
-use kaspa_consensus_core::{
+use waglayla_consensus_core::{
     coinbase::{CoinbaseData, CoinbaseTransactionTemplate, MinerData},
     constants::{LEOR_PER_PYRIN, TX_VERSION},
     subnets::SUBNETWORK_ID_COINBASE,

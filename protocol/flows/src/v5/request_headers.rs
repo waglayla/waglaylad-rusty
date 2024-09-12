@@ -1,11 +1,11 @@
 use std::{cmp::max, sync::Arc};
 
-use kaspa_consensus_core::api::ConsensusApi;
-use kaspa_hashes::Hash;
-use kaspa_p2p_lib::{
+use waglayla_consensus_core::api::ConsensusApi;
+use waglayla_hashes::Hash;
+use waglayla_p2p_lib::{
     common::ProtocolError,
     dequeue, dequeue_with_request_id, make_response,
-    pb::{self, kaspad_message::Payload, BlockHeadersMessage, DoneHeadersMessage},
+    pb::{self, waglaylad_message::Payload, BlockHeadersMessage, DoneHeadersMessage},
     IncomingRoute, Router,
 };
 use log::debug;

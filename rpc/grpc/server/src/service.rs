@@ -1,13 +1,13 @@
 use crate::{adaptor::Adaptor, manager::Manager};
-use kaspa_consensus_core::config::Config;
-use kaspa_core::{
+use waglayla_consensus_core::config::Config;
+use waglayla_core::{
     debug,
     task::service::{AsyncService, AsyncServiceFuture},
     trace, warn,
 };
-use kaspa_rpc_service::service::RpcCoreService;
-use kaspa_utils::{networking::NetAddress, triggers::SingleTrigger};
-use kaspa_utils_tower::counters::TowerConnectionCounters;
+use waglayla_rpc_service::service::RpcCoreService;
+use waglayla_utils::{networking::NetAddress, triggers::SingleTrigger};
+use waglayla_utils_tower::counters::TowerConnectionCounters;
 use std::sync::Arc;
 use triggered::Listener;
 

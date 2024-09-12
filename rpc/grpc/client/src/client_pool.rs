@@ -2,8 +2,8 @@ use super::GrpcClient;
 use async_channel::{SendError, Sender};
 use futures_util::Future;
 use itertools::Itertools;
-use kaspa_core::trace;
-use kaspa_utils::{any::type_name_short, channel::Channel, triggers::SingleTrigger};
+use waglayla_core::trace;
+use waglayla_utils::{any::type_name_short, channel::Channel, triggers::SingleTrigger};
 use std::sync::{
     atomic::{AtomicUsize, Ordering},
     Arc,

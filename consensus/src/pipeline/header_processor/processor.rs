@@ -29,17 +29,17 @@ use crate::{
 };
 use crossbeam_channel::{Receiver, Sender};
 use itertools::Itertools;
-use kaspa_consensus_core::{
+use waglayla_consensus_core::{
     blockhash::{BlockHashes, ORIGIN},
     blockstatus::BlockStatus::{self, StatusHeaderOnly, StatusInvalid},
     config::genesis::GenesisBlock,
     header::Header,
     BlockHashSet, BlockLevel,
 };
-use kaspa_consensusmanager::SessionLock;
-use kaspa_database::prelude::{StoreResultEmptyTuple, StoreResultExtensions};
-use kaspa_hashes::Hash;
-use kaspa_utils::vec::VecExtensions;
+use waglayla_consensusmanager::SessionLock;
+use waglayla_database::prelude::{StoreResultEmptyTuple, StoreResultExtensions};
+use waglayla_hashes::Hash;
+use waglayla_utils::vec::VecExtensions;
 use parking_lot::RwLock;
 use rayon::ThreadPool;
 use rocksdb::WriteBatch;

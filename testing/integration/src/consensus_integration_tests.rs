@@ -3,60 +3,60 @@
 //!
 
 use async_channel::unbounded;
-use kaspa_alloc::init_allocator_with_default_settings;
-use kaspa_consensus::config::genesis::GENESIS;
-use kaspa_consensus::config::{Config, ConfigBuilder};
-use kaspa_consensus::consensus::factory::Factory as ConsensusFactory;
-use kaspa_consensus::consensus::test_consensus::{TestConsensus, TestConsensusFactory};
-use kaspa_consensus::model::stores::block_transactions::{
+use waglayla_alloc::init_allocator_with_default_settings;
+use waglayla_consensus::config::genesis::GENESIS;
+use waglayla_consensus::config::{Config, ConfigBuilder};
+use waglayla_consensus::consensus::factory::Factory as ConsensusFactory;
+use waglayla_consensus::consensus::test_consensus::{TestConsensus, TestConsensusFactory};
+use waglayla_consensus::model::stores::block_transactions::{
     BlockTransactionsStore, BlockTransactionsStoreReader, DbBlockTransactionsStore,
 };
-use kaspa_consensus::model::stores::ghostdag::{GhostdagStoreReader, KType as GhostdagKType};
-use kaspa_consensus::model::stores::headers::HeaderStoreReader;
-use kaspa_consensus::model::stores::reachability::DbReachabilityStore;
-use kaspa_consensus::model::stores::relations::DbRelationsStore;
-use kaspa_consensus::model::stores::selected_chain::SelectedChainStoreReader;
-use kaspa_consensus::params::{Params, DEVNET_PARAMS, MAINNET_PARAMS, MAX_DIFFICULTY_TARGET, MAX_DIFFICULTY_TARGET_AS_F64};
-use kaspa_consensus::pipeline::monitor::ConsensusMonitor;
-use kaspa_consensus::pipeline::ProcessingCounters;
-use kaspa_consensus::processes::reachability::tests::{DagBlock, DagBuilder, StoreValidationExtensions};
-use kaspa_consensus::processes::window::{WindowManager, WindowType};
-use kaspa_consensus_core::api::{BlockValidationFutures, ConsensusApi};
-use kaspa_consensus_core::block::Block;
-use kaspa_consensus_core::blockhash::new_unique;
-use kaspa_consensus_core::blockstatus::BlockStatus;
-use kaspa_consensus_core::constants::{BLOCK_VERSION, STORAGE_MASS_PARAMETER};
-use kaspa_consensus_core::errors::block::{BlockProcessResult, RuleError};
-use kaspa_consensus_core::header::Header;
-use kaspa_consensus_core::network::{NetworkId, NetworkType::Mainnet};
-use kaspa_consensus_core::subnets::SubnetworkId;
-use kaspa_consensus_core::trusted::{ExternalGhostdagData, TrustedBlock};
-use kaspa_consensus_core::tx::{ScriptPublicKey, Transaction, TransactionInput, TransactionOutpoint, TransactionOutput, UtxoEntry};
-use kaspa_consensus_core::{blockhash, hashing, BlockHashMap, BlueWorkType};
-use kaspa_consensus_notify::root::ConsensusNotificationRoot;
-use kaspa_consensus_notify::service::NotifyService;
-use kaspa_consensusmanager::ConsensusManager;
-use kaspa_core::task::tick::TickService;
-use kaspa_core::time::unix_now;
-use kaspa_database::utils::get_kaspa_tempdir;
-use kaspa_hashes::Hash;
+use waglayla_consensus::model::stores::ghostdag::{GhostdagStoreReader, KType as GhostdagKType};
+use waglayla_consensus::model::stores::headers::HeaderStoreReader;
+use waglayla_consensus::model::stores::reachability::DbReachabilityStore;
+use waglayla_consensus::model::stores::relations::DbRelationsStore;
+use waglayla_consensus::model::stores::selected_chain::SelectedChainStoreReader;
+use waglayla_consensus::params::{Params, DEVNET_PARAMS, MAINNET_PARAMS, MAX_DIFFICULTY_TARGET, MAX_DIFFICULTY_TARGET_AS_F64};
+use waglayla_consensus::pipeline::monitor::ConsensusMonitor;
+use waglayla_consensus::pipeline::ProcessingCounters;
+use waglayla_consensus::processes::reachability::tests::{DagBlock, DagBuilder, StoreValidationExtensions};
+use waglayla_consensus::processes::window::{WindowManager, WindowType};
+use waglayla_consensus_core::api::{BlockValidationFutures, ConsensusApi};
+use waglayla_consensus_core::block::Block;
+use waglayla_consensus_core::blockhash::new_unique;
+use waglayla_consensus_core::blockstatus::BlockStatus;
+use waglayla_consensus_core::constants::{BLOCK_VERSION, STORAGE_MASS_PARAMETER};
+use waglayla_consensus_core::errors::block::{BlockProcessResult, RuleError};
+use waglayla_consensus_core::header::Header;
+use waglayla_consensus_core::network::{NetworkId, NetworkType::Mainnet};
+use waglayla_consensus_core::subnets::SubnetworkId;
+use waglayla_consensus_core::trusted::{ExternalGhostdagData, TrustedBlock};
+use waglayla_consensus_core::tx::{ScriptPublicKey, Transaction, TransactionInput, TransactionOutpoint, TransactionOutput, UtxoEntry};
+use waglayla_consensus_core::{blockhash, hashing, BlockHashMap, BlueWorkType};
+use waglayla_consensus_notify::root::ConsensusNotificationRoot;
+use waglayla_consensus_notify::service::NotifyService;
+use waglayla_consensusmanager::ConsensusManager;
+use waglayla_core::task::tick::TickService;
+use waglayla_core::time::unix_now;
+use waglayla_database::utils::get_waglayla_tempdir;
+use waglayla_hashes::Hash;
 
 use flate2::read::GzDecoder;
 use futures_util::future::try_join_all;
 use itertools::Itertools;
-use kaspa_core::core::Core;
-use kaspa_core::signals::Shutdown;
-use kaspa_core::task::runtime::AsyncRuntime;
-use kaspa_core::{assert_match, info};
-use kaspa_database::create_temp_db;
-use kaspa_database::prelude::{CachePolicy, ConnBuilder};
-use kaspa_index_processor::service::IndexService;
-use kaspa_math::Uint256;
-use kaspa_muhash::{MuHash, Blake2Hash as Blake2Hash};
-use kaspa_notify::subscription::context::SubscriptionContext;
-use kaspa_txscript::caches::TxScriptCacheCounters;
-use kaspa_utxoindex::api::{UtxoIndexApi, UtxoIndexProxy};
-use kaspa_utxoindex::UtxoIndex;
+use waglayla_core::core::Core;
+use waglayla_core::signals::Shutdown;
+use waglayla_core::task::runtime::AsyncRuntime;
+use waglayla_core::{assert_match, info};
+use waglayla_database::create_temp_db;
+use waglayla_database::prelude::{CachePolicy, ConnBuilder};
+use waglayla_index_processor::service::IndexService;
+use waglayla_math::Uint256;
+use waglayla_muhash::{MuHash, Blake2Hash as Blake2Hash};
+use waglayla_notify::subscription::context::SubscriptionContext;
+use waglayla_txscript::caches::TxScriptCacheCounters;
+use waglayla_utxoindex::api::{UtxoIndexApi, UtxoIndexProxy};
+use waglayla_utxoindex::UtxoIndex;
 use serde::{Deserialize, Serialize};
 use std::cmp::{max, Ordering};
 use std::collections::HashSet;
@@ -772,7 +772,7 @@ struct RPCUTXOEntry {
 
 #[allow(non_snake_case)]
 #[derive(Deserialize, Debug)]
-struct KaspadGoParams {
+struct WaglayladGoParams {
     K: GhostdagKType,
     TimestampDeviationTolerance: u64,
     TargetTimePerBlock: u64,
@@ -794,7 +794,7 @@ struct KaspadGoParams {
     PruningProofM: u64,
 }
 
-impl KaspadGoParams {
+impl WaglayladGoParams {
     fn into_params(self) -> Params {
         let finality_depth = self.FinalityDuration / self.TargetTimePerBlock;
         Params {
@@ -910,13 +910,13 @@ fn gzip_file_lines(path: &Path) -> impl Iterator<Item = String> {
 }
 
 async fn json_test(file_path: &str, concurrency: bool) {
-    kaspa_core::log::try_init_logger("info");
+    waglayla_core::log::try_init_logger("info");
     let main_path = Path::new(file_path);
     let proof_exists = common::file_exists(&main_path.join("proof.json.gz"));
 
     let mut lines = gzip_file_lines(&main_path.join("blocks.json.gz"));
     let first_line = lines.next().unwrap();
-    let go_params_res: Result<KaspadGoParams, _> = serde_json::from_str(&first_line);
+    let go_params_res: Result<WaglayladGoParams, _> = serde_json::from_str(&first_line);
     let params = if let Ok(go_params) = go_params_res {
         let mut params = go_params.into_params();
         if !proof_exists {
@@ -1436,7 +1436,7 @@ async fn difficulty_test() {
         },
     ];
 
-    kaspa_core::log::try_init_logger("info");
+    waglayla_core::log::try_init_logger("info");
     for test in tests.iter().filter(|x| x.enabled) {
         let consensus = TestConsensus::new(&test.config);
         let wait_handles = consensus.init();
@@ -1652,7 +1652,7 @@ async fn difficulty_test() {
 #[tokio::test]
 async fn selected_chain_test() {
     init_allocator_with_default_settings();
-    kaspa_core::log::try_init_logger("info");
+    waglayla_core::log::try_init_logger("info");
 
     let config = ConfigBuilder::new(MAINNET_PARAMS)
         .skip_proof_of_work()
@@ -1723,12 +1723,12 @@ async fn staging_consensus_test() {
     init_allocator_with_default_settings();
     let config = ConfigBuilder::new(MAINNET_PARAMS).build();
 
-    let db_tempdir = get_kaspa_tempdir();
+    let db_tempdir = get_waglayla_tempdir();
     let db_path = db_tempdir.path().to_owned();
     let consensus_db_dir = db_path.join("consensus");
     let meta_db_dir = db_path.join("meta");
 
-    let meta_db = kaspa_database::prelude::ConnBuilder::default().with_db_path(meta_db_dir).with_files_limit(5).build().unwrap();
+    let meta_db = waglayla_database::prelude::ConnBuilder::default().with_db_path(meta_db_dir).with_files_limit(5).build().unwrap();
 
     let (notification_send, _notification_recv) = unbounded();
     let notification_root = Arc::new(ConsensusNotificationRoot::new(notification_send));

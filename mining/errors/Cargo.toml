@@ -1,6 +1,6 @@
 [package]
-name = "kaspa-mining-errors"
-description = "Kaspa mining error definitions"
+name = "waglayla-mining-errors"
+description = "Waglayla mining error definitions"
 rust-version.workspace = true
 version.workspace = true
 edition.workspace = true
@@ -13,4 +13,4 @@ repository.workspace = true
 
 [dependencies]
 thiserror.workspace = true
-kaspa-consensus-core.workspace = true
+waglayla-consensus-core.workspace = true

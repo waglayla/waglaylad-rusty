@@ -1,7 +1,7 @@
 use std::sync::Arc;
 
 use crate::{RpcBlock, RpcError, RpcResult, RpcTransaction};
-use kaspa_consensus_core::block::{Block, MutableBlock};
+use waglayla_consensus_core::block::{Block, MutableBlock};
 
 // ----------------------------------------------------------------------------
 // consensus_core to rpc_core
@@ -12,7 +12,7 @@ impl From<&Block> for RpcBlock {
         Self {
             header: (*item.header).clone(),
             transactions: item.transactions.iter().map(RpcTransaction::from).collect(),
-            // TODO: Implement a populating process inspired from kaspad\app\rpc\rpccontext\verbosedata.go
+            // TODO: Implement a populating process inspired from waglaylad\app\rpc\rpccontext\verbosedata.go
             verbose_data: None,
         }
     }
@@ -40,8 +40,8 @@ impl TryFrom<&RpcBlock> for Block {
             transactions: Arc::new(
                 item.transactions
                     .iter()
-                    .map(kaspa_consensus_core::tx::Transaction::try_from)
-                    .collect::<RpcResult<Vec<kaspa_consensus_core::tx::Transaction>>>()?,
+                    .map(waglayla_consensus_core::tx::Transaction::try_from)
+                    .collect::<RpcResult<Vec<waglayla_consensus_core::tx::Transaction>>>()?,
             ),
         })
     }

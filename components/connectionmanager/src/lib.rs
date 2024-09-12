@@ -9,10 +9,10 @@ use std::{
 use duration_string::DurationString;
 use futures_util::future::join_all;
 use itertools::Itertools;
-use kaspa_addressmanager::{AddressManager, NetAddress};
-use kaspa_core::{debug, info, warn};
-use kaspa_p2p_lib::{common::ProtocolError, ConnectionError, Peer};
-use kaspa_utils::triggers::SingleTrigger;
+use waglayla_addressmanager::{AddressManager, NetAddress};
+use waglayla_core::{debug, info, warn};
+use waglayla_p2p_lib::{common::ProtocolError, ConnectionError, Peer};
+use waglayla_utils::triggers::SingleTrigger;
 use parking_lot::Mutex as ParkingLotMutex;
 use rand::{seq::SliceRandom, thread_rng};
 use tokio::{
@@ -25,7 +25,7 @@ use tokio::{
 };
 
 pub struct ConnectionManager {
-    p2p_adaptor: Arc<kaspa_p2p_lib::Adaptor>,
+    p2p_adaptor: Arc<waglayla_p2p_lib::Adaptor>,
     outbound_target: usize,
     inbound_limit: usize,
     dns_seeders: &'static [&'static str],
@@ -51,7 +51,7 @@ impl ConnectionRequest {
 
 impl ConnectionManager {
     pub fn new(
-        p2p_adaptor: Arc<kaspa_p2p_lib::Adaptor>,
+        p2p_adaptor: Arc<waglayla_p2p_lib::Adaptor>,
         outbound_target: usize,
         inbound_limit: usize,
         dns_seeders: &'static [&'static str],
@@ -160,7 +160,7 @@ impl ConnectionManager {
     }
 
     async fn handle_outbound_connections(self: &Arc<Self>, peer_by_address: &HashMap<SocketAddr, Peer>) {
-        let active_outbound: HashSet<kaspa_addressmanager::NetAddress> =
+        let active_outbound: HashSet<waglayla_addressmanager::NetAddress> =
             peer_by_address.values().filter(|peer| peer.is_outbound()).map(|peer| peer.net_address().into()).collect();
         if active_outbound.len() >= self.outbound_target {
             return;

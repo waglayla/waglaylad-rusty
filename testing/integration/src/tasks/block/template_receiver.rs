@@ -3,12 +3,12 @@ use crate::{
     tasks::{Stopper, Task},
 };
 use async_trait::async_trait;
-use kaspa_addresses::Address;
-use kaspa_core::warn;
-use kaspa_grpc_client::GrpcClient;
-use kaspa_notify::{listener::ListenerId, scope::NewBlockTemplateScope};
-use kaspa_rpc_core::{api::rpc::RpcApi, GetBlockTemplateResponse, Notification};
-use kaspa_utils::{channel::Channel, triggers::SingleTrigger};
+use waglayla_addresses::Address;
+use waglayla_core::warn;
+use waglayla_grpc_client::GrpcClient;
+use waglayla_notify::{listener::ListenerId, scope::NewBlockTemplateScope};
+use waglayla_rpc_core::{api::rpc::RpcApi, GetBlockTemplateResponse, Notification};
+use waglayla_utils::{channel::Channel, triggers::SingleTrigger};
 use parking_lot::Mutex;
 use std::sync::Arc;
 use tokio::task::JoinHandle;

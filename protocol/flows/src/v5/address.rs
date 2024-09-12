@@ -1,20 +1,20 @@
 use crate::{flow_context::FlowContext, flow_trait::Flow};
 use itertools::Itertools;
-use kaspa_addressmanager::NetAddress;
-use kaspa_p2p_lib::{
+use waglayla_addressmanager::NetAddress;
+use waglayla_p2p_lib::{
     common::ProtocolError,
     dequeue, dequeue_with_timeout, make_message,
-    pb::{kaspad_message::Payload, AddressesMessage, RequestAddressesMessage},
+    pb::{waglaylad_message::Payload, AddressesMessage, RequestAddressesMessage},
     IncomingRoute, Router,
 };
-use kaspa_utils::networking::IpAddress;
+use waglayla_utils::networking::IpAddress;
 use rand::seq::SliceRandom;
 use std::sync::Arc;
 
-/// The maximum number of addresses that are sent in a single kaspa Addresses message.
+/// The maximum number of addresses that are sent in a single waglayla Addresses message.
 const MAX_ADDRESSES_SEND: usize = 1000;
 
-/// The maximum number of addresses that can be received in a single kaspa Addresses response.
+/// The maximum number of addresses that can be received in a single waglayla Addresses response.
 /// If a peer exceeds this value we consider it a protocol error.
 const MAX_ADDRESSES_RECEIVE: usize = 2500;
 

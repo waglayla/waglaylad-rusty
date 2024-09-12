@@ -2509,7 +2509,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "kaspa-addresses"
+name = "waglayla-addresses"
 version = "0.14.5"
 dependencies = [
  "borsh",
@@ -2527,16 +2527,16 @@ dependencies = [
 ]
 
 [[package]]
-name = "kaspa-addressmanager"
+name = "waglayla-addressmanager"
 version = "0.14.5"
 dependencies = [
  "borsh",
  "igd-next",
  "itertools 0.11.0",
- "kaspa-consensus-core",
- "kaspa-core",
- "kaspa-database",
- "kaspa-utils",
+ "waglayla-consensus-core",
+ "waglayla-core",
+ "waglayla-database",
+ "waglayla-utils",
  "local-ip-address",
  "log",
  "parking_lot",
@@ -2550,14 +2550,14 @@ dependencies = [
 ]
 
 [[package]]
-name = "kaspa-alloc"
+name = "waglayla-alloc"
 version = "0.14.5"
 dependencies = [
  "mimalloc",
 ]
 
 [[package]]
-name = "kaspa-bip32"
+name = "waglayla-bip32"
 version = "0.14.5"
 dependencies = [
  "borsh",
@@ -2566,7 +2566,7 @@ dependencies = [
  "getrandom 0.2.14",
  "hmac",
  "js-sys",
- "kaspa-utils",
+ "waglayla-utils",
  "once_cell",
  "pbkdf2",
  "rand 0.8.5",
@@ -2583,7 +2583,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "kaspa-cli"
+name = "waglayla-cli"
 version = "0.14.5"
 dependencies = [
  "async-trait",
@@ -2595,17 +2595,17 @@ dependencies = [
  "faster-hex 0.6.1",
  "futures",
  "js-sys",
- "kaspa-addresses",
- "kaspa-bip32",
- "kaspa-consensus-core",
- "kaspa-core",
- "kaspa-daemon",
- "kaspa-metrics-core",
- "kaspa-rpc-core",
- "kaspa-utils",
- "kaspa-wallet-core",
- "kaspa-wallet-keys",
- "kaspa-wrpc-client",
+ "waglayla-addresses",
+ "waglayla-bip32",
+ "waglayla-consensus-core",
+ "waglayla-core",
+ "waglayla-daemon",
+ "waglayla-metrics-core",
+ "waglayla-rpc-core",
+ "waglayla-utils",
+ "waglayla-wallet-core",
+ "waglayla-wallet-keys",
+ "waglayla-wrpc-client",
  "nw-sys",
  "pad",
  "regex",
@@ -2628,16 +2628,16 @@ dependencies = [
 ]
 
 [[package]]
-name = "kaspa-connectionmanager"
+name = "waglayla-connectionmanager"
 version = "0.14.5"
 dependencies = [
  "duration-string",
  "futures-util",
  "itertools 0.11.0",
- "kaspa-addressmanager",
- "kaspa-core",
- "kaspa-p2p-lib",
- "kaspa-utils",
+ "waglayla-addressmanager",
+ "waglayla-core",
+ "waglayla-p2p-lib",
+ "waglayla-utils",
  "log",
  "parking_lot",
  "rand 0.8.5",
@@ -2645,7 +2645,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "kaspa-consensus"
+name = "waglayla-consensus"
 version = "0.14.5"
 dependencies = [
  "arc-swap",
@@ -2658,21 +2658,21 @@ dependencies = [
  "futures-util",
  "indexmap 2.2.6",
  "itertools 0.11.0",
- "kaspa-addresses",
- "kaspa-consensus-core",
- "kaspa-consensus-notify",
- "kaspa-consensusmanager",
- "kaspa-core",
- "kaspa-database",
- "kaspa-hashes",
- "kaspa-math",
- "kaspa-merkle",
- "kaspa-muhash",
- "kaspa-notify",
- "kaspa-pow",
- "kaspa-txscript",
- "kaspa-txscript-errors",
- "kaspa-utils",
+ "waglayla-addresses",
+ "waglayla-consensus-core",
+ "waglayla-consensus-notify",
+ "waglayla-consensusmanager",
+ "waglayla-core",
+ "waglayla-database",
+ "waglayla-hashes",
+ "waglayla-math",
+ "waglayla-merkle",
+ "waglayla-muhash",
+ "waglayla-notify",
+ "waglayla-pow",
+ "waglayla-txscript",
+ "waglayla-txscript-errors",
+ "waglayla-utils",
  "log",
  "once_cell",
  "parking_lot",
@@ -2690,7 +2690,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "kaspa-consensus-client"
+name = "waglayla-consensus-client"
 version = "0.14.5"
 dependencies = [
  "ahash 0.8.11",
@@ -2699,14 +2699,14 @@ dependencies = [
  "hex",
  "itertools 0.11.0",
  "js-sys",
- "kaspa-addresses",
- "kaspa-consensus-core",
- "kaspa-hashes",
- "kaspa-math",
- "kaspa-muhash",
- "kaspa-txscript",
- "kaspa-utils",
- "kaspa-wasm-core",
+ "waglayla-addresses",
+ "waglayla-consensus-core",
+ "waglayla-hashes",
+ "waglayla-math",
+ "waglayla-muhash",
+ "waglayla-txscript",
+ "waglayla-utils",
+ "waglayla-wasm-core",
  "rand 0.8.5",
  "secp256k1",
  "serde",
@@ -2719,7 +2719,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "kaspa-consensus-core"
+name = "waglayla-consensus-core"
 version = "0.14.5"
 dependencies = [
  "async-trait",
@@ -2732,14 +2732,14 @@ dependencies = [
  "getrandom 0.2.14",
  "itertools 0.11.0",
  "js-sys",
- "kaspa-addresses",
- "kaspa-core",
- "kaspa-hashes",
- "kaspa-math",
- "kaspa-merkle",
- "kaspa-muhash",
- "kaspa-txscript-errors",
- "kaspa-utils",
+ "waglayla-addresses",
+ "waglayla-core",
+ "waglayla-hashes",
+ "waglayla-math",
+ "waglayla-merkle",
+ "waglayla-muhash",
+ "waglayla-txscript-errors",
+ "waglayla-utils",
  "pyo3",
  "rand 0.8.5",
  "secp256k1",
@@ -2757,18 +2757,18 @@ dependencies = [
 ]
 
 [[package]]
-name = "kaspa-consensus-notify"
+name = "waglayla-consensus-notify"
 version = "0.14.5"
 dependencies = [
  "async-channel 2.2.1",
  "cfg-if 1.0.0",
  "derive_more",
  "futures",
- "kaspa-consensus-core",
- "kaspa-core",
- "kaspa-hashes",
- "kaspa-notify",
- "kaspa-utils",
+ "waglayla-consensus-core",
+ "waglayla-core",
+ "waglayla-hashes",
+ "waglayla-notify",
+ "waglayla-utils",
  "log",
  "paste",
  "thiserror",
@@ -2776,18 +2776,18 @@ dependencies = [
 ]
 
 [[package]]
-name = "kaspa-consensus-wasm"
+name = "waglayla-consensus-wasm"
 version = "0.14.5"
 dependencies = [
  "cfg-if 1.0.0",
  "faster-hex 0.6.1",
  "js-sys",
- "kaspa-addresses",
- "kaspa-consensus-client",
- "kaspa-consensus-core",
- "kaspa-hashes",
- "kaspa-txscript",
- "kaspa-utils",
+ "waglayla-addresses",
+ "waglayla-consensus-client",
+ "waglayla-consensus-core",
+ "waglayla-hashes",
+ "waglayla-txscript",
+ "waglayla-utils",
  "rand 0.8.5",
  "secp256k1",
  "serde",
@@ -2800,17 +2800,17 @@ dependencies = [
 ]
 
 [[package]]
-name = "kaspa-consensusmanager"
+name = "waglayla-consensusmanager"
 version = "0.14.5"
 dependencies = [
  "duration-string",
  "futures",
  "futures-util",
  "itertools 0.11.0",
- "kaspa-consensus-core",
- "kaspa-consensus-notify",
- "kaspa-core",
- "kaspa-utils",
+ "waglayla-consensus-core",
+ "waglayla-consensus-notify",
+ "waglayla-core",
+ "waglayla-utils",
  "log",
  "parking_lot",
  "rand 0.8.5",
@@ -2818,7 +2818,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "kaspa-core"
+name = "waglayla-core"
 version = "0.14.5"
 dependencies = [
  "cfg-if 1.0.0",
@@ -2836,7 +2836,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "kaspa-daemon"
+name = "waglayla-daemon"
 version = "0.14.5"
 dependencies = [
  "async-trait",
@@ -2844,9 +2844,9 @@ dependencies = [
  "cfg-if 1.0.0",
  "downcast-rs",
  "futures",
- "kaspa-addresses",
- "kaspa-consensus-core",
- "kaspa-wallet-core",
+ "waglayla-addresses",
+ "waglayla-consensus-core",
+ "waglayla-wallet-core",
  "nw-sys",
  "serde",
  "thiserror",
@@ -2858,7 +2858,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "kaspa-database"
+name = "waglayla-database"
 version = "0.14.5"
 dependencies = [
  "bincode",
@@ -2866,8 +2866,8 @@ dependencies = [
  "faster-hex 0.6.1",
  "indexmap 2.2.6",
  "itertools 0.11.0",
- "kaspa-hashes",
- "kaspa-utils",
+ "waglayla-hashes",
+ "waglayla-utils",
  "num-traits",
  "num_cpus",
  "parking_lot",
@@ -2880,7 +2880,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "kaspa-grpc-client"
+name = "waglayla-grpc-client"
 version = "0.14.5"
 dependencies = [
  "async-channel 2.2.1",
@@ -2891,12 +2891,12 @@ dependencies = [
  "futures-util",
  "h2",
  "itertools 0.11.0",
- "kaspa-core",
- "kaspa-grpc-core",
- "kaspa-notify",
- "kaspa-rpc-core",
- "kaspa-utils",
- "kaspa-utils-tower",
+ "waglayla-core",
+ "waglayla-grpc-core",
+ "waglayla-notify",
+ "waglayla-rpc-core",
+ "waglayla-utils",
+ "waglayla-utils-tower",
  "log",
  "parking_lot",
  "paste",
@@ -2911,7 +2911,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "kaspa-grpc-core"
+name = "waglayla-grpc-core"
 version = "0.14.5"
 dependencies = [
  "async-channel 2.2.1",
@@ -2920,12 +2920,12 @@ dependencies = [
  "faster-hex 0.6.1",
  "futures",
  "h2",
- "kaspa-consensus-core",
- "kaspa-core",
- "kaspa-muhash",
- "kaspa-notify",
- "kaspa-rpc-core",
- "kaspa-utils",
+ "waglayla-consensus-core",
+ "waglayla-core",
+ "waglayla-muhash",
+ "waglayla-notify",
+ "waglayla-rpc-core",
+ "waglayla-utils",
  "log",
  "paste",
  "prost",
@@ -2941,7 +2941,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "kaspa-grpc-server"
+name = "waglayla-grpc-server"
 version = "0.14.5"
 dependencies = [
  "async-channel 2.2.1",
@@ -2951,16 +2951,16 @@ dependencies = [
  "futures",
  "h2",
  "itertools 0.11.0",
- "kaspa-consensus-core",
- "kaspa-core",
- "kaspa-grpc-client",
- "kaspa-grpc-core",
- "kaspa-notify",
- "kaspa-rpc-core",
- "kaspa-rpc-macros",
- "kaspa-rpc-service",
- "kaspa-utils",
- "kaspa-utils-tower",
+ "waglayla-consensus-core",
+ "waglayla-core",
+ "waglayla-grpc-client",
+ "waglayla-grpc-core",
+ "waglayla-notify",
+ "waglayla-rpc-core",
+ "waglayla-rpc-macros",
+ "waglayla-rpc-service",
+ "waglayla-utils",
+ "waglayla-utils-tower",
  "log",
  "once_cell",
  "parking_lot",
@@ -2976,7 +2976,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "kaspa-hashes"
+name = "waglayla-hashes"
 version = "0.14.5"
 dependencies = [
  "blake3",
@@ -2985,8 +2985,8 @@ dependencies = [
  "criterion",
  "faster-hex 0.6.1",
  "js-sys",
- "kaspa-math",
- "kaspa-utils",
+ "waglayla-math",
+ "waglayla-utils",
  "keccak",
  "once_cell",
  "pyo3",
@@ -2999,17 +2999,17 @@ dependencies = [
 ]
 
 [[package]]
-name = "kaspa-index-core"
+name = "waglayla-index-core"
 version = "0.14.5"
 dependencies = [
  "async-channel 2.2.1",
  "async-trait",
  "derive_more",
  "futures",
- "kaspa-consensus-core",
- "kaspa-hashes",
- "kaspa-notify",
- "kaspa-utils",
+ "waglayla-consensus-core",
+ "waglayla-hashes",
+ "waglayla-notify",
+ "waglayla-utils",
  "log",
  "paste",
  "serde",
@@ -3018,24 +3018,24 @@ dependencies = [
 ]
 
 [[package]]
-name = "kaspa-index-processor"
+name = "waglayla-index-processor"
 version = "0.14.5"
 dependencies = [
  "async-channel 2.2.1",
  "async-trait",
  "derive_more",
  "futures",
- "kaspa-consensus",
- "kaspa-consensus-core",
- "kaspa-consensus-notify",
- "kaspa-consensusmanager",
- "kaspa-core",
- "kaspa-database",
- "kaspa-hashes",
- "kaspa-index-core",
- "kaspa-notify",
- "kaspa-utils",
- "kaspa-utxoindex",
+ "waglayla-consensus",
+ "waglayla-consensus-core",
+ "waglayla-consensus-notify",
+ "waglayla-consensusmanager",
+ "waglayla-core",
+ "waglayla-database",
+ "waglayla-hashes",
+ "waglayla-index-core",
+ "waglayla-notify",
+ "waglayla-utils",
+ "waglayla-utxoindex",
  "log",
  "parking_lot",
  "paste",
@@ -3046,14 +3046,14 @@ dependencies = [
 ]
 
 [[package]]
-name = "kaspa-math"
+name = "waglayla-math"
 version = "0.14.5"
 dependencies = [
  "borsh",
  "criterion",
  "faster-hex 0.6.1",
  "js-sys",
- "kaspa-utils",
+ "waglayla-utils",
  "malachite-base",
  "malachite-nz",
  "pyo3",
@@ -3068,21 +3068,21 @@ dependencies = [
 ]
 
 [[package]]
-name = "kaspa-merkle"
+name = "waglayla-merkle"
 version = "0.14.5"
 dependencies = [
- "kaspa-hashes",
+ "waglayla-hashes",
 ]
 
 [[package]]
-name = "kaspa-metrics-core"
+name = "waglayla-metrics-core"
 version = "0.14.5"
 dependencies = [
  "async-trait",
  "borsh",
  "futures",
- "kaspa-core",
- "kaspa-rpc-core",
+ "waglayla-core",
+ "waglayla-rpc-core",
  "separator",
  "serde",
  "thiserror",
@@ -3091,21 +3091,21 @@ dependencies = [
 ]
 
 [[package]]
-name = "kaspa-mining"
+name = "waglayla-mining"
 version = "0.14.5"
 dependencies = [
  "criterion",
  "futures-util",
  "itertools 0.11.0",
- "kaspa-addresses",
- "kaspa-consensus-core",
- "kaspa-consensusmanager",
- "kaspa-core",
- "kaspa-hashes",
- "kaspa-mining-errors",
- "kaspa-muhash",
- "kaspa-txscript",
- "kaspa-utils",
+ "waglayla-addresses",
+ "waglayla-consensus-core",
+ "waglayla-consensusmanager",
+ "waglayla-core",
+ "waglayla-hashes",
+ "waglayla-mining-errors",
+ "waglayla-muhash",
+ "waglayla-txscript",
+ "waglayla-utils",
  "log",
  "parking_lot",
  "rand 0.8.5",
@@ -3117,15 +3117,15 @@ dependencies = [
 ]
 
 [[package]]
-name = "kaspa-mining-errors"
+name = "waglayla-mining-errors"
 version = "0.14.5"
 dependencies = [
- "kaspa-consensus-core",
+ "waglayla-consensus-core",
  "thiserror",
 ]
 
 [[package]]
-name = "kaspa-muhash"
+name = "waglayla-muhash"
 version = "0.14.5"
 dependencies = [
  "blake2b_simd",
@@ -3133,9 +3133,9 @@ dependencies = [
  "criterion",
  "faster-hex 0.6.1",
  "hex",
- "kaspa-hashes",
- "kaspa-math",
- "kaspa-utils",
+ "waglayla-hashes",
+ "waglayla-math",
+ "waglayla-utils",
  "keccak",
  "once_cell",
  "pyo3",
@@ -3150,7 +3150,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "kaspa-notify"
+name = "waglayla-notify"
 version = "0.14.5"
 dependencies = [
  "async-channel 2.2.1",
@@ -3162,15 +3162,15 @@ dependencies = [
  "futures-util",
  "indexmap 2.2.6",
  "itertools 0.11.0",
- "kaspa-addresses",
- "kaspa-alloc",
- "kaspa-consensus-core",
- "kaspa-core",
- "kaspa-hashes",
- "kaspa-math",
- "kaspa-txscript",
- "kaspa-txscript-errors",
- "kaspa-utils",
+ "waglayla-addresses",
+ "waglayla-alloc",
+ "waglayla-consensus-core",
+ "waglayla-core",
+ "waglayla-hashes",
+ "waglayla-math",
+ "waglayla-txscript",
+ "waglayla-txscript-errors",
+ "waglayla-utils",
  "log",
  "parking_lot",
  "paste",
@@ -3185,7 +3185,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "kaspa-p2p-flows"
+name = "waglayla-p2p-flows"
 version = "0.14.5"
 dependencies = [
  "async-trait",
@@ -3193,19 +3193,19 @@ dependencies = [
  "futures",
  "indexmap 2.2.6",
  "itertools 0.11.0",
- "kaspa-addressmanager",
- "kaspa-connectionmanager",
- "kaspa-consensus-core",
- "kaspa-consensus-notify",
- "kaspa-consensusmanager",
- "kaspa-core",
- "kaspa-hashes",
- "kaspa-mining",
- "kaspa-muhash",
- "kaspa-notify",
- "kaspa-p2p-lib",
- "kaspa-utils",
- "kaspa-utils-tower",
+ "waglayla-addressmanager",
+ "waglayla-connectionmanager",
+ "waglayla-consensus-core",
+ "waglayla-consensus-notify",
+ "waglayla-consensusmanager",
+ "waglayla-core",
+ "waglayla-hashes",
+ "waglayla-mining",
+ "waglayla-muhash",
+ "waglayla-notify",
+ "waglayla-p2p-lib",
+ "waglayla-utils",
+ "waglayla-utils-tower",
  "log",
  "parking_lot",
  "rand 0.8.5",
@@ -3216,7 +3216,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "kaspa-p2p-lib"
+name = "waglayla-p2p-lib"
 version = "0.14.5"
 dependencies = [
  "borsh",
@@ -3225,14 +3225,14 @@ dependencies = [
  "h2",
  "hex",
  "itertools 0.11.0",
- "kaspa-consensus-core",
- "kaspa-core",
- "kaspa-hashes",
- "kaspa-math",
- "kaspa-mining-errors",
- "kaspa-muhash",
- "kaspa-utils",
- "kaspa-utils-tower",
+ "waglayla-consensus-core",
+ "waglayla-core",
+ "waglayla-hashes",
+ "waglayla-math",
+ "waglayla-mining-errors",
+ "waglayla-muhash",
+ "waglayla-utils",
+ "waglayla-utils-tower",
  "log",
  "parking_lot",
  "prost",
@@ -3248,10 +3248,10 @@ dependencies = [
 ]
 
 [[package]]
-name = "kaspa-perf-monitor"
+name = "waglayla-perf-monitor"
 version = "0.14.5"
 dependencies = [
- "kaspa-core",
+ "waglayla-core",
  "log",
  "portable-atomic",
  "thiserror",
@@ -3260,23 +3260,23 @@ dependencies = [
 ]
 
 [[package]]
-name = "kaspa-pow"
+name = "waglayla-pow"
 version = "0.14.5"
 dependencies = [
  "criterion",
  "js-sys",
- "kaspa-consensus-client",
- "kaspa-consensus-core",
- "kaspa-hashes",
- "kaspa-math",
- "kaspa-utils",
+ "waglayla-consensus-client",
+ "waglayla-consensus-core",
+ "waglayla-hashes",
+ "waglayla-math",
+ "waglayla-utils",
  "num",
  "wasm-bindgen",
  "workflow-wasm",
 ]
 
 [[package]]
-name = "kaspa-resolver"
+name = "waglayla-resolver"
 version = "0.14.5"
 dependencies = [
  "ahash 0.8.11",
@@ -3286,10 +3286,10 @@ dependencies = [
  "console",
  "convert_case 0.6.0",
  "futures",
- "kaspa-consensus-core",
- "kaspa-rpc-core",
- "kaspa-utils",
- "kaspa-wrpc-client",
+ "waglayla-consensus-core",
+ "waglayla-rpc-core",
+ "waglayla-utils",
+ "waglayla-wrpc-client",
  "mime",
  "serde",
  "serde_json",
@@ -3306,7 +3306,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "kaspa-rpc-core"
+name = "waglayla-rpc-core"
 version = "0.14.5"
 dependencies = [
  "async-channel 2.2.1",
@@ -3318,20 +3318,20 @@ dependencies = [
  "faster-hex 0.6.1",
  "hex",
  "js-sys",
- "kaspa-addresses",
- "kaspa-consensus-client",
- "kaspa-consensus-core",
- "kaspa-consensus-notify",
- "kaspa-consensus-wasm",
- "kaspa-core",
- "kaspa-hashes",
- "kaspa-index-core",
- "kaspa-math",
- "kaspa-mining-errors",
- "kaspa-notify",
- "kaspa-rpc-macros",
- "kaspa-txscript",
- "kaspa-utils",
+ "waglayla-addresses",
+ "waglayla-consensus-client",
+ "waglayla-consensus-core",
+ "waglayla-consensus-notify",
+ "waglayla-consensus-wasm",
+ "waglayla-core",
+ "waglayla-hashes",
+ "waglayla-index-core",
+ "waglayla-math",
+ "waglayla-mining-errors",
+ "waglayla-notify",
+ "waglayla-rpc-macros",
+ "waglayla-txscript",
+ "waglayla-utils",
  "log",
  "paste",
  "pyo3",
@@ -3347,7 +3347,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "kaspa-rpc-macros"
+name = "waglayla-rpc-macros"
 version = "0.14.5"
 dependencies = [
  "convert_case 0.6.0",
@@ -3359,28 +3359,28 @@ dependencies = [
 ]
 
 [[package]]
-name = "kaspa-rpc-service"
+name = "waglayla-rpc-service"
 version = "0.14.5"
 dependencies = [
  "async-trait",
- "kaspa-addresses",
- "kaspa-consensus-core",
- "kaspa-consensus-notify",
- "kaspa-consensusmanager",
- "kaspa-core",
- "kaspa-hashes",
- "kaspa-index-core",
- "kaspa-math",
- "kaspa-mining",
- "kaspa-notify",
- "kaspa-p2p-flows",
- "kaspa-p2p-lib",
- "kaspa-perf-monitor",
- "kaspa-rpc-core",
- "kaspa-txscript",
- "kaspa-utils",
- "kaspa-utils-tower",
- "kaspa-utxoindex",
+ "waglayla-addresses",
+ "waglayla-consensus-core",
+ "waglayla-consensus-notify",
+ "waglayla-consensusmanager",
+ "waglayla-core",
+ "waglayla-hashes",
+ "waglayla-index-core",
+ "waglayla-math",
+ "waglayla-mining",
+ "waglayla-notify",
+ "waglayla-p2p-flows",
+ "waglayla-p2p-lib",
+ "waglayla-perf-monitor",
+ "waglayla-rpc-core",
+ "waglayla-txscript",
+ "waglayla-utils",
+ "waglayla-utils-tower",
+ "waglayla-utxoindex",
  "log",
  "tokio",
  "triggered",
@@ -3388,7 +3388,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "kaspa-testing-integration"
+name = "waglayla-testing-integration"
 version = "0.14.5"
 dependencies = [
  "async-channel 2.2.1",
@@ -3404,32 +3404,32 @@ dependencies = [
  "futures-util",
  "indexmap 2.2.6",
  "itertools 0.11.0",
- "kaspa-addresses",
- "kaspa-alloc",
- "kaspa-bip32",
- "kaspa-consensus",
- "kaspa-consensus-core",
- "kaspa-consensus-notify",
- "kaspa-consensusmanager",
- "kaspa-core",
- "kaspa-database",
- "kaspa-grpc-client",
- "kaspa-grpc-core",
- "kaspa-grpc-server",
- "kaspa-hashes",
- "kaspa-index-processor",
- "kaspa-math",
- "kaspa-merkle",
- "kaspa-muhash",
- "kaspa-notify",
- "kaspa-pow",
- "kaspa-rpc-core",
- "kaspa-rpc-service",
- "kaspa-txscript",
- "kaspa-txscript-errors",
- "kaspa-utils",
- "kaspa-utxoindex",
- "kaspa-wrpc-server",
+ "waglayla-addresses",
+ "waglayla-alloc",
+ "waglayla-bip32",
+ "waglayla-consensus",
+ "waglayla-consensus-core",
+ "waglayla-consensus-notify",
+ "waglayla-consensusmanager",
+ "waglayla-core",
+ "waglayla-database",
+ "waglayla-grpc-client",
+ "waglayla-grpc-core",
+ "waglayla-grpc-server",
+ "waglayla-hashes",
+ "waglayla-index-processor",
+ "waglayla-math",
+ "waglayla-merkle",
+ "waglayla-muhash",
+ "waglayla-notify",
+ "waglayla-pow",
+ "waglayla-rpc-core",
+ "waglayla-rpc-service",
+ "waglayla-txscript",
+ "waglayla-txscript-errors",
+ "waglayla-utils",
+ "waglayla-utxoindex",
+ "waglayla-wrpc-server",
  "log",
  "parking_lot",
  "pyrin",
@@ -3448,7 +3448,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "kaspa-txscript"
+name = "waglayla-txscript"
 version = "0.14.5"
 dependencies = [
  "blake3",
@@ -3457,10 +3457,10 @@ dependencies = [
  "hex",
  "indexmap 2.2.6",
  "itertools 0.11.0",
- "kaspa-addresses",
- "kaspa-consensus-core",
- "kaspa-hashes",
- "kaspa-txscript-errors",
+ "waglayla-addresses",
+ "waglayla-consensus-core",
+ "waglayla-hashes",
+ "waglayla-txscript-errors",
  "log",
  "parking_lot",
  "pyo3",
@@ -3475,7 +3475,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "kaspa-txscript-errors"
+name = "waglayla-txscript-errors"
 version = "0.14.5"
 dependencies = [
  "secp256k1",
@@ -3483,7 +3483,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "kaspa-utils"
+name = "waglayla-utils"
 version = "0.14.5"
 dependencies = [
  "async-channel 2.2.1",
@@ -3513,7 +3513,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "kaspa-utils-tower"
+name = "waglayla-utils-tower"
 version = "0.14.5"
 dependencies = [
  "cfg-if 1.0.0",
@@ -3527,18 +3527,18 @@ dependencies = [
 ]
 
 [[package]]
-name = "kaspa-utxoindex"
+name = "waglayla-utxoindex"
 version = "0.14.5"
 dependencies = [
  "futures",
- "kaspa-consensus",
- "kaspa-consensus-core",
- "kaspa-consensusmanager",
- "kaspa-core",
- "kaspa-database",
- "kaspa-hashes",
- "kaspa-index-core",
- "kaspa-utils",
+ "waglayla-consensus",
+ "waglayla-consensus-core",
+ "waglayla-consensusmanager",
+ "waglayla-core",
+ "waglayla-database",
+ "waglayla-hashes",
+ "waglayla-index-core",
+ "waglayla-utils",
  "log",
  "parking_lot",
  "rand 0.8.5",
@@ -3548,24 +3548,24 @@ dependencies = [
 ]
 
 [[package]]
-name = "kaspa-wallet"
+name = "waglayla-wallet"
 version = "0.14.5"
 dependencies = [
  "async-std",
  "async-trait",
- "kaspa-cli",
+ "waglayla-cli",
  "tokio",
  "workflow-log",
  "workflow-terminal",
 ]
 
 [[package]]
-name = "kaspa-wallet-cli-wasm"
+name = "waglayla-wallet-cli-wasm"
 version = "0.14.5"
 dependencies = [
  "async-trait",
  "js-sys",
- "kaspa-cli",
+ "waglayla-cli",
  "wasm-bindgen",
  "wasm-bindgen-futures",
  "workflow-log",
@@ -3574,7 +3574,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "kaspa-wallet-core"
+name = "waglayla-wallet-core"
 version = "0.14.5"
 dependencies = [
  "aes",
@@ -3604,24 +3604,24 @@ dependencies = [
  "indexed_db_futures",
  "itertools 0.11.0",
  "js-sys",
- "kaspa-addresses",
- "kaspa-bip32",
- "kaspa-consensus-client",
- "kaspa-consensus-core",
- "kaspa-consensus-wasm",
- "kaspa-core",
- "kaspa-hashes",
- "kaspa-metrics-core",
- "kaspa-notify",
- "kaspa-rpc-core",
- "kaspa-txscript",
- "kaspa-txscript-errors",
- "kaspa-utils",
- "kaspa-wallet-keys",
- "kaspa-wallet-macros",
- "kaspa-wasm-core",
- "kaspa-wrpc-client",
- "kaspa-wrpc-wasm",
+ "waglayla-addresses",
+ "waglayla-bip32",
+ "waglayla-consensus-client",
+ "waglayla-consensus-core",
+ "waglayla-consensus-wasm",
+ "waglayla-core",
+ "waglayla-hashes",
+ "waglayla-metrics-core",
+ "waglayla-notify",
+ "waglayla-rpc-core",
+ "waglayla-txscript",
+ "waglayla-txscript-errors",
+ "waglayla-utils",
+ "waglayla-wallet-keys",
+ "waglayla-wallet-macros",
+ "waglayla-wasm-core",
+ "waglayla-wrpc-client",
+ "waglayla-wrpc-wasm",
  "md-5",
  "pad",
  "pbkdf2",
@@ -3654,7 +3654,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "kaspa-wallet-keys"
+name = "waglayla-wallet-keys"
 version = "0.14.5"
 dependencies = [
  "async-trait",
@@ -3663,13 +3663,13 @@ dependencies = [
  "faster-hex 0.6.1",
  "hmac",
  "js-sys",
- "kaspa-addresses",
- "kaspa-bip32",
- "kaspa-consensus-core",
- "kaspa-txscript",
- "kaspa-txscript-errors",
- "kaspa-utils",
- "kaspa-wasm-core",
+ "waglayla-addresses",
+ "waglayla-bip32",
+ "waglayla-consensus-core",
+ "waglayla-txscript",
+ "waglayla-txscript-errors",
+ "waglayla-utils",
+ "waglayla-wasm-core",
  "rand 0.8.5",
  "ripemd",
  "secp256k1",
@@ -3687,7 +3687,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "kaspa-wallet-macros"
+name = "waglayla-wallet-macros"
 version = "0.14.5"
 dependencies = [
  "convert_case 0.5.0",
@@ -3700,24 +3700,24 @@ dependencies = [
 ]
 
 [[package]]
-name = "kaspa-wasm"
+name = "waglayla-wasm"
 version = "0.14.5"
 dependencies = [
  "cfg-if 1.0.0",
  "js-sys",
- "kaspa-addresses",
- "kaspa-consensus-core",
- "kaspa-consensus-wasm",
- "kaspa-core",
- "kaspa-math",
- "kaspa-pow",
- "kaspa-rpc-core",
- "kaspa-utils",
- "kaspa-wallet-core",
- "kaspa-wallet-keys",
- "kaspa-wasm-core",
- "kaspa-wrpc-client",
- "kaspa-wrpc-wasm",
+ "waglayla-addresses",
+ "waglayla-consensus-core",
+ "waglayla-consensus-wasm",
+ "waglayla-core",
+ "waglayla-math",
+ "waglayla-pow",
+ "waglayla-rpc-core",
+ "waglayla-utils",
+ "waglayla-wallet-core",
+ "waglayla-wallet-keys",
+ "waglayla-wasm-core",
+ "waglayla-wrpc-client",
+ "waglayla-wrpc-wasm",
  "num",
  "wasm-bindgen",
  "workflow-core",
@@ -3726,7 +3726,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "kaspa-wasm-core"
+name = "waglayla-wasm-core"
 version = "0.14.5"
 dependencies = [
  "faster-hex 0.6.1",
@@ -3735,7 +3735,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "kaspa-wrpc-client"
+name = "waglayla-wrpc-client"
 version = "0.14.5"
 dependencies = [
  "async-std",
@@ -3744,12 +3744,12 @@ dependencies = [
  "cfg-if 1.0.0",
  "futures",
  "js-sys",
- "kaspa-addresses",
- "kaspa-consensus-core",
- "kaspa-consensus-wasm",
- "kaspa-notify",
- "kaspa-rpc-core",
- "kaspa-rpc-macros",
+ "waglayla-addresses",
+ "waglayla-consensus-core",
+ "waglayla-consensus-wasm",
+ "waglayla-notify",
+ "waglayla-rpc-core",
+ "waglayla-rpc-macros",
  "paste",
  "rand 0.8.5",
  "regex",
@@ -3769,31 +3769,31 @@ dependencies = [
 ]
 
 [[package]]
-name = "kaspa-wrpc-example-subscriber"
+name = "waglayla-wrpc-example-subscriber"
 version = "0.14.5"
 dependencies = [
  "ctrlc",
  "futures",
- "kaspa-consensus-core",
- "kaspa-notify",
- "kaspa-rpc-core",
- "kaspa-wrpc-client",
+ "waglayla-consensus-core",
+ "waglayla-notify",
+ "waglayla-rpc-core",
+ "waglayla-wrpc-client",
  "tokio",
  "workflow-core",
  "workflow-log",
 ]
 
 [[package]]
-name = "kaspa-wrpc-proxy"
+name = "waglayla-wrpc-proxy"
 version = "0.14.5"
 dependencies = [
  "async-trait",
  "clap 4.5.4",
- "kaspa-consensus-core",
- "kaspa-grpc-client",
- "kaspa-rpc-core",
- "kaspa-rpc-macros",
- "kaspa-wrpc-server",
+ "waglayla-consensus-core",
+ "waglayla-grpc-client",
+ "waglayla-rpc-core",
+ "waglayla-rpc-macros",
+ "waglayla-wrpc-server",
  "num_cpus",
  "thiserror",
  "tokio",
@@ -3803,20 +3803,20 @@ dependencies = [
 ]
 
 [[package]]
-name = "kaspa-wrpc-server"
+name = "waglayla-wrpc-server"
 version = "0.14.5"
 dependencies = [
  "async-trait",
  "borsh",
  "futures",
- "kaspa-consensus-core",
- "kaspa-core",
- "kaspa-grpc-client",
- "kaspa-notify",
- "kaspa-rpc-core",
- "kaspa-rpc-macros",
- "kaspa-rpc-service",
- "kaspa-utils",
+ "waglayla-consensus-core",
+ "waglayla-core",
+ "waglayla-grpc-client",
+ "waglayla-notify",
+ "waglayla-rpc-core",
+ "waglayla-rpc-macros",
+ "waglayla-rpc-service",
+ "waglayla-utils",
  "log",
  "num_cpus",
  "openssl",
@@ -3830,7 +3830,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "kaspa-wrpc-wasm"
+name = "waglayla-wrpc-wasm"
 version = "0.14.5"
 dependencies = [
  "ahash 0.8.11",
@@ -3838,15 +3838,15 @@ dependencies = [
  "cfg-if 1.0.0",
  "futures",
  "js-sys",
- "kaspa-addresses",
- "kaspa-consensus-client",
- "kaspa-consensus-core",
- "kaspa-consensus-wasm",
- "kaspa-notify",
- "kaspa-rpc-core",
- "kaspa-rpc-macros",
- "kaspa-wasm-core",
- "kaspa-wrpc-client",
+ "waglayla-addresses",
+ "waglayla-consensus-client",
+ "waglayla-consensus-core",
+ "waglayla-consensus-wasm",
+ "waglayla-notify",
+ "waglayla-rpc-core",
+ "waglayla-rpc-macros",
+ "waglayla-wasm-core",
+ "waglayla-wrpc-client",
  "serde",
  "serde-wasm-bindgen",
  "serde_json",
@@ -5048,29 +5048,29 @@ dependencies = [
  "dirs",
  "futures",
  "futures-util",
- "kaspa-addresses",
- "kaspa-addressmanager",
- "kaspa-alloc",
- "kaspa-consensus",
- "kaspa-consensus-core",
- "kaspa-consensus-notify",
- "kaspa-consensusmanager",
- "kaspa-core",
- "kaspa-database",
- "kaspa-grpc-server",
- "kaspa-hashes",
- "kaspa-index-processor",
- "kaspa-mining",
- "kaspa-notify",
- "kaspa-p2p-flows",
- "kaspa-perf-monitor",
- "kaspa-rpc-core",
- "kaspa-rpc-service",
- "kaspa-txscript",
- "kaspa-utils",
- "kaspa-utils-tower",
- "kaspa-utxoindex",
- "kaspa-wrpc-server",
+ "waglayla-addresses",
+ "waglayla-addressmanager",
+ "waglayla-alloc",
+ "waglayla-consensus",
+ "waglayla-consensus-core",
+ "waglayla-consensus-notify",
+ "waglayla-consensusmanager",
+ "waglayla-core",
+ "waglayla-database",
+ "waglayla-grpc-server",
+ "waglayla-hashes",
+ "waglayla-index-processor",
+ "waglayla-mining",
+ "waglayla-notify",
+ "waglayla-p2p-flows",
+ "waglayla-perf-monitor",
+ "waglayla-rpc-core",
+ "waglayla-rpc-service",
+ "waglayla-txscript",
+ "waglayla-utils",
+ "waglayla-utils-tower",
+ "waglayla-utxoindex",
+ "waglayla-wrpc-server",
  "log",
  "num_cpus",
  "rand 0.8.5",
@@ -5089,13 +5089,13 @@ name = "pyrin-sdk"
 version = "0.1.9"
 dependencies = [
  "futures",
- "kaspa-addresses",
- "kaspa-bip32",
- "kaspa-consensus-core",
- "kaspa-muhash",
- "kaspa-notify",
- "kaspa-rpc-core",
- "kaspa-wallet-core",
+ "waglayla-addresses",
+ "waglayla-bip32",
+ "waglayla-consensus-core",
+ "waglayla-muhash",
+ "waglayla-notify",
+ "waglayla-rpc-core",
+ "waglayla-wallet-core",
  "pyo3",
  "pyo3-asyncio",
  "tokio",
@@ -5377,14 +5377,14 @@ dependencies = [
  "criterion",
  "faster-hex 0.6.1",
  "itertools 0.11.0",
- "kaspa-addresses",
- "kaspa-consensus-core",
- "kaspa-core",
- "kaspa-grpc-client",
- "kaspa-notify",
- "kaspa-rpc-core",
- "kaspa-txscript",
- "kaspa-utils",
+ "waglayla-addresses",
+ "waglayla-consensus-core",
+ "waglayla-core",
+ "waglayla-grpc-client",
+ "waglayla-notify",
+ "waglayla-rpc-core",
+ "waglayla-txscript",
+ "waglayla-utils",
  "log",
  "parking_lot",
  "rayon",
@@ -5830,15 +5830,15 @@ dependencies = [
  "futures-util",
  "indexmap 2.2.6",
  "itertools 0.11.0",
- "kaspa-alloc",
- "kaspa-consensus",
- "kaspa-consensus-core",
- "kaspa-consensus-notify",
- "kaspa-core",
- "kaspa-database",
- "kaspa-hashes",
- "kaspa-perf-monitor",
- "kaspa-utils",
+ "waglayla-alloc",
+ "waglayla-consensus",
+ "waglayla-consensus-core",
+ "waglayla-consensus-notify",
+ "waglayla-core",
+ "waglayla-database",
+ "waglayla-hashes",
+ "waglayla-perf-monitor",
+ "waglayla-utils",
  "log",
  "num_cpus",
  "rand 0.8.5",

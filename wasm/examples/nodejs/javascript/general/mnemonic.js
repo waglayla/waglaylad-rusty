@@ -1,9 +1,9 @@
-const kaspa = require('../../../../nodejs/kaspa');
+const waglayla = require('../../../../nodejs/waglayla');
 const {
     Mnemonic,
-} = kaspa;
+} = waglayla;
 
-kaspa.initConsolePanicHook();
+waglayla.initConsolePanicHook();
 
 (async () => {
 

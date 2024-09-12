@@ -4,9 +4,9 @@ use super::collector::{CollectorFromConsensus, CollectorFromIndex};
 use crate::converter::{consensus::ConsensusConverter, index::IndexConverter, protocol::ProtocolConverter};
 use crate::service::NetworkType::{Mainnet, Testnet};
 use async_trait::async_trait;
-use kaspa_consensus_core::api::counters::ProcessingCounters;
-use kaspa_consensus_core::errors::block::RuleError;
-use kaspa_consensus_core::{
+use waglayla_consensus_core::api::counters::ProcessingCounters;
+use waglayla_consensus_core::errors::block::RuleError;
+use waglayla_consensus_core::{
     block::Block,
     coinbase::MinerData,
     config::Config,
@@ -14,32 +14,32 @@ use kaspa_consensus_core::{
     network::NetworkType,
     tx::{Transaction, COINBASE_TRANSACTION_INDEX},
 };
-use kaspa_consensus_notify::{
+use waglayla_consensus_notify::{
     notifier::ConsensusNotifier,
     {connection::ConsensusChannelConnection, notification::Notification as ConsensusNotification},
 };
-use kaspa_consensusmanager::ConsensusManager;
-use kaspa_core::time::unix_now;
-use kaspa_core::{
+use waglayla_consensusmanager::ConsensusManager;
+use waglayla_core::time::unix_now;
+use waglayla_core::{
     core::Core,
     debug,
-    kaspad_env::version,
+    waglaylad_env::version,
     signals::Shutdown,
     task::service::{AsyncService, AsyncServiceError, AsyncServiceFuture},
     task::tick::TickService,
     trace, warn,
 };
-use kaspa_index_core::indexed_utxos::BalanceByScriptPublicKey;
-use kaspa_index_core::{
+use waglayla_index_core::indexed_utxos::BalanceByScriptPublicKey;
+use waglayla_index_core::{
     connection::IndexChannelConnection, indexed_utxos::UtxoSetByScriptPublicKey, notification::Notification as IndexNotification,
     notifier::IndexNotifier,
 };
-use kaspa_mining::model::tx_query::TransactionQuery;
-use kaspa_mining::{manager::MiningManagerProxy, mempool::tx::Orphan};
-use kaspa_notify::listener::ListenerLifespan;
-use kaspa_notify::subscription::context::SubscriptionContext;
-use kaspa_notify::subscription::{MutationPolicies, UtxosChangedMutationPolicy};
-use kaspa_notify::{
+use waglayla_mining::model::tx_query::TransactionQuery;
+use waglayla_mining::{manager::MiningManagerProxy, mempool::tx::Orphan};
+use waglayla_notify::listener::ListenerLifespan;
+use waglayla_notify::subscription::context::SubscriptionContext;
+use waglayla_notify::subscription::{MutationPolicies, UtxosChangedMutationPolicy};
+use waglayla_notify::{
     collector::DynCollector,
     connection::ChannelType,
     events::{EventSwitches, EventType, EVENT_TYPE_ARRAY},
@@ -48,10 +48,10 @@ use kaspa_notify::{
     scope::Scope,
     subscriber::{Subscriber, SubscriptionManager},
 };
-use kaspa_p2p_flows::flow_context::FlowContext;
-use kaspa_p2p_lib::common::ProtocolError;
-use kaspa_perf_monitor::{counters::CountersSnapshot, Monitor as PerfMonitor};
-use kaspa_rpc_core::{
+use waglayla_p2p_flows::flow_context::FlowContext;
+use waglayla_p2p_lib::common::ProtocolError;
+use waglayla_perf_monitor::{counters::CountersSnapshot, Monitor as PerfMonitor};
+use waglayla_rpc_core::{
     api::{
         ops::RPC_API_VERSION,
         rpc::{RpcApi, MAX_SAFE_WINDOW_SIZE},
@@ -60,10 +60,10 @@ use kaspa_rpc_core::{
     notify::connection::ChannelConnection,
     Notification, RpcError, RpcResult,
 };
-use kaspa_txscript::{extract_script_pub_key_address, pay_to_address_script};
-use kaspa_utils::{channel::Channel, triggers::SingleTrigger};
-use kaspa_utils_tower::counters::TowerConnectionCounters;
-use kaspa_utxoindex::api::UtxoIndexProxy;
+use waglayla_txscript::{extract_script_pub_key_address, pay_to_address_script};
+use waglayla_utils::{channel::Channel, triggers::SingleTrigger};
+use waglayla_utils_tower::counters::TowerConnectionCounters;
+use waglayla_utxoindex::api::UtxoIndexProxy;
 use std::{
     collections::HashMap,
     iter::once,
@@ -73,7 +73,7 @@ use std::{
 use tokio::join;
 use workflow_rpc::server::WebSocketCounters as WrpcServerCounters;
 
-/// A service implementing the Rpc API at kaspa_rpc_core level.
+/// A service implementing the Rpc API at waglayla_rpc_core level.
 ///
 /// Collects notifications from the consensus and forwards them to
 /// actual protocol-featured services. Thanks to the subscription pattern,
@@ -342,11 +342,11 @@ NOTE: This error usually indicates an RPC conversion error between the node and 
 
         // Make sure the pay address prefix matches the config network type
         if request.pay_address.prefix != self.config.prefix() {
-            return Err(kaspa_addresses::AddressError::InvalidPrefix(request.pay_address.prefix.to_string()))?;
+            return Err(waglayla_addresses::AddressError::InvalidPrefix(request.pay_address.prefix.to_string()))?;
         }
 
         // Build block template
-        let script_public_key = kaspa_txscript::pay_to_address_script(&request.pay_address);
+        let script_public_key = waglayla_txscript::pay_to_address_script(&request.pay_address);
         let extra_data = version().as_bytes().iter().chain(once(&(b'/'))).chain(&request.extra_data).cloned().collect::<Vec<_>>();
         let miner_data: MinerData = MinerData::new(script_public_key, extra_data);
         let session = self.consensus_manager.consensus().unguarded_session();
@@ -686,7 +686,7 @@ NOTE: This error usually indicates an RPC conversion error between the node and 
 
         // In the previous golang implementation the convention for virtual was the following const.
         // In the current implementation, consensus behaves the same when it gets a None instead.
-        const LEGACY_VIRTUAL: kaspa_hashes::Hash = kaspa_hashes::Hash::from_bytes([0xff; kaspa_hashes::HASH_SIZE]);
+        const LEGACY_VIRTUAL: waglayla_hashes::Hash = waglayla_hashes::Hash::from_bytes([0xff; waglayla_hashes::HASH_SIZE]);
         let mut start_hash = request.start_hash;
         if let Some(start) = start_hash {
             if start == LEGACY_VIRTUAL {

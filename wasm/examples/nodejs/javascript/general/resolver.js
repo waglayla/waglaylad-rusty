@@ -1,15 +1,15 @@
 // @ts-ignore
 globalThis.WebSocket = require('websocket').w3cwebsocket; // W3C WebSocket module shim
 
-const kaspa = require('../../../../nodejs/kaspa');
+const waglayla = require('../../../../nodejs/waglayla');
 const { parseArgs } = require("../utils");
 const {
     Resolver,
     Encoding,
     RpcClient,
-} = kaspa;
+} = waglayla;
 
-kaspa.initConsolePanicHook();
+waglayla.initConsolePanicHook();
 
 const {
     networkId,

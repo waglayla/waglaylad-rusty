@@ -1,5 +1,5 @@
-use kaspa_notify::events::EventType;
-use kaspa_utxoindex::errors::UtxoIndexError;
+use waglayla_notify::events::EventType;
+use waglayla_utxoindex::errors::UtxoIndexError;
 use thiserror::Error;
 
 #[derive(Error, Debug)]

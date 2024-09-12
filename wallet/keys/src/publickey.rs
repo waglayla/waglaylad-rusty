@@ -17,7 +17,7 @@
 //! ```
 //!
 
-use kaspa_consensus_core::network::NetworkType;
+use waglayla_consensus_core::network::NetworkType;
 
 use crate::imports::*;
 

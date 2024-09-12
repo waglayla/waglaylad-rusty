@@ -5,15 +5,15 @@ use crate::{
     request_handler::{factory::Factory, interface::Interface},
 };
 use futures::{FutureExt, Stream};
-use kaspa_core::{debug, info, warn};
-use kaspa_grpc_core::{
+use waglayla_core::{debug, info, warn};
+use waglayla_grpc_core::{
     protowire::{
         rpc_server::{Rpc, RpcServer},
-        KaspadRequest, KaspadResponse,
+        WaglayladRequest, WaglayladResponse,
     },
     RPC_MAX_MESSAGE_SIZE,
 };
-use kaspa_notify::{
+use waglayla_notify::{
     connection::ChannelType,
     events::EVENT_TYPE_ARRAY,
     listener::ListenerLifespan,
@@ -21,13 +21,13 @@ use kaspa_notify::{
     subscriber::Subscriber,
     subscription::{context::SubscriptionContext, MutationPolicies, UtxosChangedMutationPolicy},
 };
-use kaspa_rpc_core::{
+use waglayla_rpc_core::{
     api::rpc::DynRpcService,
     notify::{channel::NotificationChannel, connection::ChannelConnection},
     Notification, RpcResult,
 };
-use kaspa_utils::networking::NetAddress;
-use kaspa_utils_tower::{
+use waglayla_utils::networking::NetAddress;
+use waglayla_utils_tower::{
     counters::TowerConnectionCounters,
     middleware::{measure_request_body_size_layer, CountBytesBody, MapResponseBodyLayer},
 };
@@ -235,12 +235,12 @@ impl Drop for ConnectionHandler {
 
 #[tonic::async_trait]
 impl Rpc for ConnectionHandler {
-    type MessageStreamStream = Pin<Box<dyn Stream<Item = Result<KaspadResponse, tonic::Status>> + Send + Sync + 'static>>;
+    type MessageStreamStream = Pin<Box<dyn Stream<Item = Result<WaglayladResponse, tonic::Status>> + Send + Sync + 'static>>;
 
     /// Handle the new arriving client connection
     async fn message_stream(
         &self,
-        request: Request<tonic::Streaming<KaspadRequest>>,
+        request: Request<tonic::Streaming<WaglayladRequest>>,
     ) -> Result<Response<Self::MessageStreamStream>, tonic::Status> {
         const SERVICE_IS_DOWN: &str = "The gRPC service is down";
 

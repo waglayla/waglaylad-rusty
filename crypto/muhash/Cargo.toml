@@ -1,6 +1,6 @@
 [package]
-name = "kaspa-muhash"
-description = "Kaspa Muhash library"
+name = "waglayla-muhash"
+description = "Waglayla Muhash library"
 rust-version.workspace = true
 version.workspace = true
 edition.workspace = true
@@ -10,9 +10,9 @@ license.workspace = true
 repository.workspace = true
 
 [dependencies]
-kaspa-hashes.workspace = true
-kaspa-math.workspace = true
-kaspa-utils.workspace = true
+waglayla-hashes.workspace = true
+waglayla-math.workspace = true
+waglayla-utils.workspace = true
 rand_chacha.workspace = true
 serde.workspace = true
 sha2.workspace = true

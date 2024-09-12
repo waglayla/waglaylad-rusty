@@ -1,6 +1,6 @@
 use std::{convert::TryInto, mem::size_of};
 
-use kaspa_consensus_core::{
+use waglayla_consensus_core::{
     BlockHashMap,
     BlockHashSet,
     coinbase::*,
@@ -247,7 +247,7 @@ impl CoinbaseManager {
 }
 
 /*
-    This table was pre-calculated by calling `calcDeflationaryPeriodBlockSubsidyFloatCalc` (in kaspad-go) for all months until reaching 0 subsidy.
+    This table was pre-calculated by calling `calcDeflationaryPeriodBlockSubsidyFloatCalc` (in waglaylad-go) for all months until reaching 0 subsidy.
     To regenerate this table, run `TestBuildSubsidyTable` in coinbasemanager_test.go (note the `deflationaryPhaseBaseSubsidy` therein).
     These values apply to 1 block per second.
 */
@@ -272,7 +272,7 @@ const SUBSIDY_BY_MONTH_TABLE: [u64; 366] = [
 
 #[cfg(test)]
 mod tests {
-    use kaspa_consensus_core::{
+    use waglayla_consensus_core::{
         config::params::{Params, TESTNET11_PARAMS},
         constants::LEOR_PER_PYRIN,
         network::NetworkId,

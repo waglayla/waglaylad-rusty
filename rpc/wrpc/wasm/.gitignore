@@ -1,6 +1,6 @@
 /target
 /Cargo.lock
-/web/kaspa-rpc
-/nodejs/kaspa-rpc
+/web/waglayla-rpc
+/nodejs/waglayla-rpc
 /nodejs/node_modules
 /nodejs/package-lock.json

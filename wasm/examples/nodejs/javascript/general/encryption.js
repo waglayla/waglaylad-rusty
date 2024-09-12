@@ -1,12 +1,12 @@
-const kaspa = require('../../../../nodejs/kaspa');
+const waglayla = require('../../../../nodejs/waglayla');
 
-kaspa.initConsolePanicHook();
+waglayla.initConsolePanicHook();
 
 (async () => {
 
-    let encrypted = kaspa.encryptXChaCha20Poly1305("my message", "my_password");
+    let encrypted = waglayla.encryptXChaCha20Poly1305("my message", "my_password");
     console.log("encrypted:", encrypted);
-    let decrypted = kaspa.decryptXChaCha20Poly1305(encrypted, "my_password");
+    let decrypted = waglayla.decryptXChaCha20Poly1305(encrypted, "my_password");
     console.log("decrypted:", decrypted);
 
 })();

@@ -1,5 +1,5 @@
 use futures_util::future::BoxFuture;
-use kaspa_muhash::MuHash;
+use waglayla_muhash::MuHash;
 use std::sync::Arc;
 
 use crate::{
@@ -21,7 +21,7 @@ use crate::{
     tx::{MutableTransaction, Transaction, TransactionOutpoint, UtxoEntry},
     BlockHashSet, BlueWorkType, ChainPath,
 };
-use kaspa_hashes::Hash;
+use waglayla_hashes::Hash;
 
 pub use self::stats::{BlockCount, ConsensusStats};
 
@@ -309,13 +309,13 @@ pub trait ConsensusApi: Send + Sync {
         unimplemented!()
     }
 
-    // TODO: Delete this function once there's no need for go-kaspad backward compatibility.
+    // TODO: Delete this function once there's no need for go-waglaylad backward compatibility.
     fn get_daa_window(&self, hash: Hash) -> ConsensusResult<Vec<Hash>> {
         unimplemented!()
     }
 
     // TODO: Think of a better name.
-    // TODO: Delete this function once there's no need for go-kaspad backward compatibility.
+    // TODO: Delete this function once there's no need for go-waglaylad backward compatibility.
     fn get_trusted_block_associated_ghostdag_data_block_hashes(&self, hash: Hash) -> ConsensusResult<Vec<Hash>> {
         unimplemented!()
     }

@@ -14,7 +14,7 @@ pub enum Error {
     Wasm(#[from] workflow_wasm::error::Error),
 
     #[error(transparent)]
-    ScriptBuilder(#[from] kaspa_txscript::script_builder::ScriptBuilderError),
+    ScriptBuilder(#[from] waglayla_txscript::script_builder::ScriptBuilderError),
 
     #[error("{0}")]
     ParseInt(#[from] std::num::ParseIntError),
@@ -29,16 +29,16 @@ pub enum Error {
     Secp256k1(#[from] secp256k1::Error),
 
     #[error(transparent)]
-    Sign(#[from] kaspa_consensus_core::sign::Error),
+    Sign(#[from] waglayla_consensus_core::sign::Error),
 
     #[error(transparent)]
     SerdeWasmBindgen(JsErrorData),
 
     #[error(transparent)]
-    Address(#[from] kaspa_addresses::AddressError),
+    Address(#[from] waglayla_addresses::AddressError),
 
     #[error(transparent)]
-    NetworkType(#[from] kaspa_consensus_core::network::NetworkTypeError),
+    NetworkType(#[from] waglayla_consensus_core::network::NetworkTypeError),
 
     #[error("Error converting property `{0}`: {1}")]
     Convert(&'static str, String),

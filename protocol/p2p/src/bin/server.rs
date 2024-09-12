@@ -1,16 +1,16 @@
-use kaspa_core::debug;
-use kaspa_p2p_lib::echo::EchoFlowInitializer;
-use kaspa_utils::networking::NetAddress;
+use waglayla_core::debug;
+use waglayla_p2p_lib::echo::EchoFlowInitializer;
+use waglayla_utils::networking::NetAddress;
 use std::{str::FromStr, sync::Arc, time::Duration};
 
 #[tokio::main]
 async fn main() {
     // [-] - init logger
-    kaspa_core::log::init_logger(None, "debug");
+    waglayla_core::log::init_logger(None, "debug");
     // [0] - init p2p-adaptor - server side
     let ip_port = NetAddress::from_str("[::1]:50051").unwrap();
     let initializer = Arc::new(EchoFlowInitializer::new());
-    let adaptor = kaspa_p2p_lib::Adaptor::bidirectional(ip_port, kaspa_p2p_lib::Hub::new(), initializer, Default::default()).unwrap();
+    let adaptor = waglayla_p2p_lib::Adaptor::bidirectional(ip_port, waglayla_p2p_lib::Hub::new(), initializer, Default::default()).unwrap();
     // [1] - connect to a few peers
     let ip_port = String::from("[::1]:13111");
     for i in 0..1 {

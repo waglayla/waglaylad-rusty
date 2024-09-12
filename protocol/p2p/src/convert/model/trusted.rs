@@ -3,7 +3,7 @@
 //! a specific syncing protocol and thus do not belong within consensus core.
 //!
 
-use kaspa_consensus_core::{
+use waglayla_consensus_core::{
     block::Block,
     blockhash::ORIGIN,
     trusted::{TrustedBlock, TrustedGhostdagData, TrustedHeader},

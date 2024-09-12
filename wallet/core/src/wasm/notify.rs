@@ -1,6 +1,6 @@
 #![allow(non_snake_case)]
 use cfg_if::cfg_if;
-use kaspa_wallet_macros::declare_typescript_wasm_interface as declare;
+use waglayla_wallet_macros::declare_typescript_wasm_interface as declare;
 use wasm_bindgen::prelude::*;
 
 cfg_if! {
@@ -499,8 +499,8 @@ declare! {
     r#"
     /**
      * Emitted by {@link UtxoProcessor} after successfully opening an RPC
-     * connection to the Kaspa node. This event contains general information
-     * about the Kaspa node.
+     * connection to the Waglayla node. This event contains general information
+     * about the Waglayla node.
      * 
      * @category Wallet Events
      */

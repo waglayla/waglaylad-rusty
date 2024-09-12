@@ -1,6 +1,6 @@
 use crate::{block::Block, header::Header, subnets::SUBNETWORK_ID_COINBASE, tx::Transaction};
-use kaspa_hashes::{Hash, ZERO_HASH};
-use kaspa_muhash::{Blake2Hash, EMPTY_MUHASH};
+use waglayla_hashes::{Hash, ZERO_HASH};
+use waglayla_muhash::{Blake2Hash, EMPTY_MUHASH};
 
 /// The constants uniquely representing the genesis block
 #[derive(Clone, Debug)]
@@ -157,7 +157,7 @@ pub const TESTNET11_GENESIS: GenesisBlock = GenesisBlock {
         0x00, 0x00, // Script version
         0x01,                                                                         // Varint
         0x00,                                                                         // OP-FALSE
-        0x6b, 0x61, 0x73, 0x70, 0x61, 0x2d, 0x74, 0x65, 0x73, 0x74, 0x6e, 0x65, 0x74, // kaspa-testnet
+        0x6b, 0x61, 0x73, 0x70, 0x61, 0x2d, 0x74, 0x65, 0x73, 0x74, 0x6e, 0x65, 0x74, // waglayla-testnet
         11, 4                                                                         // TN11, Relaunch 4
     ],
     ..TESTNET_GENESIS
@@ -185,7 +185,7 @@ pub const SIMNET_GENESIS: GenesisBlock = GenesisBlock {
         0x00, 0x00, // Script version
         0x01,                                                                   // Varint
         0x00,                                                                   // OP-FALSE
-        0x6b, 0x61, 0x73, 0x70, 0x61, 0x2d, 0x73, 0x69, 0x6d, 0x6e, 0x65, 0x74, // kaspa-simnet
+        0x6b, 0x61, 0x73, 0x70, 0x61, 0x2d, 0x73, 0x69, 0x6d, 0x6e, 0x65, 0x74, // waglayla-simnet
     ],
 };
 
@@ -217,7 +217,7 @@ pub const DEVNET_GENESIS: GenesisBlock = GenesisBlock {
         0x00, 0x00, // Script version
         0x01,                                                                   // Varint
         0x00,                                                                   // OP-FALSE
-        0x6b, 0x61, 0x73, 0x70, 0x61, 0x2d, 0x64, 0x65, 0x76, 0x6e, 0x65, 0x74, // kaspa-devnet
+        0x6b, 0x61, 0x73, 0x70, 0x61, 0x2d, 0x64, 0x65, 0x76, 0x6e, 0x65, 0x74, // waglayla-devnet
     ],
 };
 
@@ -226,7 +226,7 @@ mod tests {
     use super::*;
     use crate::{config::bps::Testnet11Bps, merkle::calc_hash_merkle_root};
 
-    #[ignore] // TODO: Pyrin
+    #[ignore] // TODO: Waglayla
     #[test]
     fn test_genesis_hashes() {
         [GENESIS, TESTNET_GENESIS, TESTNET11_GENESIS, SIMNET_GENESIS, DEVNET_GENESIS].into_iter().for_each(|genesis| {
@@ -240,7 +240,7 @@ mod tests {
     fn gen_testnet11_genesis() {
         let bps = Testnet11Bps::bps();
         let mut genesis = TESTNET_GENESIS;
-        let target = kaspa_math::Uint256::from_compact_target_bits(genesis.bits);
+        let target = waglayla_math::Uint256::from_compact_target_bits(genesis.bits);
         let scaled_target = target * bps / 100;
         let scaled_bits = scaled_target.compact_target_bits();
         genesis.bits = scaled_bits;

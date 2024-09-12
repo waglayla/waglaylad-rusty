@@ -1,9 +1,9 @@
 use async_trait::async_trait;
-use kaspa_consensus_core::config::Config;
-use kaspa_index_core::indexed_utxos::UtxoSetByScriptPublicKey;
-use kaspa_index_core::notification::{self as index_notify, Notification as IndexNotification};
-use kaspa_notify::converter::Converter;
-use kaspa_rpc_core::{utxo_set_into_rpc, Notification, RpcUtxosByAddressesEntry, UtxosChangedNotification};
+use waglayla_consensus_core::config::Config;
+use waglayla_index_core::indexed_utxos::UtxoSetByScriptPublicKey;
+use waglayla_index_core::notification::{self as index_notify, Notification as IndexNotification};
+use waglayla_notify::converter::Converter;
+use waglayla_rpc_core::{utxo_set_into_rpc, Notification, RpcUtxosByAddressesEntry, UtxosChangedNotification};
 use std::sync::Arc;
 
 /// Conversion of consensus_core to rpc_core structures

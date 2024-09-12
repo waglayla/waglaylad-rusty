@@ -7,13 +7,13 @@ use super::{
     option::TryIntoOptionEx,
 };
 use crate::pb as protowire;
-use kaspa_consensus_core::{
+use waglayla_consensus_core::{
     header::Header,
     pruning::{PruningPointProof, PruningPointsList},
     tx::{TransactionId, TransactionOutpoint, UtxoEntry},
 };
-use kaspa_hashes::Hash;
-use kaspa_utils::networking::{IpAddress, PeerId};
+use waglayla_hashes::Hash;
+use waglayla_utils::networking::{IpAddress, PeerId};
 
 use std::sync::Arc;
 

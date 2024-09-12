@@ -4,19 +4,19 @@ use crate::imports::*;
 use crate::Resolver;
 use crate::{RpcEventCallback, RpcEventType, RpcEventTypeOrCallback};
 use js_sys::{Function, Object};
-use kaspa_addresses::{Address, AddressOrStringArrayT};
-use kaspa_consensus_client::UtxoEntryReference;
-use kaspa_consensus_core::network::{NetworkType, NetworkTypeT};
-use kaspa_notify::connection::ChannelType;
-use kaspa_notify::events::EventType;
-use kaspa_notify::listener;
-use kaspa_notify::notification::Notification as NotificationT;
-use kaspa_rpc_core::api::ctl;
-pub use kaspa_rpc_core::wasm::message::*;
-pub use kaspa_rpc_macros::{
+use waglayla_addresses::{Address, AddressOrStringArrayT};
+use waglayla_consensus_client::UtxoEntryReference;
+use waglayla_consensus_core::network::{NetworkType, NetworkTypeT};
+use waglayla_notify::connection::ChannelType;
+use waglayla_notify::events::EventType;
+use waglayla_notify::listener;
+use waglayla_notify::notification::Notification as NotificationT;
+use waglayla_rpc_core::api::ctl;
+pub use waglayla_rpc_core::wasm::message::*;
+pub use waglayla_rpc_macros::{
     build_wrpc_wasm_bindgen_interface, build_wrpc_wasm_bindgen_subscriptions, declare_typescript_wasm_interface as declare,
 };
-use kaspa_wasm_core::events::{get_event_targets, Sink};
+use waglayla_wasm_core::events::{get_event_targets, Sink};
 pub use serde_wasm_bindgen::from_value;
 use workflow_rpc::client::Ctl;
 pub use workflow_rpc::client::IConnectOptions;
@@ -131,13 +131,13 @@ impl TryFrom<JsValue> for NotificationEvent {
 }
 
 pub struct Inner {
-    client: Arc<KaspaRpcClient>,
+    client: Arc<WaglaylaRpcClient>,
     resolver: Option<Resolver>,
     notification_task: AtomicBool,
     notification_ctl: DuplexChannel,
     callbacks: Arc<Mutex<AHashMap<NotificationEvent, Vec<Sink>>>>,
     listener_id: Arc<Mutex<Option<ListenerId>>>,
-    notification_channel: Channel<kaspa_rpc_core::Notification>,
+    notification_channel: Channel<waglayla_rpc_core::Notification>,
 }
 
 impl Inner {
@@ -159,11 +159,11 @@ impl Inner {
 
 ///
 ///
-/// Kaspa RPC client uses ([wRPC](https://github.com/workflow-rs/workflow-rs/tree/master/rpc))
-/// interface to connect directly with Kaspa Node. wRPC supports
+/// Waglayla RPC client uses ([wRPC](https://github.com/workflow-rs/workflow-rs/tree/master/rpc))
+/// interface to connect directly with Waglayla Node. wRPC supports
 /// two types of encodings: `borsh` (binary, default) and `json`.
 ///
-/// There are two ways to connect: Directly to any Kaspa Node or to a
+/// There are two ways to connect: Directly to any Waglayla Node or to a
 /// community-maintained public node infrastructure using the {@link Resolver} class.
 ///
 /// **Connecting to a public node using a resolver**
@@ -177,7 +177,7 @@ impl Inner {
 /// await rpc.connect();
 /// ```
 ///
-/// **Connecting to a Kaspa Node directly**
+/// **Connecting to a Waglayla Node directly**
 ///
 /// ```javascript
 /// let rpc = new RpcClient({
@@ -223,7 +223,7 @@ impl Inner {
 /// using {@link RpcClient.addEventListener} and {@link RpcClient.removeEventListener} functions.
 ///
 /// **IMPORTANT:** If RPC is disconnected, upon reconnection you do not need
-/// to re-register event listeners, but your have to re-subscribe for Kaspa node
+/// to re-register event listeners, but your have to re-subscribe for Waglayla node
 /// notifications:
 ///
 /// ```typescript
@@ -289,7 +289,7 @@ impl RpcClient {
             .transpose()?;
 
         let client = Arc::new(
-            KaspaRpcClient::new(encoding, url.as_deref(), resolver.clone().map(Into::into), network_id, None)
+            WaglaylaRpcClient::new(encoding, url.as_deref(), resolver.clone().map(Into::into), network_id, None)
                 .unwrap_or_else(|err| panic!("{err}")),
         );
 
@@ -379,7 +379,7 @@ impl RpcClient {
         self.inner.client.node_descriptor().and_then(|node| node.provider_url.clone())
     }
 
-    /// Connect to the Kaspa RPC server. This function starts a background
+    /// Connect to the Waglayla RPC server. This function starts a background
     /// task that connects and reconnects to the server if the connection
     /// is terminated.  Use [`disconnect()`](Self::disconnect()) to
     /// terminate the connection.
@@ -393,7 +393,7 @@ impl RpcClient {
         Ok(())
     }
 
-    /// Disconnect from the Kaspa RPC server.
+    /// Disconnect from the Waglayla RPC server.
     pub async fn disconnect(&self) -> Result<()> {
         // disconnect the client first to receive the 'close' event
         self.inner.client.disconnect().await?;
@@ -437,7 +437,7 @@ impl RpcClient {
     /// triggered when notifications are received.
     ///
     /// If node is disconnected, upon reconnection you do not need to re-register event listeners,
-    /// however, you have to re-subscribe for Kaspa node notifications. As such, it is recommended
+    /// however, you have to re-subscribe for Waglayla node notifications. As such, it is recommended
     /// to register event listeners when the RPC `open` event is received.
     ///
     /// ```javascript
@@ -610,7 +610,7 @@ impl RpcClient {
 }
 
 impl RpcClient {
-    pub fn new_with_rpc_client(client: Arc<KaspaRpcClient>) -> RpcClient {
+    pub fn new_with_rpc_client(client: Arc<WaglaylaRpcClient>) -> RpcClient {
         let resolver = client.resolver().map(Into::into);
         RpcClient {
             inner: Arc::new(Inner {
@@ -629,7 +629,7 @@ impl RpcClient {
         *self.inner.listener_id.lock().unwrap()
     }
 
-    pub fn client(&self) -> &Arc<KaspaRpcClient> {
+    pub fn client(&self) -> &Arc<WaglaylaRpcClient> {
         &self.inner.client
     }
 
@@ -666,7 +666,7 @@ impl RpcClient {
                             match ctl {
                                 Ctl::Connect => {
                                     let listener_id = this.inner.client.register_new_listener(ChannelConnection::new(
-                                        "kaspa-wrpc-client-wasm",
+                                        "waglayla-wrpc-client-wasm",
                                         this.inner.notification_channel.sender.clone(),
                                         ChannelType::Persistent,
                                     ));
@@ -698,7 +698,7 @@ impl RpcClient {
                     msg = notification_receiver.recv().fuse() => {
                         if let Ok(notification) = &msg {
                             match &notification {
-                                kaspa_rpc_core::Notification::UtxosChanged(utxos_changed_notification) => {
+                                waglayla_rpc_core::Notification::UtxosChanged(utxos_changed_notification) => {
 
                                     let event_type = EventType::UtxosChanged;
                                     let notification_event = NotificationEvent::Notification(event_type);
@@ -783,7 +783,7 @@ impl RpcClient {
     ///
     #[wasm_bindgen(js_name = parseUrl)]
     pub fn parse_url(url: &str, encoding: Encoding, network: NetworkId) -> Result<String> {
-        let url_ = KaspaRpcClient::parse_url(url.to_string(), encoding, network.into())?;
+        let url_ = WaglaylaRpcClient::parse_url(url.to_string(), encoding, network.into())?;
         Ok(url_)
     }
 }
@@ -792,7 +792,7 @@ impl RpcClient {
 impl RpcClient {
     /// Manage subscription for a virtual DAA score changed notification event.
     /// Virtual DAA score changed notification event is produced when the virtual
-    /// Difficulty Adjustment Algorithm (DAA) score changes in the Kaspa BlockDAG.
+    /// Difficulty Adjustment Algorithm (DAA) score changes in the Waglayla BlockDAG.
     #[wasm_bindgen(js_name = subscribeVirtualDaaScoreChanged)]
     pub async fn subscribe_daa_score(&self) -> Result<()> {
         if let Some(listener_id) = self.listener_id() {
@@ -805,7 +805,7 @@ impl RpcClient {
 
     /// Manage subscription for a virtual DAA score changed notification event.
     /// Virtual DAA score changed notification event is produced when the virtual
-    /// Difficulty Adjustment Algorithm (DAA) score changes in the Kaspa BlockDAG.
+    /// Difficulty Adjustment Algorithm (DAA) score changes in the Waglayla BlockDAG.
     #[wasm_bindgen(js_name = unsubscribeVirtualDaaScoreChanged)]
     pub async fn unsubscribe_daa_score(&self) -> Result<()> {
         if let Some(listener_id) = self.listener_id() {
@@ -819,7 +819,7 @@ impl RpcClient {
     /// Subscribe for a UTXOs changed notification event.
     /// UTXOs changed notification event is produced when the set
     /// of unspent transaction outputs (UTXOs) changes in the
-    /// Kaspa BlockDAG. The event notification will be scoped to the
+    /// Waglayla BlockDAG. The event notification will be scoped to the
     /// provided list of addresses.
     #[wasm_bindgen(js_name = subscribeUtxosChanged)]
     pub async fn subscribe_utxos_changed(&self, addresses: AddressOrStringArrayT) -> Result<()> {
@@ -850,7 +850,7 @@ impl RpcClient {
 
     /// Manage subscription for a virtual chain changed notification event.
     /// Virtual chain changed notification event is produced when the virtual
-    /// chain changes in the Kaspa BlockDAG.
+    /// chain changes in the Waglayla BlockDAG.
     #[wasm_bindgen(js_name = subscribeVirtualChainChanged)]
     pub async fn subscribe_virtual_chain_changed(&self, include_accepted_transaction_ids: bool) -> Result<()> {
         if let Some(listener_id) = self.listener_id() {
@@ -866,7 +866,7 @@ impl RpcClient {
 
     /// Manage subscription for a virtual chain changed notification event.
     /// Virtual chain changed notification event is produced when the virtual
-    /// chain changes in the Kaspa BlockDAG.
+    /// chain changes in the Waglayla BlockDAG.
     #[wasm_bindgen(js_name = unsubscribeVirtualChainChanged)]
     pub async fn unsubscribe_virtual_chain_changed(&self, include_accepted_transaction_ids: bool) -> Result<()> {
         if let Some(listener_id) = self.listener_id() {
@@ -889,28 +889,28 @@ build_wrpc_wasm_bindgen_subscriptions!([
     // - VirtualDaaScoreChanged,
     /// Manage subscription for a block added notification event.
     /// Block added notification event is produced when a new
-    /// block is added to the Kaspa BlockDAG.
+    /// block is added to the Waglayla BlockDAG.
     BlockAdded,
     /// Manage subscription for a finality conflict notification event.
     /// Finality conflict notification event is produced when a finality
-    /// conflict occurs in the Kaspa BlockDAG.
+    /// conflict occurs in the Waglayla BlockDAG.
     FinalityConflict,
     // TODO provide better description
     /// Manage subscription for a finality conflict resolved notification event.
     /// Finality conflict resolved notification event is produced when a finality
-    /// conflict in the Kaspa BlockDAG is resolved.
+    /// conflict in the Waglayla BlockDAG is resolved.
     FinalityConflictResolved,
     /// Manage subscription for a sink blue score changed notification event.
     /// Sink blue score changed notification event is produced when the blue
-    /// score of the sink block changes in the Kaspa BlockDAG.
+    /// score of the sink block changes in the Waglayla BlockDAG.
     SinkBlueScoreChanged,
     /// Manage subscription for a pruning point UTXO set override notification event.
     /// Pruning point UTXO set override notification event is produced when the
-    /// UTXO set override for the pruning point changes in the Kaspa BlockDAG.
+    /// UTXO set override for the pruning point changes in the Waglayla BlockDAG.
     PruningPointUtxoSetOverride,
     /// Manage subscription for a new block template notification event.
     /// New block template notification event is produced when a new block
-    /// template is generated for mining in the Kaspa BlockDAG.
+    /// template is generated for mining in the Waglayla BlockDAG.
     NewBlockTemplate,
 ]);
 
@@ -924,41 +924,41 @@ build_wrpc_wasm_bindgen_interface!(
         // functions with optional arguments
         // they are specified as Option<IXxxRequest>
         // which map as `request? : IXxxRequest` in typescript
-        /// Retrieves the current number of blocks in the Kaspa BlockDAG.
+        /// Retrieves the current number of blocks in the Waglayla BlockDAG.
         /// This is not a block count, not a "block height" and can not be
         /// used for transaction validation.
         /// Returned information: Current block count.
         GetBlockCount,
         /// Provides information about the Directed Acyclic Graph (DAG)
-        /// structure of the Kaspa BlockDAG.
+        /// structure of the Waglayla BlockDAG.
         /// Returned information: Number of blocks in the DAG,
         /// number of tips in the DAG, hash of the selected parent block,
         /// difficulty of the selected parent block, selected parent block
         /// blue score, selected parent block time.
         GetBlockDagInfo,
-        /// Returns the total current coin supply of Kaspa network.
+        /// Returns the total current coin supply of Waglayla network.
         /// Returned information: Total coin supply.
         GetCoinSupply,
-        /// Retrieves information about the peers connected to the Kaspa node.
+        /// Retrieves information about the peers connected to the Waglayla node.
         /// Returned information: Peer ID, IP address and port, connection
         /// status, protocol version.
         GetConnectedPeerInfo,
-        /// Retrieves general information about the Kaspa node.
-        /// Returned information: Version of the Kaspa node, protocol
+        /// Retrieves general information about the Waglayla node.
+        /// Returned information: Version of the Waglayla node, protocol
         /// version, network identifier.
         /// This call is primarily used by gRPC clients.
         /// For wRPC clients, use {@link RpcClient.getServerInfo}.
         GetInfo,
-        /// Provides a list of addresses of known peers in the Kaspa
+        /// Provides a list of addresses of known peers in the Waglayla
         /// network that the node can potentially connect to.
         /// Returned information: List of peer addresses.
         GetPeerAddresses,
         /// Retrieves various metrics and statistics related to the
-        /// performance and status of the Kaspa node.
+        /// performance and status of the Waglayla node.
         /// Returned information: Memory usage, CPU usage, network activity.
         GetMetrics,
         /// Retrieves the current sink block, which is the block with
-        /// the highest cumulative difficulty in the Kaspa BlockDAG.
+        /// the highest cumulative difficulty in the Waglayla BlockDAG.
         /// Returned information: Sink block hash, sink block height.
         GetSink,
         /// Returns the blue score of the current sink block, indicating
@@ -966,41 +966,41 @@ build_wrpc_wasm_bindgen_interface!(
         /// leading up to that block.
         /// Returned information: Blue score of the sink block.
         GetSinkBlueScore,
-        /// Tests the connection and responsiveness of a Kaspa node.
+        /// Tests the connection and responsiveness of a Waglayla node.
         /// Returned information: None.
         Ping,
-        /// Gracefully shuts down the Kaspa node.
+        /// Gracefully shuts down the Waglayla node.
         /// Returned information: None.
         Shutdown,
-        /// Retrieves information about the Kaspa server.
-        /// Returned information: Version of the Kaspa server, protocol
+        /// Retrieves information about the Waglayla server.
+        /// Returned information: Version of the Waglayla server, protocol
         /// version, network identifier.
         GetServerInfo,
-        /// Obtains basic information about the synchronization status of the Kaspa node.
+        /// Obtains basic information about the synchronization status of the Waglayla node.
         /// Returned information: Syncing status.
         GetSyncStatus,
     ],
     [
         // functions with `request` argument
-        /// Adds a peer to the Kaspa node's list of known peers.
+        /// Adds a peer to the Waglayla node's list of known peers.
         /// Returned information: None.
         AddPeer,
-        /// Bans a peer from connecting to the Kaspa node for a specified duration.
+        /// Bans a peer from connecting to the Waglayla node for a specified duration.
         /// Returned information: None.
         Ban,
         /// Estimates the network's current hash rate in hashes per second.
         /// Returned information: Estimated network hashes per second.
         EstimateNetworkHashesPerSecond,
-        /// Retrieves the balance of a specific address in the Kaspa BlockDAG.
+        /// Retrieves the balance of a specific address in the Waglayla BlockDAG.
         /// Returned information: Balance of the address.
         GetBalanceByAddress,
-        /// Retrieves balances for multiple addresses in the Kaspa BlockDAG.
+        /// Retrieves balances for multiple addresses in the Waglayla BlockDAG.
         /// Returned information: Balances of the addresses.
         GetBalancesByAddresses,
-        /// Retrieves a specific block from the Kaspa BlockDAG.
+        /// Retrieves a specific block from the Waglayla BlockDAG.
         /// Returned information: Block information.
         GetBlock,
-        /// Retrieves multiple blocks from the Kaspa BlockDAG.
+        /// Retrieves multiple blocks from the Waglayla BlockDAG.
         /// Returned information: List of block information.
         GetBlocks,
         /// Generates a new block template for mining.
@@ -1013,10 +1013,10 @@ build_wrpc_wasm_bindgen_interface!(
         /// Retrieves the current network configuration.
         /// Returned information: Current network configuration.
         GetCurrentNetwork,
-        /// Retrieves block headers from the Kaspa BlockDAG.
+        /// Retrieves block headers from the Waglayla BlockDAG.
         /// Returned information: List of block headers.
         GetHeaders,
-        /// Retrieves mempool entries from the Kaspa node's mempool.
+        /// Retrieves mempool entries from the Waglayla node's mempool.
         /// Returned information: List of mempool entries.
         GetMempoolEntries,
         /// Retrieves mempool entries associated with specific addresses.
@@ -1025,7 +1025,7 @@ build_wrpc_wasm_bindgen_interface!(
         /// Retrieves a specific mempool entry by transaction ID.
         /// Returned information: Mempool entry information.
         GetMempoolEntry,
-        /// Retrieves information about a subnetwork in the Kaspa BlockDAG.
+        /// Retrieves information about a subnetwork in the Waglayla BlockDAG.
         /// Returned information: Subnetwork information.
         GetSubnetwork,
         /// Retrieves unspent transaction outputs (UTXOs) associated with
@@ -1035,17 +1035,17 @@ build_wrpc_wasm_bindgen_interface!(
         /// Retrieves the virtual chain corresponding to a specified block hash.
         /// Returned information: Virtual chain information.
         GetVirtualChainFromBlock,
-        /// Resolves a finality conflict in the Kaspa BlockDAG.
+        /// Resolves a finality conflict in the Waglayla BlockDAG.
         /// Returned information: None.
         ResolveFinalityConflict,
-        /// Submits a block to the Kaspa network.
+        /// Submits a block to the Waglayla network.
         /// Returned information: None.
         SubmitBlock,
-        /// Submits a transaction to the Kaspa network.
+        /// Submits a transaction to the Waglayla network.
         /// Returned information: None.
         SubmitTransaction,
         /// Unbans a previously banned peer, allowing it to connect
-        /// to the Kaspa node again.
+        /// to the Waglayla node again.
         /// Returned information: None.
         Unban,
     ]

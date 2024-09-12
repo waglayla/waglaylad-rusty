@@ -8,9 +8,9 @@ use crate::result::Result;
 use crate::rpc::DynRpcApi;
 use crate::tx::{DataKind, Generator};
 use crate::utxo::{UtxoContext, UtxoEntryId, UtxoEntryReference};
-use kaspa_consensus_core::sign::sign_with_multiple_v2;
-use kaspa_consensus_core::tx::{SignableTransaction, Transaction, TransactionId};
-use kaspa_rpc_core::{RpcTransaction, RpcTransactionId};
+use waglayla_consensus_core::sign::sign_with_multiple_v2;
+use waglayla_consensus_core::tx::{SignableTransaction, Transaction, TransactionId};
+use waglayla_rpc_core::{RpcTransaction, RpcTransactionId};
 
 pub(crate) struct PendingTransactionInner {
     /// Generator that produced the transaction

@@ -1,8 +1,8 @@
 use crate::BlockLevel;
 
 use super::{block::RuleError, tx::TxRuleError};
-use kaspa_hashes::Hash;
-use kaspa_muhash::Blake2Hash;
+use waglayla_hashes::Hash;
+use waglayla_muhash::Blake2Hash;
 use thiserror::Error;
 
 #[derive(Error, Debug, Clone)]

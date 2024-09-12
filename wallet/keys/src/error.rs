@@ -2,7 +2,7 @@
 //! Error types used by the wallet framework.
 //!
 
-use kaspa_bip32::Error as BIP32Error;
+use waglayla_bip32::Error as BIP32Error;
 use std::sync::PoisonError;
 use thiserror::Error;
 use wasm_bindgen::JsValue;
@@ -56,10 +56,10 @@ pub enum Error {
     InvalidPublicKeyArray,
 
     #[error(transparent)]
-    NetworkId(#[from] kaspa_consensus_core::network::NetworkIdError),
+    NetworkId(#[from] waglayla_consensus_core::network::NetworkIdError),
 
     #[error(transparent)]
-    NetworkType(#[from] kaspa_consensus_core::network::NetworkTypeError),
+    NetworkType(#[from] waglayla_consensus_core::network::NetworkTypeError),
 
     #[error("Invalid UTF-8 sequence")]
     Utf8(#[from] std::str::Utf8Error),

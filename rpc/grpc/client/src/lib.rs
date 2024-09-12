@@ -7,14 +7,14 @@ use async_trait::async_trait;
 pub use client_pool::ClientPool;
 use connection_event::ConnectionEvent;
 use futures::{future::FutureExt, pin_mut, select};
-use kaspa_core::{debug, error, trace};
-use kaspa_grpc_core::{
+use waglayla_core::{debug, error, trace};
+use waglayla_grpc_core::{
     channel::NotificationChannel,
-    ops::KaspadPayloadOps,
-    protowire::{kaspad_request, rpc_client::RpcClient, GetInfoRequestMessage, KaspadRequest, KaspadResponse},
+    ops::WaglayladPayloadOps,
+    protowire::{waglaylad_request, rpc_client::RpcClient, GetInfoRequestMessage, WaglayladRequest, WaglayladResponse},
     RPC_MAX_MESSAGE_SIZE,
 };
-use kaspa_notify::{
+use waglayla_notify::{
     collector::{Collector, CollectorFrom},
     error::{Error as NotifyError, Result as NotifyResult},
     events::{EventArray, EventType, EVENT_TYPE_ARRAY},
@@ -27,7 +27,7 @@ use kaspa_notify::{
         UtxosChangedMutationPolicy,
     },
 };
-use kaspa_rpc_core::{
+use waglayla_rpc_core::{
     api::rpc::RpcApi,
     error::RpcError,
     error::RpcResult,
@@ -35,8 +35,8 @@ use kaspa_rpc_core::{
     notify::{collector::RpcCoreConverter, connection::ChannelConnection, mode::NotificationMode},
     Notification,
 };
-use kaspa_utils::{channel::Channel, triggers::DuplexTrigger};
-use kaspa_utils_tower::{
+use waglayla_utils::{channel::Channel, triggers::DuplexTrigger};
+use waglayla_utils_tower::{
     counters::TowerConnectionCounters,
     middleware::{measure_request_body_size_layer, CountBytesBody, MapResponseBodyLayer, ServiceBuilder},
 };
@@ -234,7 +234,7 @@ impl GrpcClient {
 impl RpcApi for GrpcClient {
     // this example illustrates the body of the function created by the route!() macro
     // async fn submit_block_call(&self, request: SubmitBlockRequest) -> RpcResult<SubmitBlockResponse> {
-    //     self.inner.call(KaspadPayloadOps::SubmitBlock, request).await?.as_ref().try_into()
+    //     self.inner.call(WaglayladPayloadOps::SubmitBlock, request).await?.as_ref().try_into()
     // }
 
     route!(ping_call, Ping);
@@ -352,8 +352,8 @@ pub const REQUEST_TIMEOUT_DURATION: u64 = 5_000;
 pub const TIMEOUT_MONITORING_INTERVAL: u64 = 10_000;
 pub const RECONNECT_INTERVAL: u64 = 2_000;
 
-type KaspadRequestSender = async_channel::Sender<KaspadRequest>;
-type KaspadRequestReceiver = async_channel::Receiver<KaspadRequest>;
+type WaglayladRequestSender = async_channel::Sender<WaglayladRequest>;
+type WaglayladRequestReceiver = async_channel::Receiver<WaglayladRequest>;
 
 #[derive(Debug, Default)]
 struct ServerFeatures {
@@ -367,7 +367,7 @@ struct ServerFeatures {
 ///
 /// Data flow:
 /// ```
-/// //   KaspadRequest -> request_send -> stream -> KaspadResponse
+/// //   WaglayladRequest -> request_send -> stream -> WaglayladResponse
 /// ```
 ///
 /// Execution flow:
@@ -404,8 +404,8 @@ struct Inner {
     notification_channel: NotificationChannel,
 
     // Sending to server
-    request_sender: KaspadRequestSender,
-    request_receiver: KaspadRequestReceiver,
+    request_sender: WaglayladRequestSender,
+    request_receiver: WaglayladRequestReceiver,
 
     // Receiving from server
     receiver_is_running: AtomicBool,
@@ -439,8 +439,8 @@ impl Inner {
     fn new(
         url: String,
         server_features: ServerFeatures,
-        request_sender: KaspadRequestSender,
-        request_receiver: KaspadRequestReceiver,
+        request_sender: WaglayladRequestSender,
+        request_receiver: WaglayladRequestReceiver,
         connection_event_sender: Option<Sender<ConnectionEvent>>,
         override_handle_stop_notify: bool,
         timeout_duration: u64,
@@ -514,11 +514,11 @@ impl Inner {
     #[allow(unused_variables)]
     async fn try_connect(
         url: String,
-        request_sender: KaspadRequestSender,
-        request_receiver: KaspadRequestReceiver,
+        request_sender: WaglayladRequestSender,
+        request_receiver: WaglayladRequestReceiver,
         request_timeout: u64,
         counters: Arc<TowerConnectionCounters>,
-    ) -> Result<(Streaming<KaspadResponse>, ServerFeatures)> {
+    ) -> Result<(Streaming<WaglayladResponse>, ServerFeatures)> {
         // gRPC endpoint
         #[cfg(not(feature = "heap"))]
         let channel =
@@ -568,8 +568,8 @@ impl Inner {
             }
         };
 
-        // Actual KaspadRequest to KaspadResponse stream
-        let mut stream: Streaming<KaspadResponse> = client.message_stream(request_stream).await?.into_inner();
+        // Actual WaglayladRequest to WaglayladResponse stream
+        let mut stream: Streaming<WaglayladResponse> = client.message_stream(request_stream).await?.into_inner();
 
         // Collect server capabilities as stated in GetInfoResponse
         let mut server_features = ServerFeatures::default();
@@ -677,11 +677,11 @@ impl Inner {
         self.resolver.clone()
     }
 
-    async fn call(&self, op: KaspadPayloadOps, request: impl Into<KaspadRequest>) -> Result<KaspadResponse> {
+    async fn call(&self, op: WaglayladPayloadOps, request: impl Into<WaglayladRequest>) -> Result<WaglayladResponse> {
         // Calls are only allowed if the client is connected to the server
         if self.is_connected() {
             let id = u64::from_le_bytes(rand::random::<[u8; 8]>());
-            let mut request: KaspadRequest = request.into();
+            let mut request: WaglayladRequest = request.into();
             request.id = id;
 
             trace!("GRPC client: resolver call: {:?}", request);
@@ -735,7 +735,7 @@ impl Inner {
     }
 
     /// Launch a task receiving and handling response messages sent by the server.
-    fn spawn_response_receiver_task(self: Arc<Self>, mut stream: Streaming<KaspadResponse>) {
+    fn spawn_response_receiver_task(self: Arc<Self>, mut stream: Streaming<WaglayladResponse>) {
         // Note: self is a cloned Arc here so that it can be used in the spawned task.
 
         // The task can only be spawned once
@@ -851,7 +851,7 @@ impl Inner {
         });
     }
 
-    fn handle_response(&self, response: KaspadResponse) {
+    fn handle_response(&self, response: WaglayladResponse) {
         if response.is_notification() {
             trace!("GRPC client: handle_response received a notification");
             match Notification::try_from(&response) {
@@ -911,7 +911,7 @@ impl Inner {
 
     /// Start sending notifications of some type to the client.
     async fn start_notify_to_client(&self, scope: Scope) -> RpcResult<()> {
-        let request = kaspad_request::Payload::from_notification_type(&scope, Command::Start);
+        let request = waglaylad_request::Payload::from_notification_type(&scope, Command::Start);
         self.call((&request).into(), request).await?;
         Ok(())
     }
@@ -919,7 +919,7 @@ impl Inner {
     /// Stop sending notifications of some type to the client.
     async fn stop_notify_to_client(&self, scope: Scope) -> RpcResult<()> {
         if self.handle_stop_notify() {
-            let request = kaspad_request::Payload::from_notification_type(&scope, Command::Stop);
+            let request = waglaylad_request::Payload::from_notification_type(&scope, Command::Stop);
             self.call((&request).into(), request).await?;
         }
         Ok(())

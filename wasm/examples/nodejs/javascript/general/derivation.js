@@ -1,13 +1,13 @@
-const kaspa = require('../../../../nodejs/kaspa');
+const waglayla = require('../../../../nodejs/waglayla');
 const {
     Mnemonic,
     XPrv,
     DerivationPath,
     PublicKey,
     NetworkType,
-} = kaspa;
+} = waglayla;
 
-kaspa.initConsolePanicHook();
+waglayla.initConsolePanicHook();
 
 (async () => {
 
@@ -17,7 +17,7 @@ kaspa.initConsolePanicHook();
     const seed = mnemonic.toSeed();
     console.log("seed:", seed);
 
-    // kaspa
+    // waglayla
     let xPrv = new XPrv(seed);
     // derive full path upto second address of receive wallet
     let pubkey1 = xPrv.derivePath("m/44'/111111'/0'/0/1").toXPub().toPublicKey();

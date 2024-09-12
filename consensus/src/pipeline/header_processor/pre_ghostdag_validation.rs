@@ -3,14 +3,14 @@ use crate::constants;
 use crate::errors::{BlockProcessResult, RuleError};
 use crate::model::services::reachability::ReachabilityService;
 use crate::model::stores::statuses::StatusesStoreReader;
-use kaspa_consensus_core::blockhash::BlockHashExtensions;
-use kaspa_consensus_core::blockstatus::BlockStatus::StatusInvalid;
-use kaspa_consensus_core::header::Header;
-use kaspa_consensus_core::BlockLevel;
-use kaspa_core::time::unix_now;
-use kaspa_database::prelude::StoreResultExtensions;
+use waglayla_consensus_core::blockhash::BlockHashExtensions;
+use waglayla_consensus_core::blockstatus::BlockStatus::StatusInvalid;
+use waglayla_consensus_core::header::Header;
+use waglayla_consensus_core::BlockLevel;
+use waglayla_core::time::unix_now;
+use waglayla_database::prelude::StoreResultExtensions;
 use std::cmp::max;
-use kaspa_consensus_core::config::params::MAINNET_PARAMS;
+use waglayla_consensus_core::config::params::MAINNET_PARAMS;
 
 impl HeaderProcessor {
     /// Validates the header in isolation including pow check against header declared bits.
@@ -100,7 +100,7 @@ impl HeaderProcessor {
     }
 
     fn check_pow_and_calc_block_level(&self, header: &Header) -> BlockProcessResult<BlockLevel> {
-        let state = kaspa_pow::State::new(header);
+        let state = waglayla_pow::State::new(header);
         let (passed, pow) = state.check_pow(header.nonce, header.daa_score > MAINNET_PARAMS.hf_relaunch_daa_score);
         if passed || self.skip_proof_of_work {
             let signed_block_level = self.max_block_level as i64 - pow.bits() as i64;

@@ -1,16 +1,16 @@
 use crate::processes::ghostdag::ordering::SortableBlock;
-use kaspa_consensus_core::trusted::ExternalGhostdagData;
-use kaspa_consensus_core::{blockhash::BlockHashes, BlueWorkType};
-use kaspa_consensus_core::{BlockHashMap, BlockHasher, BlockLevel, HashMapCustomHasher};
-use kaspa_database::prelude::DB;
-use kaspa_database::prelude::{BatchDbWriter, CachedDbAccess, DbKey};
-use kaspa_database::prelude::{CachePolicy, StoreError};
-use kaspa_database::registry::{DatabaseStorePrefixes, SEPARATOR};
-use kaspa_hashes::Hash;
+use waglayla_consensus_core::trusted::ExternalGhostdagData;
+use waglayla_consensus_core::{blockhash::BlockHashes, BlueWorkType};
+use waglayla_consensus_core::{BlockHashMap, BlockHasher, BlockLevel, HashMapCustomHasher};
+use waglayla_database::prelude::DB;
+use waglayla_database::prelude::{BatchDbWriter, CachedDbAccess, DbKey};
+use waglayla_database::prelude::{CachePolicy, StoreError};
+use waglayla_database::registry::{DatabaseStorePrefixes, SEPARATOR};
+use waglayla_hashes::Hash;
 
 use itertools::EitherOrBoth::{Both, Left, Right};
 use itertools::Itertools;
-use kaspa_utils::mem_size::MemSizeEstimator;
+use waglayla_utils::mem_size::MemSizeEstimator;
 use rocksdb::WriteBatch;
 use serde::{Deserialize, Serialize};
 use std::iter::once;
@@ -18,7 +18,7 @@ use std::mem::size_of;
 use std::{cell::RefCell, sync::Arc};
 
 /// Re-export for convenience
-pub use kaspa_consensus_core::{HashKTypeMap, KType};
+pub use waglayla_consensus_core::{HashKTypeMap, KType};
 
 #[derive(Clone, Serialize, Deserialize, Default)]
 pub struct GhostdagData {
@@ -496,7 +496,7 @@ impl GhostdagStoreReader for MemoryGhostdagStore {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use kaspa_consensus_core::BlockHashSet;
+    use waglayla_consensus_core::BlockHashSet;
 
     #[test]
     fn test_mergeset_iterators() {

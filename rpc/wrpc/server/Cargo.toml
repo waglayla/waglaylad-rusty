@@ -1,6 +1,6 @@
 [package]
-name = "kaspa-wrpc-server"
-description = "Kaspa wRPC server"
+name = "waglayla-wrpc-server"
+description = "Waglayla wRPC server"
 rust-version.workspace = true
 version.workspace = true
 edition.workspace = true
@@ -16,14 +16,14 @@ crate-type = ["cdylib", "lib"]
 async-trait.workspace = true
 borsh = { workspace = true, features = ["rc"] }
 futures.workspace = true
-kaspa-consensus-core.workspace = true
-kaspa-core.workspace = true
-kaspa-grpc-client.workspace = true
-kaspa-notify.workspace = true
-kaspa-rpc-core.workspace = true
-kaspa-rpc-macros.workspace = true
-kaspa-rpc-service.workspace = true
-kaspa-utils.workspace = true
+waglayla-consensus-core.workspace = true
+waglayla-core.workspace = true
+waglayla-grpc-client.workspace = true
+waglayla-notify.workspace = true
+waglayla-rpc-core.workspace = true
+waglayla-rpc-macros.workspace = true
+waglayla-rpc-service.workspace = true
+waglayla-utils.workspace = true
 log.workspace = true
 num_cpus.workspace = true
 paste.workspace = true

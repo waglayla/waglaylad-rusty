@@ -1,7 +1,7 @@
 use criterion::{black_box, criterion_group, criterion_main, Criterion};
 
-use kaspa_hashes::Hash;
-use kaspa_pow::{matrix::Matrix, xoshiro::XoShiRo256PlusPlus};
+use waglayla_hashes::Hash;
+use waglayla_pow::{matrix::Matrix, xoshiro::XoShiRo256PlusPlus};
 
 // Big enough to make the cache not very useful
 const ITERS: usize = 1024;

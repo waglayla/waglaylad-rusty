@@ -6,37 +6,37 @@ use crate::flowcontext::{
 use crate::{v5, v6};
 use async_trait::async_trait;
 use futures::future::join_all;
-use kaspa_addressmanager::AddressManager;
-use kaspa_connectionmanager::ConnectionManager;
-use kaspa_consensus_core::api::{BlockValidationFuture, BlockValidationFutures};
-use kaspa_consensus_core::block::Block;
-use kaspa_consensus_core::config::Config;
-use kaspa_consensus_core::errors::block::RuleError;
-use kaspa_consensus_core::tx::{Transaction, TransactionId};
-use kaspa_consensus_notify::{
+use waglayla_addressmanager::AddressManager;
+use waglayla_connectionmanager::ConnectionManager;
+use waglayla_consensus_core::api::{BlockValidationFuture, BlockValidationFutures};
+use waglayla_consensus_core::block::Block;
+use waglayla_consensus_core::config::Config;
+use waglayla_consensus_core::errors::block::RuleError;
+use waglayla_consensus_core::tx::{Transaction, TransactionId};
+use waglayla_consensus_notify::{
     notification::{Notification, PruningPointUtxoSetOverrideNotification},
     root::ConsensusNotificationRoot,
 };
-use kaspa_consensusmanager::{BlockProcessingBatch, ConsensusInstance, ConsensusManager, ConsensusProxy};
-use kaspa_core::{
+use waglayla_consensusmanager::{BlockProcessingBatch, ConsensusInstance, ConsensusManager, ConsensusProxy};
+use waglayla_core::{
     debug, info,
-    kaspad_env::{name, version},
+    waglaylad_env::{name, version},
     task::tick::TickService,
 };
-use kaspa_core::{time::unix_now, warn};
-use kaspa_hashes::Hash;
-use kaspa_mining::manager::MiningManagerProxy;
-use kaspa_mining::mempool::tx::{Orphan, Priority};
-use kaspa_notify::notifier::Notify;
-use kaspa_p2p_lib::{
+use waglayla_core::{time::unix_now, warn};
+use waglayla_hashes::Hash;
+use waglayla_mining::manager::MiningManagerProxy;
+use waglayla_mining::mempool::tx::{Orphan, Priority};
+use waglayla_notify::notifier::Notify;
+use waglayla_p2p_lib::{
     common::ProtocolError,
     convert::model::version::Version,
     make_message,
-    pb::{kaspad_message::Payload, InvRelayBlockMessage},
-    ConnectionInitializer, Hub, KaspadHandshake, PeerKey, PeerProperties, Router,
+    pb::{waglaylad_message::Payload, InvRelayBlockMessage},
+    ConnectionInitializer, Hub, WaglayladHandshake, PeerKey, PeerProperties, Router,
 };
-use kaspa_utils::iter::IterExtensions;
-use kaspa_utils::networking::PeerId;
+use waglayla_utils::iter::IterExtensions;
+use waglayla_utils::networking::PeerId;
 use parking_lot::{Mutex, RwLock};
 use std::collections::HashMap;
 use std::time::Instant;
@@ -660,7 +660,7 @@ impl FlowContext {
 impl ConnectionInitializer for FlowContext {
     async fn initialize_connection(&self, router: Arc<Router>) -> Result<(), ProtocolError> {
         // Build the handshake object and subscribe to handshake messages
-        let mut handshake = KaspadHandshake::new(&router);
+        let mut handshake = WaglayladHandshake::new(&router);
 
         // We start the router receive loop only after we registered to handshake routes
         router.start();

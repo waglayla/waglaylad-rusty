@@ -9,18 +9,18 @@ use crate::{
     tasks::{block::group::MinerGroupTask, daemon::DaemonTask, tx::group::TxSenderGroupTask, Stopper, TasksRunner},
 };
 use futures_util::future::join_all;
-use kaspa_addresses::Address;
-use kaspa_consensus::params::Params;
-use kaspa_consensus_core::{constants::LEOR_PER_PYRIN, network::NetworkType, tx::Transaction};
-use kaspa_core::{debug, info};
-use kaspa_notify::{
+use waglayla_addresses::Address;
+use waglayla_consensus::params::Params;
+use waglayla_consensus_core::{constants::LEOR_PER_PYRIN, network::NetworkType, tx::Transaction};
+use waglayla_core::{debug, info};
+use waglayla_notify::{
     listener::ListenerId,
     scope::{NewBlockTemplateScope, Scope},
 };
-use kaspa_rpc_core::{api::rpc::RpcApi, Notification, RpcError};
-use kaspa_txscript::pay_to_address_script;
-use kaspa_utils::fd_budget;
-use kaspad_lib::args::Args;
+use waglayla_rpc_core::{api::rpc::RpcApi, Notification, RpcError};
+use waglayla_txscript::pay_to_address_script;
+use waglayla_utils::fd_budget;
+use waglaylad_lib::args::Args;
 use parking_lot::Mutex;
 use rand::thread_rng;
 use rand_distr::{Distribution, Exp};
@@ -35,13 +35,13 @@ use std::{
 use tokio::join;
 
 /// Run this benchmark with the following command line:
-/// `cargo test --release --package kaspa-testing-integration --lib --features devnet-prealloc -- mempool_benchmarks::bench_bbt_latency --exact --nocapture --ignored`
+/// `cargo test --release --package waglayla-testing-integration --lib --features devnet-prealloc -- mempool_benchmarks::bench_bbt_latency --exact --nocapture --ignored`
 #[tokio::test]
 #[ignore = "bmk"]
 async fn bench_bbt_latency() {
-    kaspa_core::log::try_init_logger("info,kaspa_core::time=debug,kaspa_mining::monitor=debug");
+    waglayla_core::log::try_init_logger("info,waglayla_core::time=debug,waglayla_mining::monitor=debug");
     // As we log the panic, we want to set it up after the logger
-    kaspa_core::panic::configure_panic();
+    waglayla_core::panic::configure_panic();
 
     // Constants
     const BLOCK_COUNT: usize = usize::MAX;
@@ -77,7 +77,7 @@ async fn bench_bbt_latency() {
     //
     let (prealloc_sk, prealloc_pk) = secp256k1::generate_keypair(&mut thread_rng());
     let prealloc_address =
-        Address::new(NetworkType::Simnet.into(), kaspa_addresses::Version::PubKey, &prealloc_pk.x_only_public_key().0.serialize());
+        Address::new(NetworkType::Simnet.into(), waglayla_addresses::Version::PubKey, &prealloc_pk.x_only_public_key().0.serialize());
     let schnorr_key = secp256k1::Keypair::from_secret_key(secp256k1::SECP256K1, &prealloc_sk);
     let spk = pay_to_address_script(&prealloc_address);
 
@@ -111,7 +111,7 @@ async fn bench_bbt_latency() {
     // Mining key and address
     let (sk, pk) = &secp256k1::generate_keypair(&mut thread_rng());
     let pay_address =
-        Address::new(network.network_type().into(), kaspa_addresses::Version::PubKey, &pk.x_only_public_key().0.serialize());
+        Address::new(network.network_type().into(), waglayla_addresses::Version::PubKey, &pk.x_only_public_key().0.serialize());
     debug!("Generated private key {} and address {}", sk.display_secret(), pay_address);
 
     let current_template = Arc::new(Mutex::new(bbt_client.get_block_template(pay_address.clone(), vec![]).await.unwrap()));
@@ -124,9 +124,9 @@ async fn bench_bbt_latency() {
 
     let submit_block_pool = daemon.new_client_pool(SUBMIT_BLOCK_CLIENTS, 100).await;
     let submit_block_pool_tasks = submit_block_pool.start(|c, block| async move {
-        let _sw = kaspa_core::time::Stopwatch::<500>::with_threshold("sb");
+        let _sw = waglayla_core::time::Stopwatch::<500>::with_threshold("sb");
         let response = c.submit_block(block, false).await.unwrap();
-        assert_eq!(response.report, kaspa_rpc_core::SubmitBlockReport::Success);
+        assert_eq!(response.report, waglayla_rpc_core::SubmitBlockReport::Success);
         false
     });
 
@@ -135,8 +135,8 @@ async fn bench_bbt_latency() {
         match c.submit_transaction(tx.as_ref().into(), false).await {
             Ok(_) => {}
             Err(RpcError::General(msg)) if msg.contains("orphan") => {
-                kaspa_core::warn!("\n\n\n{msg}\n\n");
-                kaspa_core::warn!("Submitted {} transactions, exiting tx submit loop", i);
+                waglayla_core::warn!("\n\n\n{msg}\n\n");
+                waglayla_core::warn!("Submitted {} transactions, exiting tx submit loop", i);
                 return true;
             }
             Err(e) => panic!("{e}"),
@@ -155,17 +155,17 @@ async fn bench_bbt_latency() {
                     while notification_rx.try_recv().is_ok() {
                         // Drain the channel
                     }
-                    // let _sw = kaspa_core::time::Stopwatch::<500>::with_threshold("bbt");
+                    // let _sw = waglayla_core::time::Stopwatch::<500>::with_threshold("bbt");
                     *current_template.lock() = cc.get_block_template(pac.clone(), vec![]).await.unwrap();
                 }
                 _ => panic!(),
             }
             if !exec.load(Ordering::Relaxed) {
-                kaspa_core::warn!("Test is over, stopping miner receiver loop");
+                waglayla_core::warn!("Test is over, stopping miner receiver loop");
                 break;
             }
         }
-        kaspa_core::warn!("Miner receiver loop task exited");
+        waglayla_core::warn!("Miner receiver loop task exited");
     });
 
     let block_sender = submit_block_pool.sender();
@@ -186,7 +186,7 @@ async fn bench_bbt_latency() {
             let ccc = cc.clone();
             let pac = pay_address.clone();
             tokio::spawn(async move {
-                // let _sw = kaspa_core::time::Stopwatch::<500>::with_threshold("bbt");
+                // let _sw = waglayla_core::time::Stopwatch::<500>::with_threshold("bbt");
                 // We used the current template so let's refetch a new template with new txs
                 *ctc.lock() = ccc.get_block_template(pac, vec![]).await.unwrap();
             });
@@ -198,14 +198,14 @@ async fn bench_bbt_latency() {
                 let _ = bs.send(block).await;
             });
             if !exec.load(Ordering::Relaxed) {
-                kaspa_core::warn!("Test is over, stopping miner loop");
+                waglayla_core::warn!("Test is over, stopping miner loop");
                 break;
             }
         }
         exec.store(false, Ordering::Relaxed);
         bbt_client.stop_notify(ListenerId::default(), Scope::NewBlockTemplate(NewBlockTemplateScope {})).await.unwrap();
         bbt_client.disconnect().await.unwrap();
-        kaspa_core::warn!("Miner loop task exited");
+        waglayla_core::warn!("Miner loop task exited");
     });
 
     let tx_sender = submit_tx_pool.sender();
@@ -250,7 +250,7 @@ async fn bench_bbt_latency() {
             }
         }
 
-        kaspa_core::warn!("Tx sender task, waiting for mempool to drain..");
+        waglayla_core::warn!("Tx sender task, waiting for mempool to drain..");
         loop {
             if !exec.load(Ordering::Relaxed) {
                 break;
@@ -263,7 +263,7 @@ async fn bench_bbt_latency() {
             tokio::time::sleep(std::time::Duration::from_secs(1)).await;
         }
         exec.store(false, Ordering::Relaxed);
-        kaspa_core::warn!("Tx sender task exited");
+        waglayla_core::warn!("Tx sender task exited");
     });
 
     let _ = join!(miner_receiver_task, miner_loop_task, tx_sender_task);
@@ -283,13 +283,13 @@ async fn bench_bbt_latency() {
 }
 
 /// Run this benchmark with the following command line:
-/// `cargo test --release --package kaspa-testing-integration --lib --features devnet-prealloc -- mempool_benchmarks::bench_bbt_latency_2 --exact --nocapture --ignored`
+/// `cargo test --release --package waglayla-testing-integration --lib --features devnet-prealloc -- mempool_benchmarks::bench_bbt_latency_2 --exact --nocapture --ignored`
 #[tokio::test]
 #[ignore = "bmk"]
 async fn bench_bbt_latency_2() {
-    kaspa_core::log::try_init_logger("info,kaspa_core::time=debug,kaspa_mining::monitor=debug");
+    waglayla_core::log::try_init_logger("info,waglayla_core::time=debug,waglayla_mining::monitor=debug");
     // As we log the panic, we want to set it up after the logger
-    kaspa_core::panic::configure_panic();
+    waglayla_core::panic::configure_panic();
 
     // Constants
     const BLOCK_COUNT: usize = usize::MAX;
@@ -325,7 +325,7 @@ async fn bench_bbt_latency_2() {
     //
     let (prealloc_sk, prealloc_pk) = secp256k1::generate_keypair(&mut thread_rng());
     let prealloc_address =
-        Address::new(NetworkType::Simnet.into(), kaspa_addresses::Version::PubKey, &prealloc_pk.x_only_public_key().0.serialize());
+        Address::new(NetworkType::Simnet.into(), waglayla_addresses::Version::PubKey, &prealloc_pk.x_only_public_key().0.serialize());
     let schnorr_key = secp256k1::Keypair::from_secret_key(secp256k1::SECP256K1, &prealloc_sk);
     let spk = pay_to_address_script(&prealloc_address);
 

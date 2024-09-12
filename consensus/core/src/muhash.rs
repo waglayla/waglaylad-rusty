@@ -1,7 +1,7 @@
 use crate::{
     tx::{TransactionOutpoint, UtxoEntry, VerifiableTransaction},
 };
-pub(crate) use kaspa_muhash::{MuHash, blake2_hashers::HasherBase, blake2_hashers::HasherExtensions};
+pub(crate) use waglayla_muhash::{MuHash, blake2_hashers::HasherBase, blake2_hashers::HasherExtensions};
 
 
 pub trait MuHashExtensions {

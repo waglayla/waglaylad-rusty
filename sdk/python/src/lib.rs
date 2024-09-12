@@ -8,16 +8,16 @@ mod rpc_core;
 use pyo3::prelude::*;
 use pyo3::types::PyFunction;
 use account::{PyAccount, PyBalance};
-use kaspa_wallet_core::utils::{kaspa_to_sompi, sompi_to_kaspa};
+use waglayla_wallet_core::utils::{waglayla_to_sompi, sompi_to_waglayla};
 
 #[pyfunction]
 fn to_leor(value: f64) -> PyResult<u64> {
-    Ok(kaspa_to_sompi(value))
+    Ok(waglayla_to_sompi(value))
 }
 
 #[pyfunction]
 fn from_leor(value: u64) -> PyResult<f64> {
-    Ok(sompi_to_kaspa(value))
+    Ok(sompi_to_waglayla(value))
 }
 
 #[pyfunction]

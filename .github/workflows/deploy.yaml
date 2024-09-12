@@ -162,10 +162,10 @@ jobs:
 #        run: |
 #          cd wasm
 #          bash build-release
-#          mv release/kaspa-wasm32-sdk.zip ../kaspa-wasm32-sdk-${{ github.event.release.tag_name }}.zip
+#          mv release/waglayla-wasm32-sdk.zip ../waglayla-wasm32-sdk-${{ github.event.release.tag_name }}.zip
 #
-#          archive="kaspa-wasm32-sdk-${{ github.event.release.tag_name }}.zip"
-#          asset_name="kaspa-wasm32-sdk-${{ github.event.release.tag_name }}.zip"
+#          archive="waglayla-wasm32-sdk-${{ github.event.release.tag_name }}.zip"
+#          asset_name="waglayla-wasm32-sdk-${{ github.event.release.tag_name }}.zip"
 #          echo "archive=${archive}" >> $GITHUB_ENV
 #          echo "asset_name=${asset_name}" >> $GITHUB_ENV
 #

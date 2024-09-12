@@ -1,5 +1,5 @@
-use kaspa_consensus_core::blockhash::ORIGIN;
-use kaspa_hashes::Hash;
+use waglayla_consensus_core::blockhash::ORIGIN;
+use waglayla_hashes::Hash;
 use std::sync::Arc;
 
 use crate::model::{

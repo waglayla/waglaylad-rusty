@@ -3,17 +3,17 @@ use crate::{
     flow_trait::Flow,
     flowcontext::orphans::OrphanOutput,
 };
-use kaspa_consensus_core::{api::BlockValidationFutures, block::Block, blockstatus::BlockStatus, errors::block::RuleError};
-use kaspa_consensusmanager::{BlockProcessingBatch, ConsensusProxy};
-use kaspa_core::debug;
-use kaspa_hashes::Hash;
-use kaspa_p2p_lib::{
+use waglayla_consensus_core::{api::BlockValidationFutures, block::Block, blockstatus::BlockStatus, errors::block::RuleError};
+use waglayla_consensusmanager::{BlockProcessingBatch, ConsensusProxy};
+use waglayla_core::debug;
+use waglayla_hashes::Hash;
+use waglayla_p2p_lib::{
     common::ProtocolError,
     dequeue, dequeue_with_timeout, make_message, make_request,
-    pb::{kaspad_message::Payload, InvRelayBlockMessage, RequestBlockLocatorMessage, RequestRelayBlocksMessage},
+    pb::{waglaylad_message::Payload, InvRelayBlockMessage, RequestBlockLocatorMessage, RequestRelayBlocksMessage},
     IncomingRoute, Router, SharedIncomingRoute,
 };
-use kaspa_utils::channel::{JobSender, JobTrySendError as TrySendError};
+use waglayla_utils::channel::{JobSender, JobTrySendError as TrySendError};
 use std::{collections::VecDeque, sync::Arc};
 
 pub struct RelayInvMessage {
@@ -342,7 +342,7 @@ impl HandleRelayInvsFlow {
         let msg = dequeue_with_timeout!(self.msg_route, Payload::BlockLocator)?;
         let locator_hashes: Vec<Hash> = msg.try_into()?;
         // Locator hashes are sent from later to earlier, so it makes sense to query consensus in reverse. Technically
-        // with current syncer-side implementations (in both go-kaspa and this codebase) we could query only the last one,
+        // with current syncer-side implementations (in both go-waglayla and this codebase) we could query only the last one,
         // but we prefer not relying on such details for correctness
         //
         // The current syncer-side implementation sends a full locator even though it suffices to only send the

@@ -1,15 +1,15 @@
-use kaspa_consensus_core::blockstatus::BlockStatus;
-use kaspa_consensus_core::ChainPath;
-use kaspa_database::registry::DatabaseStorePrefixes;
+use waglayla_consensus_core::blockstatus::BlockStatus;
+use waglayla_consensus_core::ChainPath;
+use waglayla_database::registry::DatabaseStorePrefixes;
 use parking_lot::RwLockWriteGuard;
 use rocksdb::WriteBatch;
 
 use std::sync::Arc;
 
-use kaspa_database::prelude::{BatchDbWriter, CachePolicy, CachedDbAccess, DbWriter};
-use kaspa_database::prelude::{CachedDbItem, DB};
-use kaspa_database::prelude::{StoreError, StoreResult};
-use kaspa_hashes::Hash;
+use waglayla_database::prelude::{BatchDbWriter, CachePolicy, CachedDbAccess, DbWriter};
+use waglayla_database::prelude::{CachedDbItem, DB};
+use waglayla_database::prelude::{StoreError, StoreResult};
+use waglayla_hashes::Hash;
 
 use super::U64Key;
 

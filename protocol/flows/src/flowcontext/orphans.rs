@@ -1,12 +1,12 @@
 use indexmap::{map::Entry::Occupied, IndexMap};
-use kaspa_consensus_core::{
+use waglayla_consensus_core::{
     api::{BlockValidationFuture, BlockValidationFutures},
     block::Block,
 };
-use kaspa_consensusmanager::{BlockProcessingBatch, ConsensusProxy};
-use kaspa_core::debug;
-use kaspa_hashes::Hash;
-use kaspa_utils::option::OptionExtensions;
+use waglayla_consensusmanager::{BlockProcessingBatch, ConsensusProxy};
+use waglayla_core::debug;
+use waglayla_hashes::Hash;
+use waglayla_utils::option::OptionExtensions;
 use rand::Rng;
 use std::{
     collections::{HashMap, HashSet, VecDeque},
@@ -283,13 +283,13 @@ impl OrphanBlocksPool {
 mod tests {
     use super::*;
     use futures::future::try_join_all;
-    use kaspa_consensus_core::{
+    use waglayla_consensus_core::{
         api::{BlockValidationFutures, ConsensusApi},
         blockstatus::BlockStatus,
         errors::block::BlockProcessResult,
     };
-    use kaspa_consensusmanager::{ConsensusInstance, SessionLock};
-    use kaspa_core::assert_match;
+    use waglayla_consensusmanager::{ConsensusInstance, SessionLock};
+    use waglayla_core::assert_match;
     use parking_lot::RwLock;
     use std::sync::Arc;
 

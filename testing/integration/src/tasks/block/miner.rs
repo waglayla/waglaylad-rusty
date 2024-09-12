@@ -1,11 +1,11 @@
 use crate::tasks::{Stopper, Task};
 use async_channel::Sender;
 use async_trait::async_trait;
-use kaspa_addresses::Address;
-use kaspa_core::warn;
-use kaspa_grpc_client::GrpcClient;
-use kaspa_rpc_core::{api::rpc::RpcApi, GetBlockTemplateResponse, RpcBlock};
-use kaspa_utils::triggers::SingleTrigger;
+use waglayla_addresses::Address;
+use waglayla_core::warn;
+use waglayla_grpc_client::GrpcClient;
+use waglayla_rpc_core::{api::rpc::RpcApi, GetBlockTemplateResponse, RpcBlock};
+use waglayla_utils::triggers::SingleTrigger;
 use parking_lot::Mutex;
 use rand::thread_rng;
 use rand_distr::{Distribution, Exp};
