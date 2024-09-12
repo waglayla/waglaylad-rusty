@@ -1,5 +1,5 @@
 [package]
-name = "pyrin"
+name = "waglaylad"
 description = "Waglayla full node daemon"
 keywords = ["pyrin", "waglayla", "blockdag"]
 rust-version.workspace = true
