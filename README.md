@@ -42,8 +42,8 @@ Waglayla node built on rust, based on [rusty-waglayla](https://github.com/waglay
       ```      
   5. Clone the repo
       ```bash
-      git clone https://github.com/Waglaylapyi/pyrin
-      cd pyrin
+      git clone https://github.com/waglayla/waglaylad-rusty
+      cd waglaylad-rusty
       ```
   </details>
 
@@ -79,8 +79,8 @@ Waglayla node built on rust, based on [rusty-waglayla](https://github.com/waglay
       ```      
   7. Clone the repo
       ```bash
-      git clone https://github.com/Waglaylapyi/pyrin
-      cd pyrin
+      git clone https://github.com/waglayla/waglaylad-rusty
+      cd waglaylad-rusty
       ```
  </details>      
 
@@ -139,8 +139,8 @@ To build WASM on MacOS you need to install `llvm` from homebrew (at the time of 
       ```      
   5. Clone the repo
       ```bash
-      git clone https://github.com/Waglaylapyi/pyrin
-      cd pyrin
+      git clone https://github.com/waglayla/waglaylad-rusty
+      cd waglaylad-rusty
       ```
 
  </details>   
@@ -168,7 +168,7 @@ To build WASM on MacOS you need to install `llvm` from homebrew (at the time of 
 
 ### Builds & documentation
 
-  - Release builds: https://github.com/Waglaylapyi/pyrin/releases
+  - Release builds: https://github.com/waglayla/waglaylad-rusty/releases
 
   </details>
 <details>
@@ -176,7 +176,7 @@ To build WASM on MacOS you need to install `llvm` from homebrew (at the time of 
 <summary>
 Waglayla CLI + Wallet
 </summary>
-`pyrin-cli` crate provides cli-driven RPC interface to the node and a
+`waglayla-cli` crate provides cli-driven RPC interface to the node and a
 terminal interface to the Waglayla Wallet runtime. These wallets are
 compatible with WASM SDK Wallet API.
 
@@ -216,12 +216,12 @@ The framework is compatible with all major desktop and mobile browsers.
   **Start a mainnet node**
 
   ```bash
-  cargo run --release --bin pyrin
+  cargo run --release --bin waglayla
   ```
   **Start a testnet node**
 
   ```bash
-cargo run --release --bin pyrin -- --testnet
+cargo run --release --bin waglayla -- --testnet
   ```
 
 <details>
@@ -231,9 +231,9 @@ Using a configuration file
   </summary>
 
   ```bash
-cargo run --release --bin pyrin -- --configfile /path/to/configfile.toml
+cargo run --release --bin waglayla -- --configfile /path/to/configfile.toml
 # or
-cargo run --release --bin pyrin -- -C /path/to/configfile.toml
+cargo run --release --bin waglayla -- -C /path/to/configfile.toml
   ```
   - The config file should be a list of \<CLI argument\> = \<value\> separated by newlines. 
   - Whitespace around the `=` is fine, `arg=value` and `arg = value` are both parsed correctly.
@@ -253,7 +253,7 @@ addpeer = ["10.0.0.1", "1.2.3.4"]
  Pass the `--help` flag to view all possible arguments
 
   ```bash
-cargo run --release --bin pyrin -- --help
+cargo run --release --bin waglayla -- --help
   ```
 </details>
 
@@ -263,7 +263,7 @@ cargo run --release --bin pyrin -- --help
 wRPC
   </summary>
 
-  wRPC subsystem is disabled by default in `pyrin` and can be enabled via:
+  wRPC subsystem is disabled by default in `waglayla` and can be enabled via:
 
 
   JSON protocol:
@@ -309,9 +309,9 @@ Mining
 
 Mining is currently supported only on testnet, so once you've setup a test node, follow these instructions.
 
-1. Download and unzip the latest binaries bundle of [Waglaylapyi/pyrin](https://github.com/Waglaylapyi/pyrin/releases).
+1. Download and unzip the latest binaries bundle of [waglayla/waglaylad-rusty](https://github.com/waglayla/waglaylad-rusty/releases).
 
-2. In a separate terminal run the Waglaylapyi/pyrin miner:
+2. In a separate terminal run the waglayla/waglaylad-rusty miner:
 
     ```
     waglaylaminer --testnet --miningaddr waglaylatest:qrcqat6l9zcjsu7swnaztqzrv0s7hu04skpaezxk43y4etj8ncwfk308jlcew
@@ -331,7 +331,7 @@ Mining is currently supported only on testnet, so once you've setup a test node,
 
 <summary>Simulation framework (Simpa)</summary>
 
-Logging in `pyrin` and `simpa` can be [filtered](https://docs.rs/env_logger/0.10.0/env_logger/#filtering-results) by either:
+Logging in `waglayla` and `simpa` can be [filtered](https://docs.rs/env_logger/0.10.0/env_logger/#filtering-results) by either:
 
 The current codebase supports a full in-process network simulation, building an actual DAG over virtual time with virtual delay and benchmarking validation time (following the simulation generation). 
 
@@ -355,10 +355,10 @@ cargo run --release --bin simpa -- -t=200 -d=2 -b=8 -n=1000
 
 <summary>Heap Profiling</summary>
 
-Heap-profiling in `pyrin` and `simpa` can be done by enabling `heap` feature and profile using the `--features` argument
+Heap-profiling in `waglayla` and `simpa` can be done by enabling `heap` feature and profile using the `--features` argument
 
 ```bash
-cargo run --bin pyrin --profile heap --features=heap
+cargo run --bin waglayla --profile heap --features=heap
 ```
 
 It will produce `{bin-name}-heap.json` file in the root of the workdir, that can be inspected by the [dhat-viewer](https://github.com/unofficial-mirror/valgrind/tree/master/dhat)
@@ -374,7 +374,7 @@ It will produce `{bin-name}-heap.json` file in the root of the workdir, that can
 **Run unit and most integration tests**
 
 ```bash
-cd pyrin
+cd waglayla
 cargo test --release
 // or install nextest and run
 ```
@@ -384,7 +384,7 @@ cargo test --release
 **Using nextest**
 
 ```bash
-cd pyrin
+cd waglayla
 cargo nextest run --release
 ```
 
@@ -398,7 +398,7 @@ cargo nextest run --release
 <summary>Benchmarks</summary>
 
 ```bash
-cd pyrin
+cd waglayla
 cargo bench
 ```
 
@@ -408,13 +408,13 @@ cargo bench
 
 <summary>Logging</summary>
 
-Logging in `pyrin` and `simpa` can be [filtered](https://docs.rs/env_logger/0.10.0/env_logger/#filtering-results) by either:
+Logging in `waglayla` and `simpa` can be [filtered](https://docs.rs/env_logger/0.10.0/env_logger/#filtering-results) by either:
 
 1. Defining the environment variable `RUST_LOG`
 2. Adding the --loglevel argument like in the following example:
 
     ```
-    (cargo run --bin pyrin -- --loglevel info,waglayla_rpc_core=trace,waglayla_grpc_core=trace,consensus=trace,waglayla_core=trace) 2>&1 | tee ~/pyrin.log
+    (cargo run --bin waglayla -- --loglevel info,waglayla_rpc_core=trace,waglayla_grpc_core=trace,consensus=trace,waglayla_core=trace) 2>&1 | tee ~/waglayla.log
     ```
     In this command we set the `loglevel` to `INFO`.
 
