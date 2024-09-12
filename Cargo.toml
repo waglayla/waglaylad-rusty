@@ -64,9 +64,9 @@ members = [
 [workspace.package]
 rust-version = "1.78.0"
 version = "0.14.5"
-authors = ["Waglayla developers", "Waglayla developers"]
+authors = ["Waglayla developers"]
 license = "ISC"
-repository = "https://github.com/Waglaylapyi/waglayla"
+repository = "https://github.com/waglayla/waglaylad-rusty"
 edition = "2021"
 include = [
     "src/**/*.rs",
