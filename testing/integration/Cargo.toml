@@ -36,7 +36,7 @@ waglayla-txscript.workspace = true
 waglayla-utils.workspace = true
 waglayla-utxoindex.workspace = true
 waglayla-wrpc-server.workspace = true
-pyrin.workspace = true
+waglayla.workspace = true
 
 async-channel.workspace = true
 async-trait.workspace = true
@@ -74,4 +74,4 @@ waglayla-txscript-errors.workspace = true
 [features]
 heap = ["dhat"]
 html_reports = []
-devnet-prealloc = ["pyrin/devnet-prealloc"]
+devnet-prealloc = ["waglayla/devnet-prealloc"]
