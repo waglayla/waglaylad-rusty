@@ -1,44 +1,39 @@
 use std::{fs, path::PathBuf, process::exit, sync::Arc, time::Duration};
-use std::io::{Cursor, Read};
 
 use async_channel::unbounded;
-use serde::{Deserialize, Serialize};
+use waglayla_consensus_core::{
+    config::ConfigBuilder,
+    errors::config::{ConfigError, ConfigResult},
+};
+use waglayla_consensus_notify::{root::ConsensusNotificationRoot, service::NotifyService};
+use waglayla_core::{core::Core, info, trace};
+use waglayla_core::{waglaylad_env::version, task::tick::TickService};
+use waglayla_database::prelude::CachePolicy;
+use waglayla_grpc_server::service::GrpcService;
+use waglayla_notify::{address::tracker::Tracker, subscription::context::SubscriptionContext};
+use waglayla_rpc_service::service::RpcCoreService;
+use waglayla_txscript::caches::TxScriptCacheCounters;
+use waglayla_utils::networking::ContextualNetAddress;
+use waglayla_utils_tower::counters::TowerConnectionCounters;
 
 use waglayla_addressmanager::AddressManager;
 use waglayla_consensus::{consensus::factory::Factory as ConsensusFactory, pipeline::ProcessingCounters};
 use waglayla_consensus::{
     consensus::factory::MultiConsensusManagementStore, model::stores::headers::DbHeadersStore, pipeline::monitor::ConsensusMonitor,
 };
-use waglayla_consensus_core::{
-    config::ConfigBuilder,
-    errors::config::{ConfigError, ConfigResult},
-};
-use waglayla_consensus_core::config::Config;
-use waglayla_consensus_core::utxo::utxo_collection::UtxoCollection;
-use waglayla_consensus_notify::{root::ConsensusNotificationRoot, service::NotifyService};
 use waglayla_consensusmanager::ConsensusManager;
-use waglayla_core::{core::Core, error, info, trace};
-use waglayla_core::{waglaylad_env::version, task::tick::TickService};
 use waglayla_core::task::runtime::AsyncRuntime;
-use waglayla_database::prelude::CachePolicy;
-use waglayla_grpc_server::service::GrpcService;
 use waglayla_index_processor::service::IndexService;
 use waglayla_mining::{
     manager::{MiningManager, MiningManagerProxy},
-    MiningCounters,
     monitor::MiningMonitor,
+    MiningCounters,
 };
-use waglayla_notify::{address::tracker::Tracker, subscription::context::SubscriptionContext};
 use waglayla_p2p_flows::{flow_context::FlowContext, service::P2pService};
+
 use waglayla_perf_monitor::{builder::Builder as PerfMonitorBuilder, counters::CountersSnapshot};
-use waglayla_rpc_service::service::RpcCoreService;
-use waglayla_txscript::caches::TxScriptCacheCounters;
-use waglayla_utils::networking::ContextualNetAddress;
-use waglayla_utils_tower::counters::TowerConnectionCounters;
 use waglayla_utxoindex::{api::UtxoIndexProxy, UtxoIndex};
 use waglayla_wrpc_server::service::{Options as WrpcServerOptions, WebSocketCounters as WrpcServerCounters, WrpcEncoding, WrpcService};
-
-use crate::args::Args;
 
 /// Desired soft FD limit that needs to be configured
 /// for the waglaylad process.
@@ -48,6 +43,8 @@ pub const DESIRED_DAEMON_SOFT_FD_LIMIT: u64 = 8 * 1024;
 /// acceptable limit of `4096`, but a setting below
 /// this value may impact the database performance).
 pub const MINIMUM_DAEMON_SOFT_FD_LIMIT: u64 = 4 * 1024;
+
+use crate::args::Args;
 
 const DEFAULT_DATA_DIR: &str = "datadir";
 const CONSENSUS_DB: &str = "consensus";
@@ -253,7 +250,7 @@ pub fn create_core_with_runtime(runtime: &Runtime, args: &Args, fd_total_budget:
     // Reset Condition: User explicitly requested a reset
     if is_db_reset_needed && db_dir.exists() {
         let msg = "Reset DB was requested -- this means the current databases will be fully deleted,
-do you confirm? (answer y/n or pass --yes to the Waglayla command line to confirm all interactive questions)";
+do you confirm? (answer y/n or pass --yes to the Waglaylad command line to confirm all interactive questions)";
         get_user_approval_or_exit(msg, args.yes);
         info!("Deleting databases");
         fs::remove_dir_all(&db_dir).unwrap();
@@ -312,10 +309,10 @@ do you confirm? (answer y/n or pass --yes to the Waglayla command line to confir
             || MultiConsensusManagementStore::new(meta_db.clone()).should_upgrade().unwrap())
     {
         let msg =
-            "Node database is from a different Waglayla *DB* version and needs to be fully deleted, do you confirm the delete? (y/n)";
+            "Node database is from a different Waglaylad *DB* version and needs to be fully deleted, do you confirm the delete? (y/n)";
         get_user_approval_or_exit(msg, args.yes);
 
-        info!("Deleting databases from previous Waglayla version");
+        info!("Deleting databases from previous Waglaylad version");
 
         is_db_reset_needed = true;
     }
@@ -415,7 +412,6 @@ do you confirm? (answer y/n or pass --yes to the Waglayla command line to confir
             .unwrap();
         let utxoindex = UtxoIndexProxy::new(UtxoIndex::new(consensus_manager.clone(), utxoindex_db).unwrap());
         let index_service = Arc::new(IndexService::new(&notify_service.notifier(), subscription_context.clone(), Some(utxoindex)));
-
         Some(index_service)
     } else {
         None
