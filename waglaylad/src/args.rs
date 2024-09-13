@@ -1,9 +1,3 @@
-							 
-				  
-							  
-									  
-				   
-
 use clap::{arg, Arg, ArgAction, Command};
 use waglayla_consensus_core::{
     config::Config,
@@ -20,13 +14,9 @@ use toml::from_str;
 
 #[cfg(feature = "devnet-prealloc")]
 use waglayla_addresses::Address;
-							  
-				   
-									  
-  
+							  						  
 #[cfg(feature = "devnet-prealloc")]
-use waglayla_consensus_core::tx::{TransactionOutpoint, UtxoEntry};
-										  
+use waglayla_consensus_core::tx::{TransactionOutpoint, UtxoEntry};								  
 											   
 #[cfg(feature = "devnet-prealloc")]
 use waglayla_txscript::pay_to_address_script;
