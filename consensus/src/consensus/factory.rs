@@ -415,6 +415,3 @@ impl ConsensusFactory for Factory {
         }
     }
 }
-        },
-    }
-}
