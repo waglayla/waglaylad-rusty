@@ -19,6 +19,7 @@ pub struct ResolverConfig {
     resolver: Vec<ResolverRecord>,
 }
 
+#[allow(dead_code)]
 fn try_parse_resolvers(toml: &str) -> Result<Vec<Arc<String>>> {
     Ok(toml::from_str::<ResolverConfig>(toml)?
         .resolver

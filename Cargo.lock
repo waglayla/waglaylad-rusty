@@ -2509,1356 +2509,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "waglayla-addresses"
-version = "0.14.5"
-dependencies = [
- "borsh",
- "criterion",
- "js-sys",
- "pyo3",
- "serde",
- "smallvec",
- "thiserror",
- "wasm-bindgen",
- "wasm-bindgen-test",
- "web-sys",
- "workflow-log",
- "workflow-wasm",
-]
-
-[[package]]
-name = "waglayla-addressmanager"
-version = "0.14.5"
-dependencies = [
- "borsh",
- "igd-next",
- "itertools 0.11.0",
- "waglayla-consensus-core",
- "waglayla-core",
- "waglayla-database",
- "waglayla-utils",
- "local-ip-address",
- "log",
- "parking_lot",
- "rand 0.8.5",
- "rocksdb",
- "serde",
- "statest",
- "statrs",
- "thiserror",
- "tokio",
-]
-
-[[package]]
-name = "waglayla-alloc"
-version = "0.14.5"
-dependencies = [
- "mimalloc",
-]
-
-[[package]]
-name = "waglayla-bip32"
-version = "0.14.5"
-dependencies = [
- "borsh",
- "bs58",
- "faster-hex 0.6.1",
- "getrandom 0.2.14",
- "hmac",
- "js-sys",
- "waglayla-utils",
- "once_cell",
- "pbkdf2",
- "rand 0.8.5",
- "rand_core 0.6.4",
- "ripemd",
- "secp256k1",
- "serde",
- "sha2",
- "subtle",
- "thiserror",
- "wasm-bindgen",
- "workflow-wasm",
- "zeroize",
-]
-
-[[package]]
-name = "waglayla-cli"
-version = "0.14.5"
-dependencies = [
- "async-trait",
- "borsh",
- "cfg-if 1.0.0",
- "convert_case 0.6.0",
- "dashmap",
- "downcast",
- "faster-hex 0.6.1",
- "futures",
- "js-sys",
- "waglayla-addresses",
- "waglayla-bip32",
- "waglayla-consensus-core",
- "waglayla-core",
- "waglayla-daemon",
- "waglayla-metrics-core",
- "waglayla-rpc-core",
- "waglayla-utils",
- "waglayla-wallet-core",
- "waglayla-wallet-keys",
- "waglayla-wrpc-client",
- "nw-sys",
- "pad",
- "regex",
- "separator",
- "serde",
- "serde_json",
- "textwrap 0.16.1",
- "thiserror",
- "tokio",
- "wasm-bindgen",
- "web-sys",
- "workflow-core",
- "workflow-dom",
- "workflow-log",
- "workflow-node",
- "workflow-nw",
- "workflow-store",
- "workflow-terminal",
- "workflow-wasm",
-]
-
-[[package]]
-name = "waglayla-connectionmanager"
-version = "0.14.5"
-dependencies = [
- "duration-string",
- "futures-util",
- "itertools 0.11.0",
- "waglayla-addressmanager",
- "waglayla-core",
- "waglayla-p2p-lib",
- "waglayla-utils",
- "log",
- "parking_lot",
- "rand 0.8.5",
- "tokio",
-]
-
-[[package]]
-name = "waglayla-consensus"
-version = "0.14.5"
-dependencies = [
- "arc-swap",
- "async-channel 2.2.1",
- "bincode",
- "criterion",
- "crossbeam-channel",
- "faster-hex 0.6.1",
- "flate2",
- "futures-util",
- "indexmap 2.2.6",
- "itertools 0.11.0",
- "waglayla-addresses",
- "waglayla-consensus-core",
- "waglayla-consensus-notify",
- "waglayla-consensusmanager",
- "waglayla-core",
- "waglayla-database",
- "waglayla-hashes",
- "waglayla-math",
- "waglayla-merkle",
- "waglayla-muhash",
- "waglayla-notify",
- "waglayla-pow",
- "waglayla-txscript",
- "waglayla-txscript-errors",
- "waglayla-utils",
- "log",
- "once_cell",
- "parking_lot",
- "rand 0.8.5",
- "rand_distr 0.4.3",
- "rayon",
- "rocksdb",
- "secp256k1",
- "serde",
- "serde_json",
- "smallvec",
- "thiserror",
- "tokio",
- "zip",
-]
-
-[[package]]
-name = "waglayla-consensus-client"
-version = "0.14.5"
-dependencies = [
- "ahash 0.8.11",
- "cfg-if 1.0.0",
- "faster-hex 0.6.1",
- "hex",
- "itertools 0.11.0",
- "js-sys",
- "waglayla-addresses",
- "waglayla-consensus-core",
- "waglayla-hashes",
- "waglayla-math",
- "waglayla-muhash",
- "waglayla-txscript",
- "waglayla-utils",
- "waglayla-wasm-core",
- "rand 0.8.5",
- "secp256k1",
- "serde",
- "serde-wasm-bindgen",
- "serde_json",
- "thiserror",
- "wasm-bindgen",
- "workflow-log",
- "workflow-wasm",
-]
-
-[[package]]
-name = "waglayla-consensus-core"
-version = "0.14.5"
-dependencies = [
- "async-trait",
- "bincode",
- "borsh",
- "cfg-if 1.0.0",
- "criterion",
- "faster-hex 0.6.1",
- "futures-util",
- "getrandom 0.2.14",
- "itertools 0.11.0",
- "js-sys",
- "waglayla-addresses",
- "waglayla-core",
- "waglayla-hashes",
- "waglayla-math",
- "waglayla-merkle",
- "waglayla-muhash",
- "waglayla-txscript-errors",
- "waglayla-utils",
- "pyo3",
- "rand 0.8.5",
- "secp256k1",
- "serde",
- "serde-wasm-bindgen",
- "serde_json",
- "smallvec",
- "thiserror",
- "wasm-bindgen",
- "wasm-bindgen-test",
- "web-sys",
- "workflow-core",
- "workflow-log",
- "workflow-wasm",
-]
-
-[[package]]
-name = "waglayla-consensus-notify"
-version = "0.14.5"
-dependencies = [
- "async-channel 2.2.1",
- "cfg-if 1.0.0",
- "derive_more",
- "futures",
- "waglayla-consensus-core",
- "waglayla-core",
- "waglayla-hashes",
- "waglayla-notify",
- "waglayla-utils",
- "log",
- "paste",
- "thiserror",
- "triggered",
-]
-
-[[package]]
-name = "waglayla-consensus-wasm"
-version = "0.14.5"
-dependencies = [
- "cfg-if 1.0.0",
- "faster-hex 0.6.1",
- "js-sys",
- "waglayla-addresses",
- "waglayla-consensus-client",
- "waglayla-consensus-core",
- "waglayla-hashes",
- "waglayla-txscript",
- "waglayla-utils",
- "rand 0.8.5",
- "secp256k1",
- "serde",
- "serde-wasm-bindgen",
- "serde_json",
- "thiserror",
- "wasm-bindgen",
- "workflow-log",
- "workflow-wasm",
-]
-
-[[package]]
-name = "waglayla-consensusmanager"
-version = "0.14.5"
-dependencies = [
- "duration-string",
- "futures",
- "futures-util",
- "itertools 0.11.0",
- "waglayla-consensus-core",
- "waglayla-consensus-notify",
- "waglayla-core",
- "waglayla-utils",
- "log",
- "parking_lot",
- "rand 0.8.5",
- "tokio",
-]
-
-[[package]]
-name = "waglayla-core"
-version = "0.14.5"
-dependencies = [
- "cfg-if 1.0.0",
- "ctrlc",
- "futures-util",
- "intertrait",
- "log",
- "log4rs",
- "num_cpus",
- "thiserror",
- "tokio",
- "triggered",
- "wasm-bindgen",
- "workflow-log",
-]
-
-[[package]]
-name = "waglayla-daemon"
-version = "0.14.5"
-dependencies = [
- "async-trait",
- "borsh",
- "cfg-if 1.0.0",
- "downcast-rs",
- "futures",
- "waglayla-addresses",
- "waglayla-consensus-core",
- "waglayla-wallet-core",
- "nw-sys",
- "serde",
- "thiserror",
- "workflow-core",
- "workflow-log",
- "workflow-node",
- "workflow-nw",
- "workflow-store",
-]
-
-[[package]]
-name = "waglayla-database"
-version = "0.14.5"
-dependencies = [
- "bincode",
- "enum-primitive-derive",
- "faster-hex 0.6.1",
- "indexmap 2.2.6",
- "itertools 0.11.0",
- "waglayla-hashes",
- "waglayla-utils",
- "num-traits",
- "num_cpus",
- "parking_lot",
- "rand 0.8.5",
- "rocksdb",
- "serde",
- "smallvec",
- "tempfile",
- "thiserror",
-]
-
-[[package]]
-name = "waglayla-grpc-client"
-version = "0.14.5"
-dependencies = [
- "async-channel 2.2.1",
- "async-stream",
- "async-trait",
- "faster-hex 0.6.1",
- "futures",
- "futures-util",
- "h2",
- "itertools 0.11.0",
- "waglayla-core",
- "waglayla-grpc-core",
- "waglayla-notify",
- "waglayla-rpc-core",
- "waglayla-utils",
- "waglayla-utils-tower",
- "log",
- "parking_lot",
- "paste",
- "prost",
- "rand 0.8.5",
- "regex",
- "thiserror",
- "tokio",
- "tokio-stream",
- "tonic",
- "triggered",
-]
-
-[[package]]
-name = "waglayla-grpc-core"
-version = "0.14.5"
-dependencies = [
- "async-channel 2.2.1",
- "async-stream",
- "async-trait",
- "faster-hex 0.6.1",
- "futures",
- "h2",
- "waglayla-consensus-core",
- "waglayla-core",
- "waglayla-muhash",
- "waglayla-notify",
- "waglayla-rpc-core",
- "waglayla-utils",
- "log",
- "paste",
- "prost",
- "rand 0.8.5",
- "regex",
- "thiserror",
- "tokio",
- "tokio-stream",
- "tonic",
- "tonic-build",
- "triggered",
- "workflow-core",
-]
-
-[[package]]
-name = "waglayla-grpc-server"
-version = "0.14.5"
-dependencies = [
- "async-channel 2.2.1",
- "async-stream",
- "async-trait",
- "faster-hex 0.6.1",
- "futures",
- "h2",
- "itertools 0.11.0",
- "waglayla-consensus-core",
- "waglayla-core",
- "waglayla-grpc-client",
- "waglayla-grpc-core",
- "waglayla-notify",
- "waglayla-rpc-core",
- "waglayla-rpc-macros",
- "waglayla-rpc-service",
- "waglayla-utils",
- "waglayla-utils-tower",
- "log",
- "once_cell",
- "parking_lot",
- "paste",
- "prost",
- "rand 0.8.5",
- "thiserror",
- "tokio",
- "tokio-stream",
- "tonic",
- "triggered",
- "uuid 1.6.1",
-]
-
-[[package]]
-name = "waglayla-hashes"
-version = "0.14.5"
-dependencies = [
- "blake3",
- "borsh",
- "cc",
- "criterion",
- "faster-hex 0.6.1",
- "js-sys",
- "waglayla-math",
- "waglayla-utils",
- "keccak",
- "once_cell",
- "pyo3",
- "rand 0.8.5",
- "serde",
- "sha2",
- "sha3",
- "wasm-bindgen",
- "workflow-wasm",
-]
-
-[[package]]
-name = "waglayla-index-core"
-version = "0.14.5"
-dependencies = [
- "async-channel 2.2.1",
- "async-trait",
- "derive_more",
- "futures",
- "waglayla-consensus-core",
- "waglayla-hashes",
- "waglayla-notify",
- "waglayla-utils",
- "log",
- "paste",
- "serde",
- "thiserror",
- "triggered",
-]
-
-[[package]]
-name = "waglayla-index-processor"
-version = "0.14.5"
-dependencies = [
- "async-channel 2.2.1",
- "async-trait",
- "derive_more",
- "futures",
- "waglayla-consensus",
- "waglayla-consensus-core",
- "waglayla-consensus-notify",
- "waglayla-consensusmanager",
- "waglayla-core",
- "waglayla-database",
- "waglayla-hashes",
- "waglayla-index-core",
- "waglayla-notify",
- "waglayla-utils",
- "waglayla-utxoindex",
- "log",
- "parking_lot",
- "paste",
- "rand 0.8.5",
- "thiserror",
- "tokio",
- "triggered",
-]
-
-[[package]]
-name = "waglayla-math"
-version = "0.14.5"
-dependencies = [
- "borsh",
- "criterion",
- "faster-hex 0.6.1",
- "js-sys",
- "waglayla-utils",
- "malachite-base",
- "malachite-nz",
- "pyo3",
- "rand_chacha 0.3.1",
- "serde",
- "serde-wasm-bindgen",
- "thiserror",
- "wasm-bindgen",
- "workflow-core",
- "workflow-log",
- "workflow-wasm",
-]
-
-[[package]]
-name = "waglayla-merkle"
-version = "0.14.5"
-dependencies = [
- "waglayla-hashes",
-]
-
-[[package]]
-name = "waglayla-metrics-core"
-version = "0.14.5"
-dependencies = [
- "async-trait",
- "borsh",
- "futures",
- "waglayla-core",
- "waglayla-rpc-core",
- "separator",
- "serde",
- "thiserror",
- "workflow-core",
- "workflow-log",
-]
-
-[[package]]
-name = "waglayla-mining"
-version = "0.14.5"
-dependencies = [
- "criterion",
- "futures-util",
- "itertools 0.11.0",
- "waglayla-addresses",
- "waglayla-consensus-core",
- "waglayla-consensusmanager",
- "waglayla-core",
- "waglayla-hashes",
- "waglayla-mining-errors",
- "waglayla-muhash",
- "waglayla-txscript",
- "waglayla-utils",
- "log",
- "parking_lot",
- "rand 0.8.5",
- "secp256k1",
- "serde",
- "smallvec",
- "thiserror",
- "tokio",
-]
-
-[[package]]
-name = "waglayla-mining-errors"
-version = "0.14.5"
-dependencies = [
- "waglayla-consensus-core",
- "thiserror",
-]
-
-[[package]]
-name = "waglayla-muhash"
-version = "0.14.5"
-dependencies = [
- "blake2b_simd",
- "borsh",
- "criterion",
- "faster-hex 0.6.1",
- "hex",
- "waglayla-hashes",
- "waglayla-math",
- "waglayla-utils",
- "keccak",
- "once_cell",
- "pyo3",
- "rand 0.8.5",
- "rand_chacha 0.3.1",
- "rayon",
- "serde",
- "sha2",
- "sha3",
- "wasm-bindgen",
- "workflow-wasm",
-]
-
-[[package]]
-name = "waglayla-notify"
-version = "0.14.5"
-dependencies = [
- "async-channel 2.2.1",
- "async-trait",
- "borsh",
- "criterion",
- "derive_more",
- "futures",
- "futures-util",
- "indexmap 2.2.6",
- "itertools 0.11.0",
- "waglayla-addresses",
- "waglayla-alloc",
- "waglayla-consensus-core",
- "waglayla-core",
- "waglayla-hashes",
- "waglayla-math",
- "waglayla-txscript",
- "waglayla-txscript-errors",
- "waglayla-utils",
- "log",
- "parking_lot",
- "paste",
- "rand 0.8.5",
- "serde",
- "thiserror",
- "tokio",
- "triggered",
- "workflow-core",
- "workflow-log",
- "workflow-perf-monitor",
-]
-
-[[package]]
-name = "waglayla-p2p-flows"
-version = "0.14.5"
-dependencies = [
- "async-trait",
- "chrono",
- "futures",
- "indexmap 2.2.6",
- "itertools 0.11.0",
- "waglayla-addressmanager",
- "waglayla-connectionmanager",
- "waglayla-consensus-core",
- "waglayla-consensus-notify",
- "waglayla-consensusmanager",
- "waglayla-core",
- "waglayla-hashes",
- "waglayla-mining",
- "waglayla-muhash",
- "waglayla-notify",
- "waglayla-p2p-lib",
- "waglayla-utils",
- "waglayla-utils-tower",
- "log",
- "parking_lot",
- "rand 0.8.5",
- "thiserror",
- "tokio",
- "tokio-stream",
- "uuid 1.6.1",
-]
-
-[[package]]
-name = "waglayla-p2p-lib"
-version = "0.14.5"
-dependencies = [
- "borsh",
- "ctrlc",
- "futures",
- "h2",
- "hex",
- "itertools 0.11.0",
- "waglayla-consensus-core",
- "waglayla-core",
- "waglayla-hashes",
- "waglayla-math",
- "waglayla-mining-errors",
- "waglayla-muhash",
- "waglayla-utils",
- "waglayla-utils-tower",
- "log",
- "parking_lot",
- "prost",
- "rand 0.8.5",
- "seqlock",
- "serde",
- "thiserror",
- "tokio",
- "tokio-stream",
- "tonic",
- "tonic-build",
- "uuid 1.6.1",
-]
-
-[[package]]
-name = "waglayla-perf-monitor"
-version = "0.14.5"
-dependencies = [
- "waglayla-core",
- "log",
- "portable-atomic",
- "thiserror",
- "tokio",
- "workflow-perf-monitor",
-]
-
-[[package]]
-name = "waglayla-pow"
-version = "0.14.5"
-dependencies = [
- "criterion",
- "js-sys",
- "waglayla-consensus-client",
- "waglayla-consensus-core",
- "waglayla-hashes",
- "waglayla-math",
- "waglayla-utils",
- "num",
- "wasm-bindgen",
- "workflow-wasm",
-]
-
-[[package]]
-name = "waglayla-resolver"
-version = "0.14.5"
-dependencies = [
- "ahash 0.8.11",
- "axum 0.7.5",
- "cfg-if 1.0.0",
- "clap 4.5.4",
- "console",
- "convert_case 0.6.0",
- "futures",
- "waglayla-consensus-core",
- "waglayla-rpc-core",
- "waglayla-utils",
- "waglayla-wrpc-client",
- "mime",
- "serde",
- "serde_json",
- "thiserror",
- "tokio",
- "toml 0.8.12",
- "tower",
- "tower-http 0.5.2",
- "tracing-subscriber",
- "workflow-core",
- "workflow-http",
- "workflow-log",
- "xxhash-rust",
-]
-
-[[package]]
-name = "waglayla-rpc-core"
-version = "0.14.5"
-dependencies = [
- "async-channel 2.2.1",
- "async-trait",
- "borsh",
- "cfg-if 1.0.0",
- "derive_more",
- "downcast",
- "faster-hex 0.6.1",
- "hex",
- "js-sys",
- "waglayla-addresses",
- "waglayla-consensus-client",
- "waglayla-consensus-core",
- "waglayla-consensus-notify",
- "waglayla-consensus-wasm",
- "waglayla-core",
- "waglayla-hashes",
- "waglayla-index-core",
- "waglayla-math",
- "waglayla-mining-errors",
- "waglayla-notify",
- "waglayla-rpc-macros",
- "waglayla-txscript",
- "waglayla-utils",
- "log",
- "paste",
- "pyo3",
- "serde",
- "serde-wasm-bindgen",
- "serde_json",
- "smallvec",
- "thiserror",
- "uuid 1.6.1",
- "wasm-bindgen",
- "workflow-core",
- "workflow-wasm",
-]
-
-[[package]]
-name = "waglayla-rpc-macros"
-version = "0.14.5"
-dependencies = [
- "convert_case 0.6.0",
- "proc-macro-error",
- "proc-macro2",
- "quote",
- "regex",
- "syn 1.0.109",
-]
-
-[[package]]
-name = "waglayla-rpc-service"
-version = "0.14.5"
-dependencies = [
- "async-trait",
- "waglayla-addresses",
- "waglayla-consensus-core",
- "waglayla-consensus-notify",
- "waglayla-consensusmanager",
- "waglayla-core",
- "waglayla-hashes",
- "waglayla-index-core",
- "waglayla-math",
- "waglayla-mining",
- "waglayla-notify",
- "waglayla-p2p-flows",
- "waglayla-p2p-lib",
- "waglayla-perf-monitor",
- "waglayla-rpc-core",
- "waglayla-txscript",
- "waglayla-utils",
- "waglayla-utils-tower",
- "waglayla-utxoindex",
- "log",
- "tokio",
- "triggered",
- "workflow-rpc",
-]
-
-[[package]]
-name = "waglayla-testing-integration"
-version = "0.14.5"
-dependencies = [
- "async-channel 2.2.1",
- "async-trait",
- "bincode",
- "chrono",
- "clap 4.5.4",
- "criterion",
- "crossbeam-channel",
- "dhat",
- "faster-hex 0.6.1",
- "flate2",
- "futures-util",
- "indexmap 2.2.6",
- "itertools 0.11.0",
- "waglayla-addresses",
- "waglayla-alloc",
- "waglayla-bip32",
- "waglayla-consensus",
- "waglayla-consensus-core",
- "waglayla-consensus-notify",
- "waglayla-consensusmanager",
- "waglayla-core",
- "waglayla-database",
- "waglayla-grpc-client",
- "waglayla-grpc-core",
- "waglayla-grpc-server",
- "waglayla-hashes",
- "waglayla-index-processor",
- "waglayla-math",
- "waglayla-merkle",
- "waglayla-muhash",
- "waglayla-notify",
- "waglayla-pow",
- "waglayla-rpc-core",
- "waglayla-rpc-service",
- "waglayla-txscript",
- "waglayla-txscript-errors",
- "waglayla-utils",
- "waglayla-utxoindex",
- "waglayla-wrpc-server",
- "log",
- "parking_lot",
- "waglaylad",
- "rand 0.8.5",
- "rand_distr 0.4.3",
- "rayon",
- "rocksdb",
- "secp256k1",
- "serde",
- "serde_json",
- "smallvec",
- "tempfile",
- "thiserror",
- "tokio",
- "workflow-perf-monitor",
-]
-
-[[package]]
-name = "waglayla-txscript"
-version = "0.14.5"
-dependencies = [
- "blake3",
- "borsh",
- "criterion",
- "hex",
- "indexmap 2.2.6",
- "itertools 0.11.0",
- "waglayla-addresses",
- "waglayla-consensus-core",
- "waglayla-hashes",
- "waglayla-txscript-errors",
- "log",
- "parking_lot",
- "pyo3",
- "rand 0.8.5",
- "secp256k1",
- "serde",
- "serde_json",
- "sha2",
- "smallvec",
- "thiserror",
- "wasm-bindgen",
-]
-
-[[package]]
-name = "waglayla-txscript-errors"
-version = "0.14.5"
-dependencies = [
- "secp256k1",
- "thiserror",
-]
-
-[[package]]
-name = "waglayla-utils"
-version = "0.14.5"
-dependencies = [
- "async-channel 2.2.1",
- "async-trait",
- "bincode",
- "borsh",
- "cfg-if 1.0.0",
- "criterion",
- "event-listener 2.5.3",
- "faster-hex 0.6.1",
- "futures-util",
- "ipnet",
- "itertools 0.11.0",
- "log",
- "parking_lot",
- "pyo3",
- "rand 0.8.5",
- "rlimit",
- "serde",
- "serde_json",
- "smallvec",
- "thiserror",
- "tokio",
- "triggered",
- "uuid 1.6.1",
- "wasm-bindgen",
-]
-
-[[package]]
-name = "waglayla-utils-tower"
-version = "0.14.5"
-dependencies = [
- "cfg-if 1.0.0",
- "futures",
- "hyper 0.14.28",
- "log",
- "pin-project-lite",
- "tokio",
- "tower",
- "tower-http 0.4.4",
-]
-
-[[package]]
-name = "waglayla-utxoindex"
-version = "0.14.5"
-dependencies = [
- "futures",
- "waglayla-consensus",
- "waglayla-consensus-core",
- "waglayla-consensusmanager",
- "waglayla-core",
- "waglayla-database",
- "waglayla-hashes",
- "waglayla-index-core",
- "waglayla-utils",
- "log",
- "parking_lot",
- "rand 0.8.5",
- "rocksdb",
- "serde",
- "thiserror",
-]
-
-[[package]]
-name = "waglayla-wallet"
-version = "0.14.5"
-dependencies = [
- "async-std",
- "async-trait",
- "waglayla-cli",
- "tokio",
- "workflow-log",
- "workflow-terminal",
-]
-
-[[package]]
-name = "waglayla-wallet-cli-wasm"
-version = "0.14.5"
-dependencies = [
- "async-trait",
- "js-sys",
- "waglayla-cli",
- "wasm-bindgen",
- "wasm-bindgen-futures",
- "workflow-log",
- "workflow-terminal",
- "workflow-wasm",
-]
-
-[[package]]
-name = "waglayla-wallet-core"
-version = "0.14.5"
-dependencies = [
- "aes",
- "ahash 0.8.11",
- "argon2",
- "async-channel 2.2.1",
- "async-std",
- "async-trait",
- "base64 0.21.7",
- "borsh",
- "cfb-mode",
- "cfg-if 1.0.0",
- "chacha20poly1305",
- "convert_case 0.6.0",
- "crypto_box",
- "dashmap",
- "derivative",
- "downcast",
- "evpkdf",
- "faster-hex 0.6.1",
- "fixedstr",
- "futures",
- "heapless",
- "hex-literal",
- "hmac",
- "home",
- "indexed_db_futures",
- "itertools 0.11.0",
- "js-sys",
- "waglayla-addresses",
- "waglayla-bip32",
- "waglayla-consensus-client",
- "waglayla-consensus-core",
- "waglayla-consensus-wasm",
- "waglayla-core",
- "waglayla-hashes",
- "waglayla-metrics-core",
- "waglayla-notify",
- "waglayla-rpc-core",
- "waglayla-txscript",
- "waglayla-txscript-errors",
- "waglayla-utils",
- "waglayla-wallet-keys",
- "waglayla-wallet-macros",
- "waglayla-wasm-core",
- "waglayla-wrpc-client",
- "waglayla-wrpc-wasm",
- "md-5",
- "pad",
- "pbkdf2",
- "rand 0.8.5",
- "regex",
- "ripemd",
- "secp256k1",
- "separator",
- "serde",
- "serde-wasm-bindgen",
- "serde_json",
- "serde_repr",
- "sha1",
- "sha2",
- "slugify-rs",
- "sorted-insert",
- "thiserror",
- "tokio",
- "wasm-bindgen",
- "wasm-bindgen-futures",
- "web-sys",
- "workflow-core",
- "workflow-log",
- "workflow-node",
- "workflow-rpc",
- "workflow-store",
- "workflow-wasm",
- "xxhash-rust",
- "zeroize",
-]
-
-[[package]]
-name = "waglayla-wallet-keys"
-version = "0.14.5"
-dependencies = [
- "async-trait",
- "borsh",
- "downcast",
- "faster-hex 0.6.1",
- "hmac",
- "js-sys",
- "waglayla-addresses",
- "waglayla-bip32",
- "waglayla-consensus-core",
- "waglayla-txscript",
- "waglayla-txscript-errors",
- "waglayla-utils",
- "waglayla-wasm-core",
- "rand 0.8.5",
- "ripemd",
- "secp256k1",
- "serde",
- "serde-wasm-bindgen",
- "serde_json",
- "sha2",
- "thiserror",
- "tokio",
- "wasm-bindgen",
- "wasm-bindgen-futures",
- "workflow-core",
- "workflow-wasm",
- "zeroize",
-]
-
-[[package]]
-name = "waglayla-wallet-macros"
-version = "0.14.5"
-dependencies = [
- "convert_case 0.5.0",
- "proc-macro-error",
- "proc-macro2",
- "quote",
- "regex",
- "syn 1.0.109",
- "xxhash-rust",
-]
-
-[[package]]
-name = "waglayla-wasm"
-version = "0.14.5"
-dependencies = [
- "cfg-if 1.0.0",
- "js-sys",
- "waglayla-addresses",
- "waglayla-consensus-core",
- "waglayla-consensus-wasm",
- "waglayla-core",
- "waglayla-math",
- "waglayla-pow",
- "waglayla-rpc-core",
- "waglayla-utils",
- "waglayla-wallet-core",
- "waglayla-wallet-keys",
- "waglayla-wasm-core",
- "waglayla-wrpc-client",
- "waglayla-wrpc-wasm",
- "num",
- "wasm-bindgen",
- "workflow-core",
- "workflow-log",
- "workflow-wasm",
-]
-
-[[package]]
-name = "waglayla-wasm-core"
-version = "0.14.5"
-dependencies = [
- "faster-hex 0.6.1",
- "js-sys",
- "wasm-bindgen",
-]
-
-[[package]]
-name = "waglayla-wrpc-client"
-version = "0.14.5"
-dependencies = [
- "async-std",
- "async-trait",
- "borsh",
- "cfg-if 1.0.0",
- "futures",
- "js-sys",
- "waglayla-addresses",
- "waglayla-consensus-core",
- "waglayla-consensus-wasm",
- "waglayla-notify",
- "waglayla-rpc-core",
- "waglayla-rpc-macros",
- "paste",
- "rand 0.8.5",
- "regex",
- "serde",
- "serde-wasm-bindgen",
- "serde_json",
- "thiserror",
- "toml 0.8.12",
- "wasm-bindgen",
- "wasm-bindgen-futures",
- "workflow-core",
- "workflow-dom",
- "workflow-http",
- "workflow-log",
- "workflow-rpc",
- "workflow-wasm",
-]
-
-[[package]]
-name = "waglayla-wrpc-example-subscriber"
-version = "0.14.5"
-dependencies = [
- "ctrlc",
- "futures",
- "waglayla-consensus-core",
- "waglayla-notify",
- "waglayla-rpc-core",
- "waglayla-wrpc-client",
- "tokio",
- "workflow-core",
- "workflow-log",
-]
-
-[[package]]
-name = "waglayla-wrpc-proxy"
-version = "0.14.5"
-dependencies = [
- "async-trait",
- "clap 4.5.4",
- "waglayla-consensus-core",
- "waglayla-grpc-client",
- "waglayla-rpc-core",
- "waglayla-rpc-macros",
- "waglayla-wrpc-server",
- "num_cpus",
- "thiserror",
- "tokio",
- "workflow-core",
- "workflow-log",
- "workflow-rpc",
-]
-
-[[package]]
-name = "waglayla-wrpc-server"
-version = "0.14.5"
-dependencies = [
- "async-trait",
- "borsh",
- "futures",
- "waglayla-consensus-core",
- "waglayla-core",
- "waglayla-grpc-client",
- "waglayla-notify",
- "waglayla-rpc-core",
- "waglayla-rpc-macros",
- "waglayla-rpc-service",
- "waglayla-utils",
- "log",
- "num_cpus",
- "openssl",
- "paste",
- "serde",
- "thiserror",
- "tokio",
- "workflow-core",
- "workflow-log",
- "workflow-rpc",
-]
-
-[[package]]
-name = "waglayla-wrpc-wasm"
-version = "0.14.5"
-dependencies = [
- "ahash 0.8.11",
- "async-std",
- "cfg-if 1.0.0",
- "futures",
- "js-sys",
- "waglayla-addresses",
- "waglayla-consensus-client",
- "waglayla-consensus-core",
- "waglayla-consensus-wasm",
- "waglayla-notify",
- "waglayla-rpc-core",
- "waglayla-rpc-macros",
- "waglayla-wasm-core",
- "waglayla-wrpc-client",
- "serde",
- "serde-wasm-bindgen",
- "serde_json",
- "wasm-bindgen",
- "wasm-bindgen-futures",
- "workflow-core",
- "workflow-log",
- "workflow-rpc",
- "workflow-wasm",
-]
-
-[[package]]
 name = "keccak"
 version = "0.1.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -4980,19 +3630,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "pyo3-asyncio"
-version = "0.20.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6ea6b68e93db3622f3bb3bf363246cf948ed5375afe7abff98ccbdd50b184995"
-dependencies = [
- "futures",
- "once_cell",
- "pin-project-lite",
- "pyo3",
- "tokio",
-]
-
-[[package]]
 name = "pyo3-build-config"
 version = "0.20.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -5035,71 +3672,6 @@ dependencies = [
  "pyo3-build-config",
  "quote",
  "syn 2.0.60",
-]
-
-[[package]]
-name = "waglayla"
-version = "0.14.5"
-dependencies = [
- "async-channel 2.2.1",
- "bincode",
- "clap 4.5.4",
- "dhat",
- "dirs",
- "futures",
- "futures-util",
- "waglayla-addresses",
- "waglayla-addressmanager",
- "waglayla-alloc",
- "waglayla-consensus",
- "waglayla-consensus-core",
- "waglayla-consensus-notify",
- "waglayla-consensusmanager",
- "waglayla-core",
- "waglayla-database",
- "waglayla-grpc-server",
- "waglayla-hashes",
- "waglayla-index-processor",
- "waglayla-mining",
- "waglayla-notify",
- "waglayla-p2p-flows",
- "waglayla-perf-monitor",
- "waglayla-rpc-core",
- "waglayla-rpc-service",
- "waglayla-txscript",
- "waglayla-utils",
- "waglayla-utils-tower",
- "waglayla-utxoindex",
- "waglayla-wrpc-server",
- "log",
- "num_cpus",
- "rand 0.8.5",
- "rayon",
- "serde",
- "serde_with",
- "tempfile",
- "thiserror",
- "tokio",
- "toml 0.8.12",
- "workflow-log",
-]
-
-[[package]]
-name = "waglayla-sdk"
-version = "0.1.9"
-dependencies = [
- "futures",
- "waglayla-addresses",
- "waglayla-bip32",
- "waglayla-consensus-core",
- "waglayla-muhash",
- "waglayla-notify",
- "waglayla-rpc-core",
- "waglayla-wallet-core",
- "pyo3",
- "pyo3-asyncio",
- "tokio",
- "workflow-core",
 ]
 
 [[package]]
@@ -5377,6 +3949,11 @@ dependencies = [
  "criterion",
  "faster-hex 0.6.1",
  "itertools 0.11.0",
+ "log",
+ "parking_lot",
+ "rayon",
+ "secp256k1",
+ "tokio",
  "waglayla-addresses",
  "waglayla-consensus-core",
  "waglayla-core",
@@ -5385,11 +3962,6 @@ dependencies = [
  "waglayla-rpc-core",
  "waglayla-txscript",
  "waglayla-utils",
- "log",
- "parking_lot",
- "rayon",
- "secp256k1",
- "tokio",
 ]
 
 [[package]]
@@ -5830,6 +4402,13 @@ dependencies = [
  "futures-util",
  "indexmap 2.2.6",
  "itertools 0.11.0",
+ "log",
+ "num_cpus",
+ "rand 0.8.5",
+ "rand_distr 0.4.3",
+ "rayon",
+ "secp256k1",
+ "tokio",
  "waglayla-alloc",
  "waglayla-consensus",
  "waglayla-consensus-core",
@@ -5839,13 +4418,6 @@ dependencies = [
  "waglayla-hashes",
  "waglayla-perf-monitor",
  "waglayla-utils",
- "log",
- "num_cpus",
- "rand 0.8.5",
- "rand_distr 0.4.3",
- "rayon",
- "secp256k1",
- "tokio",
 ]
 
 [[package]]
@@ -6693,6 +5265,1403 @@ name = "version_check"
 version = "0.9.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "49874b5167b65d7193b8aba1567f5c7d93d001cafc34600cee003eda787e483f"
+
+[[package]]
+name = "waglayla-addresses"
+version = "0.14.5"
+dependencies = [
+ "borsh",
+ "criterion",
+ "js-sys",
+ "pyo3",
+ "serde",
+ "smallvec",
+ "thiserror",
+ "wasm-bindgen",
+ "wasm-bindgen-test",
+ "web-sys",
+ "workflow-log",
+ "workflow-wasm",
+]
+
+[[package]]
+name = "waglayla-addressmanager"
+version = "0.14.5"
+dependencies = [
+ "borsh",
+ "igd-next",
+ "itertools 0.11.0",
+ "local-ip-address",
+ "log",
+ "parking_lot",
+ "rand 0.8.5",
+ "rocksdb",
+ "serde",
+ "statest",
+ "statrs",
+ "thiserror",
+ "tokio",
+ "waglayla-consensus-core",
+ "waglayla-core",
+ "waglayla-database",
+ "waglayla-utils",
+]
+
+[[package]]
+name = "waglayla-alloc"
+version = "0.14.5"
+dependencies = [
+ "mimalloc",
+]
+
+[[package]]
+name = "waglayla-bip32"
+version = "0.14.5"
+dependencies = [
+ "borsh",
+ "bs58",
+ "faster-hex 0.6.1",
+ "getrandom 0.2.14",
+ "hmac",
+ "js-sys",
+ "once_cell",
+ "pbkdf2",
+ "rand 0.8.5",
+ "rand_core 0.6.4",
+ "ripemd",
+ "secp256k1",
+ "serde",
+ "sha2",
+ "subtle",
+ "thiserror",
+ "waglayla-utils",
+ "wasm-bindgen",
+ "workflow-wasm",
+ "zeroize",
+]
+
+[[package]]
+name = "waglayla-cli"
+version = "0.14.5"
+dependencies = [
+ "async-trait",
+ "borsh",
+ "cfg-if 1.0.0",
+ "convert_case 0.6.0",
+ "dashmap",
+ "downcast",
+ "faster-hex 0.6.1",
+ "futures",
+ "js-sys",
+ "nw-sys",
+ "pad",
+ "regex",
+ "separator",
+ "serde",
+ "serde_json",
+ "textwrap 0.16.1",
+ "thiserror",
+ "tokio",
+ "waglayla-addresses",
+ "waglayla-bip32",
+ "waglayla-consensus-core",
+ "waglayla-core",
+ "waglayla-daemon",
+ "waglayla-metrics-core",
+ "waglayla-rpc-core",
+ "waglayla-utils",
+ "waglayla-wallet-core",
+ "waglayla-wallet-keys",
+ "waglayla-wrpc-client",
+ "wasm-bindgen",
+ "web-sys",
+ "workflow-core",
+ "workflow-dom",
+ "workflow-log",
+ "workflow-node",
+ "workflow-nw",
+ "workflow-store",
+ "workflow-terminal",
+ "workflow-wasm",
+]
+
+[[package]]
+name = "waglayla-connectionmanager"
+version = "0.14.5"
+dependencies = [
+ "duration-string",
+ "futures-util",
+ "itertools 0.11.0",
+ "log",
+ "parking_lot",
+ "rand 0.8.5",
+ "tokio",
+ "waglayla-addressmanager",
+ "waglayla-core",
+ "waglayla-p2p-lib",
+ "waglayla-utils",
+]
+
+[[package]]
+name = "waglayla-consensus"
+version = "0.14.5"
+dependencies = [
+ "arc-swap",
+ "async-channel 2.2.1",
+ "bincode",
+ "criterion",
+ "crossbeam-channel",
+ "faster-hex 0.6.1",
+ "flate2",
+ "futures-util",
+ "indexmap 2.2.6",
+ "itertools 0.11.0",
+ "log",
+ "once_cell",
+ "parking_lot",
+ "rand 0.8.5",
+ "rand_distr 0.4.3",
+ "rayon",
+ "rocksdb",
+ "secp256k1",
+ "serde",
+ "serde_json",
+ "smallvec",
+ "thiserror",
+ "tokio",
+ "waglayla-addresses",
+ "waglayla-consensus-core",
+ "waglayla-consensus-notify",
+ "waglayla-consensusmanager",
+ "waglayla-core",
+ "waglayla-database",
+ "waglayla-hashes",
+ "waglayla-math",
+ "waglayla-merkle",
+ "waglayla-muhash",
+ "waglayla-notify",
+ "waglayla-pow",
+ "waglayla-txscript",
+ "waglayla-txscript-errors",
+ "waglayla-utils",
+ "zip",
+]
+
+[[package]]
+name = "waglayla-consensus-client"
+version = "0.14.5"
+dependencies = [
+ "ahash 0.8.11",
+ "cfg-if 1.0.0",
+ "faster-hex 0.6.1",
+ "hex",
+ "itertools 0.11.0",
+ "js-sys",
+ "rand 0.8.5",
+ "secp256k1",
+ "serde",
+ "serde-wasm-bindgen",
+ "serde_json",
+ "thiserror",
+ "waglayla-addresses",
+ "waglayla-consensus-core",
+ "waglayla-hashes",
+ "waglayla-math",
+ "waglayla-muhash",
+ "waglayla-txscript",
+ "waglayla-utils",
+ "waglayla-wasm-core",
+ "wasm-bindgen",
+ "workflow-log",
+ "workflow-wasm",
+]
+
+[[package]]
+name = "waglayla-consensus-core"
+version = "0.14.5"
+dependencies = [
+ "async-trait",
+ "bincode",
+ "borsh",
+ "cfg-if 1.0.0",
+ "criterion",
+ "faster-hex 0.6.1",
+ "futures-util",
+ "getrandom 0.2.14",
+ "itertools 0.11.0",
+ "js-sys",
+ "pyo3",
+ "rand 0.8.5",
+ "secp256k1",
+ "serde",
+ "serde-wasm-bindgen",
+ "serde_json",
+ "smallvec",
+ "thiserror",
+ "waglayla-addresses",
+ "waglayla-core",
+ "waglayla-hashes",
+ "waglayla-math",
+ "waglayla-merkle",
+ "waglayla-muhash",
+ "waglayla-txscript-errors",
+ "waglayla-utils",
+ "wasm-bindgen",
+ "wasm-bindgen-test",
+ "web-sys",
+ "workflow-core",
+ "workflow-log",
+ "workflow-wasm",
+]
+
+[[package]]
+name = "waglayla-consensus-notify"
+version = "0.14.5"
+dependencies = [
+ "async-channel 2.2.1",
+ "cfg-if 1.0.0",
+ "derive_more",
+ "futures",
+ "log",
+ "paste",
+ "thiserror",
+ "triggered",
+ "waglayla-consensus-core",
+ "waglayla-core",
+ "waglayla-hashes",
+ "waglayla-notify",
+ "waglayla-utils",
+]
+
+[[package]]
+name = "waglayla-consensus-wasm"
+version = "0.14.5"
+dependencies = [
+ "cfg-if 1.0.0",
+ "faster-hex 0.6.1",
+ "js-sys",
+ "rand 0.8.5",
+ "secp256k1",
+ "serde",
+ "serde-wasm-bindgen",
+ "serde_json",
+ "thiserror",
+ "waglayla-addresses",
+ "waglayla-consensus-client",
+ "waglayla-consensus-core",
+ "waglayla-hashes",
+ "waglayla-txscript",
+ "waglayla-utils",
+ "wasm-bindgen",
+ "workflow-log",
+ "workflow-wasm",
+]
+
+[[package]]
+name = "waglayla-consensusmanager"
+version = "0.14.5"
+dependencies = [
+ "duration-string",
+ "futures",
+ "futures-util",
+ "itertools 0.11.0",
+ "log",
+ "parking_lot",
+ "rand 0.8.5",
+ "tokio",
+ "waglayla-consensus-core",
+ "waglayla-consensus-notify",
+ "waglayla-core",
+ "waglayla-utils",
+]
+
+[[package]]
+name = "waglayla-core"
+version = "0.14.5"
+dependencies = [
+ "cfg-if 1.0.0",
+ "ctrlc",
+ "futures-util",
+ "intertrait",
+ "log",
+ "log4rs",
+ "num_cpus",
+ "thiserror",
+ "tokio",
+ "triggered",
+ "wasm-bindgen",
+ "workflow-log",
+]
+
+[[package]]
+name = "waglayla-daemon"
+version = "0.14.5"
+dependencies = [
+ "async-trait",
+ "borsh",
+ "cfg-if 1.0.0",
+ "downcast-rs",
+ "futures",
+ "nw-sys",
+ "serde",
+ "thiserror",
+ "waglayla-addresses",
+ "waglayla-consensus-core",
+ "waglayla-wallet-core",
+ "workflow-core",
+ "workflow-log",
+ "workflow-node",
+ "workflow-nw",
+ "workflow-store",
+]
+
+[[package]]
+name = "waglayla-database"
+version = "0.14.5"
+dependencies = [
+ "bincode",
+ "enum-primitive-derive",
+ "faster-hex 0.6.1",
+ "indexmap 2.2.6",
+ "itertools 0.11.0",
+ "num-traits",
+ "num_cpus",
+ "parking_lot",
+ "rand 0.8.5",
+ "rocksdb",
+ "serde",
+ "smallvec",
+ "tempfile",
+ "thiserror",
+ "waglayla-hashes",
+ "waglayla-utils",
+]
+
+[[package]]
+name = "waglayla-grpc-client"
+version = "0.14.5"
+dependencies = [
+ "async-channel 2.2.1",
+ "async-stream",
+ "async-trait",
+ "faster-hex 0.6.1",
+ "futures",
+ "futures-util",
+ "h2",
+ "itertools 0.11.0",
+ "log",
+ "parking_lot",
+ "paste",
+ "prost",
+ "rand 0.8.5",
+ "regex",
+ "thiserror",
+ "tokio",
+ "tokio-stream",
+ "tonic",
+ "triggered",
+ "waglayla-core",
+ "waglayla-grpc-core",
+ "waglayla-notify",
+ "waglayla-rpc-core",
+ "waglayla-utils",
+ "waglayla-utils-tower",
+]
+
+[[package]]
+name = "waglayla-grpc-core"
+version = "0.14.5"
+dependencies = [
+ "async-channel 2.2.1",
+ "async-stream",
+ "async-trait",
+ "faster-hex 0.6.1",
+ "futures",
+ "h2",
+ "log",
+ "paste",
+ "prost",
+ "rand 0.8.5",
+ "regex",
+ "thiserror",
+ "tokio",
+ "tokio-stream",
+ "tonic",
+ "tonic-build",
+ "triggered",
+ "waglayla-consensus-core",
+ "waglayla-core",
+ "waglayla-muhash",
+ "waglayla-notify",
+ "waglayla-rpc-core",
+ "waglayla-utils",
+ "workflow-core",
+]
+
+[[package]]
+name = "waglayla-grpc-server"
+version = "0.14.5"
+dependencies = [
+ "async-channel 2.2.1",
+ "async-stream",
+ "async-trait",
+ "faster-hex 0.6.1",
+ "futures",
+ "h2",
+ "itertools 0.11.0",
+ "log",
+ "once_cell",
+ "parking_lot",
+ "paste",
+ "prost",
+ "rand 0.8.5",
+ "thiserror",
+ "tokio",
+ "tokio-stream",
+ "tonic",
+ "triggered",
+ "uuid 1.6.1",
+ "waglayla-consensus-core",
+ "waglayla-core",
+ "waglayla-grpc-client",
+ "waglayla-grpc-core",
+ "waglayla-notify",
+ "waglayla-rpc-core",
+ "waglayla-rpc-macros",
+ "waglayla-rpc-service",
+ "waglayla-utils",
+ "waglayla-utils-tower",
+]
+
+[[package]]
+name = "waglayla-hashes"
+version = "0.14.5"
+dependencies = [
+ "blake3",
+ "borsh",
+ "cc",
+ "criterion",
+ "faster-hex 0.6.1",
+ "js-sys",
+ "keccak",
+ "once_cell",
+ "pyo3",
+ "rand 0.8.5",
+ "serde",
+ "sha2",
+ "sha3",
+ "waglayla-math",
+ "waglayla-utils",
+ "wasm-bindgen",
+ "workflow-wasm",
+]
+
+[[package]]
+name = "waglayla-index-core"
+version = "0.14.5"
+dependencies = [
+ "async-channel 2.2.1",
+ "async-trait",
+ "derive_more",
+ "futures",
+ "log",
+ "paste",
+ "serde",
+ "thiserror",
+ "triggered",
+ "waglayla-consensus-core",
+ "waglayla-hashes",
+ "waglayla-notify",
+ "waglayla-utils",
+]
+
+[[package]]
+name = "waglayla-index-processor"
+version = "0.14.5"
+dependencies = [
+ "async-channel 2.2.1",
+ "async-trait",
+ "derive_more",
+ "futures",
+ "log",
+ "parking_lot",
+ "paste",
+ "rand 0.8.5",
+ "thiserror",
+ "tokio",
+ "triggered",
+ "waglayla-consensus",
+ "waglayla-consensus-core",
+ "waglayla-consensus-notify",
+ "waglayla-consensusmanager",
+ "waglayla-core",
+ "waglayla-database",
+ "waglayla-hashes",
+ "waglayla-index-core",
+ "waglayla-notify",
+ "waglayla-utils",
+ "waglayla-utxoindex",
+]
+
+[[package]]
+name = "waglayla-math"
+version = "0.14.5"
+dependencies = [
+ "borsh",
+ "criterion",
+ "faster-hex 0.6.1",
+ "js-sys",
+ "malachite-base",
+ "malachite-nz",
+ "pyo3",
+ "rand_chacha 0.3.1",
+ "serde",
+ "serde-wasm-bindgen",
+ "thiserror",
+ "waglayla-utils",
+ "wasm-bindgen",
+ "workflow-core",
+ "workflow-log",
+ "workflow-wasm",
+]
+
+[[package]]
+name = "waglayla-merkle"
+version = "0.14.5"
+dependencies = [
+ "waglayla-hashes",
+]
+
+[[package]]
+name = "waglayla-metrics-core"
+version = "0.14.5"
+dependencies = [
+ "async-trait",
+ "borsh",
+ "futures",
+ "separator",
+ "serde",
+ "thiserror",
+ "waglayla-core",
+ "waglayla-rpc-core",
+ "workflow-core",
+ "workflow-log",
+]
+
+[[package]]
+name = "waglayla-mining"
+version = "0.14.5"
+dependencies = [
+ "criterion",
+ "futures-util",
+ "itertools 0.11.0",
+ "log",
+ "parking_lot",
+ "rand 0.8.5",
+ "secp256k1",
+ "serde",
+ "smallvec",
+ "thiserror",
+ "tokio",
+ "waglayla-addresses",
+ "waglayla-consensus-core",
+ "waglayla-consensusmanager",
+ "waglayla-core",
+ "waglayla-hashes",
+ "waglayla-mining-errors",
+ "waglayla-muhash",
+ "waglayla-txscript",
+ "waglayla-utils",
+]
+
+[[package]]
+name = "waglayla-mining-errors"
+version = "0.14.5"
+dependencies = [
+ "thiserror",
+ "waglayla-consensus-core",
+]
+
+[[package]]
+name = "waglayla-muhash"
+version = "0.14.5"
+dependencies = [
+ "blake2b_simd",
+ "borsh",
+ "criterion",
+ "faster-hex 0.6.1",
+ "hex",
+ "keccak",
+ "once_cell",
+ "pyo3",
+ "rand 0.8.5",
+ "rand_chacha 0.3.1",
+ "rayon",
+ "serde",
+ "sha2",
+ "sha3",
+ "waglayla-hashes",
+ "waglayla-math",
+ "waglayla-utils",
+ "wasm-bindgen",
+ "workflow-wasm",
+]
+
+[[package]]
+name = "waglayla-notify"
+version = "0.14.5"
+dependencies = [
+ "async-channel 2.2.1",
+ "async-trait",
+ "borsh",
+ "criterion",
+ "derive_more",
+ "futures",
+ "futures-util",
+ "indexmap 2.2.6",
+ "itertools 0.11.0",
+ "log",
+ "parking_lot",
+ "paste",
+ "rand 0.8.5",
+ "serde",
+ "thiserror",
+ "tokio",
+ "triggered",
+ "waglayla-addresses",
+ "waglayla-alloc",
+ "waglayla-consensus-core",
+ "waglayla-core",
+ "waglayla-hashes",
+ "waglayla-math",
+ "waglayla-txscript",
+ "waglayla-txscript-errors",
+ "waglayla-utils",
+ "workflow-core",
+ "workflow-log",
+ "workflow-perf-monitor",
+]
+
+[[package]]
+name = "waglayla-p2p-flows"
+version = "0.14.5"
+dependencies = [
+ "async-trait",
+ "chrono",
+ "futures",
+ "indexmap 2.2.6",
+ "itertools 0.11.0",
+ "log",
+ "parking_lot",
+ "rand 0.8.5",
+ "thiserror",
+ "tokio",
+ "tokio-stream",
+ "uuid 1.6.1",
+ "waglayla-addressmanager",
+ "waglayla-connectionmanager",
+ "waglayla-consensus-core",
+ "waglayla-consensus-notify",
+ "waglayla-consensusmanager",
+ "waglayla-core",
+ "waglayla-hashes",
+ "waglayla-mining",
+ "waglayla-muhash",
+ "waglayla-notify",
+ "waglayla-p2p-lib",
+ "waglayla-utils",
+ "waglayla-utils-tower",
+]
+
+[[package]]
+name = "waglayla-p2p-lib"
+version = "0.14.5"
+dependencies = [
+ "borsh",
+ "ctrlc",
+ "futures",
+ "h2",
+ "hex",
+ "itertools 0.11.0",
+ "log",
+ "parking_lot",
+ "prost",
+ "rand 0.8.5",
+ "seqlock",
+ "serde",
+ "thiserror",
+ "tokio",
+ "tokio-stream",
+ "tonic",
+ "tonic-build",
+ "uuid 1.6.1",
+ "waglayla-consensus-core",
+ "waglayla-core",
+ "waglayla-hashes",
+ "waglayla-math",
+ "waglayla-mining-errors",
+ "waglayla-muhash",
+ "waglayla-utils",
+ "waglayla-utils-tower",
+]
+
+[[package]]
+name = "waglayla-perf-monitor"
+version = "0.14.5"
+dependencies = [
+ "log",
+ "portable-atomic",
+ "thiserror",
+ "tokio",
+ "waglayla-core",
+ "workflow-perf-monitor",
+]
+
+[[package]]
+name = "waglayla-pow"
+version = "0.14.5"
+dependencies = [
+ "criterion",
+ "js-sys",
+ "num",
+ "waglayla-consensus-client",
+ "waglayla-consensus-core",
+ "waglayla-hashes",
+ "waglayla-math",
+ "waglayla-utils",
+ "wasm-bindgen",
+ "workflow-wasm",
+]
+
+[[package]]
+name = "waglayla-resolver"
+version = "0.14.5"
+dependencies = [
+ "ahash 0.8.11",
+ "axum 0.7.5",
+ "cfg-if 1.0.0",
+ "clap 4.5.4",
+ "console",
+ "convert_case 0.6.0",
+ "futures",
+ "mime",
+ "serde",
+ "serde_json",
+ "thiserror",
+ "tokio",
+ "toml 0.8.12",
+ "tower",
+ "tower-http 0.5.2",
+ "tracing-subscriber",
+ "waglayla-consensus-core",
+ "waglayla-rpc-core",
+ "waglayla-utils",
+ "waglayla-wrpc-client",
+ "workflow-core",
+ "workflow-http",
+ "workflow-log",
+ "xxhash-rust",
+]
+
+[[package]]
+name = "waglayla-rpc-core"
+version = "0.14.5"
+dependencies = [
+ "async-channel 2.2.1",
+ "async-trait",
+ "borsh",
+ "cfg-if 1.0.0",
+ "derive_more",
+ "downcast",
+ "faster-hex 0.6.1",
+ "hex",
+ "js-sys",
+ "log",
+ "paste",
+ "pyo3",
+ "serde",
+ "serde-wasm-bindgen",
+ "serde_json",
+ "smallvec",
+ "thiserror",
+ "uuid 1.6.1",
+ "waglayla-addresses",
+ "waglayla-consensus-client",
+ "waglayla-consensus-core",
+ "waglayla-consensus-notify",
+ "waglayla-consensus-wasm",
+ "waglayla-core",
+ "waglayla-hashes",
+ "waglayla-index-core",
+ "waglayla-math",
+ "waglayla-mining-errors",
+ "waglayla-notify",
+ "waglayla-rpc-macros",
+ "waglayla-txscript",
+ "waglayla-utils",
+ "wasm-bindgen",
+ "workflow-core",
+ "workflow-wasm",
+]
+
+[[package]]
+name = "waglayla-rpc-macros"
+version = "0.14.5"
+dependencies = [
+ "convert_case 0.6.0",
+ "proc-macro-error",
+ "proc-macro2",
+ "quote",
+ "regex",
+ "syn 1.0.109",
+]
+
+[[package]]
+name = "waglayla-rpc-service"
+version = "0.14.5"
+dependencies = [
+ "async-trait",
+ "log",
+ "tokio",
+ "triggered",
+ "waglayla-addresses",
+ "waglayla-consensus-core",
+ "waglayla-consensus-notify",
+ "waglayla-consensusmanager",
+ "waglayla-core",
+ "waglayla-hashes",
+ "waglayla-index-core",
+ "waglayla-math",
+ "waglayla-mining",
+ "waglayla-notify",
+ "waglayla-p2p-flows",
+ "waglayla-p2p-lib",
+ "waglayla-perf-monitor",
+ "waglayla-rpc-core",
+ "waglayla-txscript",
+ "waglayla-utils",
+ "waglayla-utils-tower",
+ "waglayla-utxoindex",
+ "workflow-rpc",
+]
+
+[[package]]
+name = "waglayla-testing-integration"
+version = "0.14.5"
+dependencies = [
+ "async-channel 2.2.1",
+ "async-trait",
+ "bincode",
+ "chrono",
+ "clap 4.5.4",
+ "criterion",
+ "crossbeam-channel",
+ "dhat",
+ "faster-hex 0.6.1",
+ "flate2",
+ "futures-util",
+ "indexmap 2.2.6",
+ "itertools 0.11.0",
+ "log",
+ "parking_lot",
+ "rand 0.8.5",
+ "rand_distr 0.4.3",
+ "rayon",
+ "rocksdb",
+ "secp256k1",
+ "serde",
+ "serde_json",
+ "smallvec",
+ "tempfile",
+ "thiserror",
+ "tokio",
+ "waglayla-addresses",
+ "waglayla-alloc",
+ "waglayla-bip32",
+ "waglayla-consensus",
+ "waglayla-consensus-core",
+ "waglayla-consensus-notify",
+ "waglayla-consensusmanager",
+ "waglayla-core",
+ "waglayla-database",
+ "waglayla-grpc-client",
+ "waglayla-grpc-core",
+ "waglayla-grpc-server",
+ "waglayla-hashes",
+ "waglayla-index-processor",
+ "waglayla-math",
+ "waglayla-merkle",
+ "waglayla-muhash",
+ "waglayla-notify",
+ "waglayla-pow",
+ "waglayla-rpc-core",
+ "waglayla-rpc-service",
+ "waglayla-txscript",
+ "waglayla-txscript-errors",
+ "waglayla-utils",
+ "waglayla-utxoindex",
+ "waglayla-wrpc-server",
+ "waglaylad",
+ "workflow-perf-monitor",
+]
+
+[[package]]
+name = "waglayla-txscript"
+version = "0.14.5"
+dependencies = [
+ "blake3",
+ "borsh",
+ "criterion",
+ "hex",
+ "indexmap 2.2.6",
+ "itertools 0.11.0",
+ "log",
+ "parking_lot",
+ "pyo3",
+ "rand 0.8.5",
+ "secp256k1",
+ "serde",
+ "serde_json",
+ "sha2",
+ "smallvec",
+ "thiserror",
+ "waglayla-addresses",
+ "waglayla-consensus-core",
+ "waglayla-hashes",
+ "waglayla-txscript-errors",
+ "wasm-bindgen",
+]
+
+[[package]]
+name = "waglayla-txscript-errors"
+version = "0.14.5"
+dependencies = [
+ "secp256k1",
+ "thiserror",
+]
+
+[[package]]
+name = "waglayla-utils"
+version = "0.14.5"
+dependencies = [
+ "async-channel 2.2.1",
+ "async-trait",
+ "bincode",
+ "borsh",
+ "cfg-if 1.0.0",
+ "criterion",
+ "event-listener 2.5.3",
+ "faster-hex 0.6.1",
+ "futures-util",
+ "ipnet",
+ "itertools 0.11.0",
+ "log",
+ "parking_lot",
+ "pyo3",
+ "rand 0.8.5",
+ "rlimit",
+ "serde",
+ "serde_json",
+ "smallvec",
+ "thiserror",
+ "tokio",
+ "triggered",
+ "uuid 1.6.1",
+ "wasm-bindgen",
+]
+
+[[package]]
+name = "waglayla-utils-tower"
+version = "0.14.5"
+dependencies = [
+ "cfg-if 1.0.0",
+ "futures",
+ "hyper 0.14.28",
+ "log",
+ "pin-project-lite",
+ "tokio",
+ "tower",
+ "tower-http 0.4.4",
+]
+
+[[package]]
+name = "waglayla-utxoindex"
+version = "0.14.5"
+dependencies = [
+ "futures",
+ "log",
+ "parking_lot",
+ "rand 0.8.5",
+ "rocksdb",
+ "serde",
+ "thiserror",
+ "waglayla-consensus",
+ "waglayla-consensus-core",
+ "waglayla-consensusmanager",
+ "waglayla-core",
+ "waglayla-database",
+ "waglayla-hashes",
+ "waglayla-index-core",
+ "waglayla-utils",
+]
+
+[[package]]
+name = "waglayla-wallet"
+version = "0.14.5"
+dependencies = [
+ "async-std",
+ "async-trait",
+ "tokio",
+ "waglayla-cli",
+ "workflow-log",
+ "workflow-terminal",
+]
+
+[[package]]
+name = "waglayla-wallet-cli-wasm"
+version = "0.14.5"
+dependencies = [
+ "async-trait",
+ "js-sys",
+ "waglayla-cli",
+ "wasm-bindgen",
+ "wasm-bindgen-futures",
+ "workflow-log",
+ "workflow-terminal",
+ "workflow-wasm",
+]
+
+[[package]]
+name = "waglayla-wallet-core"
+version = "0.14.5"
+dependencies = [
+ "aes",
+ "ahash 0.8.11",
+ "argon2",
+ "async-channel 2.2.1",
+ "async-std",
+ "async-trait",
+ "base64 0.21.7",
+ "borsh",
+ "cfb-mode",
+ "cfg-if 1.0.0",
+ "chacha20poly1305",
+ "convert_case 0.6.0",
+ "crypto_box",
+ "dashmap",
+ "derivative",
+ "downcast",
+ "evpkdf",
+ "faster-hex 0.6.1",
+ "fixedstr",
+ "futures",
+ "heapless",
+ "hex-literal",
+ "hmac",
+ "home",
+ "indexed_db_futures",
+ "itertools 0.11.0",
+ "js-sys",
+ "md-5",
+ "pad",
+ "pbkdf2",
+ "rand 0.8.5",
+ "regex",
+ "ripemd",
+ "secp256k1",
+ "separator",
+ "serde",
+ "serde-wasm-bindgen",
+ "serde_json",
+ "serde_repr",
+ "sha1",
+ "sha2",
+ "slugify-rs",
+ "sorted-insert",
+ "thiserror",
+ "tokio",
+ "waglayla-addresses",
+ "waglayla-bip32",
+ "waglayla-consensus-client",
+ "waglayla-consensus-core",
+ "waglayla-consensus-wasm",
+ "waglayla-core",
+ "waglayla-hashes",
+ "waglayla-metrics-core",
+ "waglayla-notify",
+ "waglayla-rpc-core",
+ "waglayla-txscript",
+ "waglayla-txscript-errors",
+ "waglayla-utils",
+ "waglayla-wallet-keys",
+ "waglayla-wallet-macros",
+ "waglayla-wasm-core",
+ "waglayla-wrpc-client",
+ "waglayla-wrpc-wasm",
+ "wasm-bindgen",
+ "wasm-bindgen-futures",
+ "web-sys",
+ "workflow-core",
+ "workflow-log",
+ "workflow-node",
+ "workflow-rpc",
+ "workflow-store",
+ "workflow-wasm",
+ "xxhash-rust",
+ "zeroize",
+]
+
+[[package]]
+name = "waglayla-wallet-keys"
+version = "0.14.5"
+dependencies = [
+ "async-trait",
+ "borsh",
+ "downcast",
+ "faster-hex 0.6.1",
+ "hmac",
+ "js-sys",
+ "rand 0.8.5",
+ "ripemd",
+ "secp256k1",
+ "serde",
+ "serde-wasm-bindgen",
+ "serde_json",
+ "sha2",
+ "thiserror",
+ "tokio",
+ "waglayla-addresses",
+ "waglayla-bip32",
+ "waglayla-consensus-core",
+ "waglayla-txscript",
+ "waglayla-txscript-errors",
+ "waglayla-utils",
+ "waglayla-wasm-core",
+ "wasm-bindgen",
+ "wasm-bindgen-futures",
+ "workflow-core",
+ "workflow-wasm",
+ "zeroize",
+]
+
+[[package]]
+name = "waglayla-wallet-macros"
+version = "0.14.5"
+dependencies = [
+ "convert_case 0.5.0",
+ "proc-macro-error",
+ "proc-macro2",
+ "quote",
+ "regex",
+ "syn 1.0.109",
+ "xxhash-rust",
+]
+
+[[package]]
+name = "waglayla-wasm"
+version = "0.14.5"
+dependencies = [
+ "cfg-if 1.0.0",
+ "js-sys",
+ "num",
+ "waglayla-addresses",
+ "waglayla-consensus-core",
+ "waglayla-consensus-wasm",
+ "waglayla-core",
+ "waglayla-math",
+ "waglayla-pow",
+ "waglayla-rpc-core",
+ "waglayla-utils",
+ "waglayla-wallet-core",
+ "waglayla-wallet-keys",
+ "waglayla-wasm-core",
+ "waglayla-wrpc-client",
+ "waglayla-wrpc-wasm",
+ "wasm-bindgen",
+ "workflow-core",
+ "workflow-log",
+ "workflow-wasm",
+]
+
+[[package]]
+name = "waglayla-wasm-core"
+version = "0.14.5"
+dependencies = [
+ "faster-hex 0.6.1",
+ "js-sys",
+ "wasm-bindgen",
+]
+
+[[package]]
+name = "waglayla-wrpc-client"
+version = "0.14.5"
+dependencies = [
+ "async-std",
+ "async-trait",
+ "borsh",
+ "cfg-if 1.0.0",
+ "futures",
+ "js-sys",
+ "paste",
+ "rand 0.8.5",
+ "regex",
+ "serde",
+ "serde-wasm-bindgen",
+ "serde_json",
+ "thiserror",
+ "toml 0.8.12",
+ "waglayla-addresses",
+ "waglayla-consensus-core",
+ "waglayla-consensus-wasm",
+ "waglayla-notify",
+ "waglayla-rpc-core",
+ "waglayla-rpc-macros",
+ "wasm-bindgen",
+ "wasm-bindgen-futures",
+ "workflow-core",
+ "workflow-dom",
+ "workflow-http",
+ "workflow-log",
+ "workflow-rpc",
+ "workflow-wasm",
+]
+
+[[package]]
+name = "waglayla-wrpc-example-subscriber"
+version = "0.14.5"
+dependencies = [
+ "ctrlc",
+ "futures",
+ "tokio",
+ "waglayla-consensus-core",
+ "waglayla-notify",
+ "waglayla-rpc-core",
+ "waglayla-wrpc-client",
+ "workflow-core",
+ "workflow-log",
+]
+
+[[package]]
+name = "waglayla-wrpc-proxy"
+version = "0.14.5"
+dependencies = [
+ "async-trait",
+ "clap 4.5.4",
+ "num_cpus",
+ "thiserror",
+ "tokio",
+ "waglayla-consensus-core",
+ "waglayla-grpc-client",
+ "waglayla-rpc-core",
+ "waglayla-rpc-macros",
+ "waglayla-wrpc-server",
+ "workflow-core",
+ "workflow-log",
+ "workflow-rpc",
+]
+
+[[package]]
+name = "waglayla-wrpc-server"
+version = "0.14.5"
+dependencies = [
+ "async-trait",
+ "borsh",
+ "futures",
+ "log",
+ "num_cpus",
+ "openssl",
+ "paste",
+ "serde",
+ "thiserror",
+ "tokio",
+ "waglayla-consensus-core",
+ "waglayla-core",
+ "waglayla-grpc-client",
+ "waglayla-notify",
+ "waglayla-rpc-core",
+ "waglayla-rpc-macros",
+ "waglayla-rpc-service",
+ "waglayla-utils",
+ "workflow-core",
+ "workflow-log",
+ "workflow-rpc",
+]
+
+[[package]]
+name = "waglayla-wrpc-wasm"
+version = "0.14.5"
+dependencies = [
+ "ahash 0.8.11",
+ "async-std",
+ "cfg-if 1.0.0",
+ "futures",
+ "js-sys",
+ "serde",
+ "serde-wasm-bindgen",
+ "serde_json",
+ "waglayla-addresses",
+ "waglayla-consensus-client",
+ "waglayla-consensus-core",
+ "waglayla-consensus-wasm",
+ "waglayla-notify",
+ "waglayla-rpc-core",
+ "waglayla-rpc-macros",
+ "waglayla-wasm-core",
+ "waglayla-wrpc-client",
+ "wasm-bindgen",
+ "wasm-bindgen-futures",
+ "workflow-core",
+ "workflow-log",
+ "workflow-rpc",
+ "workflow-wasm",
+]
+
+[[package]]
+name = "waglaylad"
+version = "0.14.5"
+dependencies = [
+ "async-channel 2.2.1",
+ "bincode",
+ "clap 4.5.4",
+ "dhat",
+ "dirs",
+ "futures",
+ "futures-util",
+ "log",
+ "num_cpus",
+ "rand 0.8.5",
+ "rayon",
+ "serde",
+ "serde_with",
+ "tempfile",
+ "thiserror",
+ "tokio",
+ "toml 0.8.12",
+ "waglayla-addresses",
+ "waglayla-addressmanager",
+ "waglayla-alloc",
+ "waglayla-consensus",
+ "waglayla-consensus-core",
+ "waglayla-consensus-notify",
+ "waglayla-consensusmanager",
+ "waglayla-core",
+ "waglayla-database",
+ "waglayla-grpc-server",
+ "waglayla-hashes",
+ "waglayla-index-processor",
+ "waglayla-mining",
+ "waglayla-notify",
+ "waglayla-p2p-flows",
+ "waglayla-perf-monitor",
+ "waglayla-rpc-core",
+ "waglayla-rpc-service",
+ "waglayla-txscript",
+ "waglayla-utils",
+ "waglayla-utils-tower",
+ "waglayla-utxoindex",
+ "waglayla-wrpc-server",
+ "workflow-log",
+]
 
 [[package]]
 name = "waker-fn"

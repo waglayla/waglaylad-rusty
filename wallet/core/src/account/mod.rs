@@ -368,15 +368,17 @@ pub trait Account: AnySync + Send + Sync + 'static {
         let change_address_manager = derivation.change_address_manager();
 
         let change_address_index = change_address_manager.index();
+        #[allow(unused_variables)]
         let change_address_keypair =
             derivation.get_range_with_keys(true, change_address_index..change_address_index + 1, false, &xkey).await?;
 
-        let mut index: usize = start;
+        let index: usize = start;
 
         let first = index as u32;
         let last = (index + window) as u32;
-        index = last as usize;
+        //index = last as usize;
 
+        #[allow(unused_variables)]
         let (keys, addresses): (Vec<PrivateKeyBytes>, Vec<Address>) = {
             let mut addresses = receive_address_manager.get_range_with_args(first..last, false)?;
             let change_addresses = change_address_manager.get_range_with_args(first..last, false)?;
