@@ -1,29 +1,37 @@
-use std::{ffi::OsString, fs};
-use std::io::Read;
-use std::marker::{Send, Sync};
-// #[cfg(feature = "devnet-prealloc")]
-use std::sync::Arc;
+							 
+				  
+							  
+									  
+				   
 
 use clap::{arg, Arg, ArgAction, Command};
-use clap::parser::ValueSource::DefaultValue;
-use serde::Deserialize;
-use serde_with::{DisplayFromStr, serde_as};
-use toml::from_str;
-
-#[cfg(feature = "devnet-prealloc")]
-use waglayla_addresses::Address;
 use waglayla_consensus_core::{
     config::Config,
     network::{NetworkId, NetworkType},
 };
-// #[cfg(feature = "devnet-prealloc")]
-use waglayla_consensus_core::tx::{TransactionOutpoint, UtxoEntry};
 use waglayla_core::waglaylad_env::version;
 use waglayla_notify::address::tracker::Tracker;
-#[cfg(feature = "devnet-prealloc")]
-use waglayla_txscript::pay_to_address_script;
 use waglayla_utils::networking::ContextualNetAddress;
 use waglayla_wrpc_server::address::WrpcNetAddress;
+use serde::Deserialize;
+use serde_with::{serde_as, DisplayFromStr};
+use std::{ffi::OsString, fs};
+use toml::from_str;
+
+#[cfg(feature = "devnet-prealloc")]
+use waglayla_addresses::Address;
+							  
+				   
+									  
+  
+#[cfg(feature = "devnet-prealloc")]
+use waglayla_consensus_core::tx::{TransactionOutpoint, UtxoEntry};
+										  
+											   
+#[cfg(feature = "devnet-prealloc")]
+use waglayla_txscript::pay_to_address_script;
+#[cfg(feature = "devnet-prealloc")]
+use std::sync::Arc;
 
 #[serde_as]
 #[derive(Debug, Clone, Deserialize)]
@@ -200,7 +208,7 @@ pub fn cli() -> Command {
 
     #[allow(clippy::let_and_return)]
     let cmd = Command::new("waglaylad")
-        .about(format!("{} (waglayla) v{}", env!("CARGO_PKG_DESCRIPTION"), version()))
+        .about(format!("{} (waglayla-rusty) v{}", env!("CARGO_PKG_DESCRIPTION"), version()))
         .version(env!("CARGO_PKG_VERSION"))
         .arg(arg!(-C --configfile <CONFIG_FILE> "Path of config file."))
         .arg(arg!(-b --appdir <DATA_DIR> "Directory to store data."))
@@ -231,7 +239,7 @@ pub fn cli() -> Command {
                 .num_args(0..=1)
                 .require_equals(true)
                 .value_parser(clap::value_parser!(ContextualNetAddress))
-                .help("Interface:port to listen for gRPC connections (default port: 13110, testnet: 16210)."),
+                .help("Interface:port to listen for gRPC connections (default port: 13110, testnet: 13210)."),
         )
         .arg(
             Arg::new("rpclisten-borsh")
@@ -241,7 +249,7 @@ pub fn cli() -> Command {
                 .require_equals(true)
                 .default_missing_value("default") // TODO: Find a way to use defaults.rpclisten_borsh
                 .value_parser(clap::value_parser!(WrpcNetAddress))
-                .help("Interface:port to listen for wRPC Borsh connections (default port: 17110, testnet: 17210)."),
+                .help("Interface:port to listen for wRPC Borsh connections (default port: 14110, testnet: 14210)."),
 
         )
         .arg(
@@ -252,7 +260,7 @@ pub fn cli() -> Command {
                 .require_equals(true)
                 .default_missing_value("default") // TODO: Find a way to use defaults.rpclisten_json
                 .value_parser(clap::value_parser!(WrpcNetAddress))
-                .help("Interface:port to listen for wRPC JSON connections (default port: 18110, testnet: 18210)."),
+                .help("Interface:port to listen for wRPC JSON connections (default port: 15110, testnet: 15210)."),
         )
         .arg(arg!(--unsaferpc "Enable RPC commands which affect the state of the node"))
         .arg(
@@ -279,7 +287,7 @@ pub fn cli() -> Command {
                 .value_name("IP[:PORT]")
                 .require_equals(true)
                 .value_parser(clap::value_parser!(ContextualNetAddress))
-                .help("Add an interface:port to listen for connections (default all interfaces port: 13111, testnet: 16211)."),
+                .help("Add an interface:port to listen for connections (default all interfaces port: 13111, testnet: 13211)."),
         )
         .arg(
             Arg::new("outpeers")
@@ -370,7 +378,7 @@ Setting to 0 prevents the preallocation and sets the maximum to {}, leading to 0
                 .long("ram-scale")
                 .require_equals(true)
                 .value_parser(clap::value_parser!(f64))
-                .help("Apply a scale factor to memory allocation bounds. Nodes with limited RAM (~4-8GB) should set this to ~0.3-0.5 respectively. Nodes with 
+                .help("Apply a scale factor to memory allocation bounds. Nodes with limited RAM (~4-8GB) should set this to ~0.3-0.5 respectively. Nodes with
 a large RAM (~64GB) can set this value to ~3.0-4.0 and gain superior performance especially for syncing peers faster"),
         )
         ;
@@ -469,6 +477,8 @@ impl Args {
     }
 }
 
+use clap::parser::ValueSource::DefaultValue;
+use std::marker::{Send, Sync};
 fn arg_match_unwrap_or<T: Clone + Send + Sync + 'static>(m: &clap::ArgMatches, arg_id: &str, default: T) -> T {
     m.get_one::<T>(arg_id).cloned().filter(|_| m.value_source(arg_id) != Some(DefaultValue)).unwrap_or(default)
 }
@@ -494,7 +504,7 @@ fn arg_match_many_unwrap_or<T: Clone + Send + Sync + 'static>(m: &clap::ArgMatch
                                             automatically disabled if the --connect or --proxy options are used
                                             without also specifying listen interfaces via --listen
       --listen=                             Add an interface/port to listen for connections (default all interfaces
-                                            port: 13111, testnet: 16211)
+                                            port: 13111, testnet: 13211)
       --outpeers=                           Target number of outbound peers (default: 8)
       --maxinpeers=                         Max number of inbound peers (default: 117)
       --enablebanning                       Enable banning of misbehaving peers
@@ -505,7 +515,7 @@ fn arg_match_many_unwrap_or<T: Clone + Send + Sync + 'static>(m: &clap::ArgMatch
       --whitelist=                          Add an IP network or IP that will not be banned. (eg. 192.168.1.0/24 or
                                             ::1)
       --rpclisten=                          Add an interface/port to listen for RPC connections (default port: 13110,
-                                            testnet: 16210)
+                                            testnet: 13210)
       --rpccert=                            File containing the certificate file (default:
                                             /Users/aspect/Library/Application Support/Waglaylad/rpc.cert)
       --rpckey=                             File containing the certificate key (default:
@@ -532,7 +542,7 @@ fn arg_match_many_unwrap_or<T: Clone + Send + Sync + 'static>(m: &clap::ArgMatch
                                             individual subsystems -- Use show to list available subsystems (default:
                                             info)
       --upnp                                Use UPnP to map our listening port outside of NAT
-      --minrelaytxfee=                      The minimum transaction fee in KAS/kB to be considered a non-zero fee.
+      --minrelaytxfee=                      The minimum transaction fee in WALA/kB to be considered a non-zero fee.
                                             (default: 1e-05)
       --maxorphantx=                        Max number of orphan transactions to keep in memory (default: 100)
       --blockmaxmass=                       Maximum transaction mass to be used when creating a block (default:
