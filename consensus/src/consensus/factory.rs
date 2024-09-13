@@ -1,5 +1,4 @@
 use std::{collections::HashMap, error::Error, fs, path::PathBuf, sync::Arc};
-use std::io::{Cursor, Read};
 
 use itertools::Itertools;
 use parking_lot::RwLock;
@@ -7,11 +6,9 @@ use rocksdb::WriteBatch;
 use serde::{Deserialize, Serialize};
 
 use waglayla_consensus_core::config::Config;
-use waglayla_consensus_core::tx::{ScriptPublicKey, TransactionOutpoint, UtxoEntry};
 use waglayla_consensus_core::utxo::utxo_collection::UtxoCollection;
 use waglayla_consensus_notify::root::ConsensusNotificationRoot;
 use waglayla_consensusmanager::{ConsensusFactory, ConsensusInstance, DynConsensusCtl, SessionLock};
-use waglayla_core::{debug, error, info, time::unix_now, warn};
 use waglayla_database::{
     prelude::{
         BatchDbWriter, CachedDbAccess, CachedDbItem, CachePolicy, DB, DirectDbWriter, StoreError, StoreResult, StoreResultExtensions,
@@ -20,7 +17,6 @@ use waglayla_database::{
 };
 use waglayla_txscript::caches::TxScriptCacheCounters;
 use waglayla_utils::mem_size::MemSizeEstimator;
-use zip::ZipArchive;
 
 use crate::{model::stores::U64Key, pipeline::ProcessingCounters};
 
@@ -324,10 +320,6 @@ impl ConsensusFactory for Factory {
         if is_new_consensus {
             #[cfg(feature = "devnet-prealloc")]
             set_initial_utxo_set(&self.config.initial_utxo_set, consensus.clone(), self.config.params.genesis.hash);
-
-            // HF Relaunch: Load the UTXO dump with a commitment of e9b3ab4ccc51b1925de45f1af019b4dae00e34331e7db8dc2c35b0fd48e75438 (13,969,182 UTXOs)
-            let utxo_set: UtxoCollection = load_utxo_dump();
-            set_initial_utxo_set(&utxo_set, consensus.clone(), self.config.params.genesis.hash);
 
             self.management_store.write().save_new_active_consensus(entry).unwrap();
         }
