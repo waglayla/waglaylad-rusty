@@ -1,7 +1,7 @@
 
 #### Waglayla Node
 
-Waglayla node built on rust, based on [rusty-waglayla](https://github.com/waglaylanet/rusty-waglayla)
+Waglayla node built on rust, based on [rusty-waglayla](https://github.com/waglayla/rusty-waglayla)
 
 ## Installation
   <details>
@@ -319,7 +319,7 @@ Mining is currently supported only on testnet, so once you've setup a test node,
 
     This will create and feed a DAG with the miner getting block templates from the node and submitting them back when mined. The node processes and stores the blocks while applying all currently implemented logic. Execution can be stopped and resumed, the data is persisted in a database.
 
-    You can replace the above mining address with your own address by creating one as described [here](https://github.com/waglaylanet/docs/blob/main/Getting%20Started/Full%20Node%20Installation.md#creating-a-wallet-optional). 
+    You can replace the above mining address with your own address by creating one as described [here](https://github.com/waglayla/docs/blob/main/Getting%20Started/Full%20Node%20Installation.md#creating-a-wallet-optional). 
 
 </details>
 
