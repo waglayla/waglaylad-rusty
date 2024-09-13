@@ -82,7 +82,7 @@ const { encoding, networkId, address : destinationAddress } = require("../utils"
 
         // transaction generator creates a 
         // sequence of transactions
-        // for a requested amount of KAS.
+        // for a requested amount of WALA.
         // sign and submit these transactions
         let pending;
         while (pending = await generator.next()) {

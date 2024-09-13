@@ -229,7 +229,7 @@ pub fn cli() -> Command {
                 .num_args(0..=1)
                 .require_equals(true)
                 .value_parser(clap::value_parser!(ContextualNetAddress))
-                .help("Interface:port to listen for gRPC connections (default port: 13110, testnet: 13210)."),
+                .help("Interface:port to listen for gRPC connections (default port: 12110, testnet: 12210)."),
         )
         .arg(
             Arg::new("rpclisten-borsh")
@@ -239,7 +239,7 @@ pub fn cli() -> Command {
                 .require_equals(true)
                 .default_missing_value("default") // TODO: Find a way to use defaults.rpclisten_borsh
                 .value_parser(clap::value_parser!(WrpcNetAddress))
-                .help("Interface:port to listen for wRPC Borsh connections (default port: 14110, testnet: 14210)."),
+                .help("Interface:port to listen for wRPC Borsh connections (default port: 13110, testnet: 13210)."),
 
         )
         .arg(
@@ -250,7 +250,7 @@ pub fn cli() -> Command {
                 .require_equals(true)
                 .default_missing_value("default") // TODO: Find a way to use defaults.rpclisten_json
                 .value_parser(clap::value_parser!(WrpcNetAddress))
-                .help("Interface:port to listen for wRPC JSON connections (default port: 15110, testnet: 15210)."),
+                .help("Interface:port to listen for wRPC JSON connections (default port: 14110, testnet: 14210)."),
         )
         .arg(arg!(--unsaferpc "Enable RPC commands which affect the state of the node"))
         .arg(
@@ -277,7 +277,7 @@ pub fn cli() -> Command {
                 .value_name("IP[:PORT]")
                 .require_equals(true)
                 .value_parser(clap::value_parser!(ContextualNetAddress))
-                .help("Add an interface:port to listen for connections (default all interfaces port: 13111, testnet: 13211)."),
+                .help("Add an interface:port to listen for connections (default all interfaces port: 12111, testnet: 12211)."),
         )
         .arg(
             Arg::new("outpeers")
@@ -494,7 +494,7 @@ fn arg_match_many_unwrap_or<T: Clone + Send + Sync + 'static>(m: &clap::ArgMatch
                                             automatically disabled if the --connect or --proxy options are used
                                             without also specifying listen interfaces via --listen
       --listen=                             Add an interface/port to listen for connections (default all interfaces
-                                            port: 13111, testnet: 13211)
+                                            port: 12111, testnet: 12211)
       --outpeers=                           Target number of outbound peers (default: 8)
       --maxinpeers=                         Max number of inbound peers (default: 117)
       --enablebanning                       Enable banning of misbehaving peers
@@ -504,8 +504,8 @@ fn arg_match_many_unwrap_or<T: Clone + Send + Sync + 'static>(m: &clap::ArgMatch
                                             peers. (default: 100)
       --whitelist=                          Add an IP network or IP that will not be banned. (eg. 192.168.1.0/24 or
                                             ::1)
-      --rpclisten=                          Add an interface/port to listen for RPC connections (default port: 13110,
-                                            testnet: 13210)
+      --rpclisten=                          Add an interface/port to listen for RPC connections (default port: 12110,
+                                            testnet: 12210)
       --rpccert=                            File containing the certificate file (default:
                                             /Users/aspect/Library/Application Support/Waglaylad/rpc.cert)
       --rpckey=                             File containing the certificate key (default:

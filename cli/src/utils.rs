@@ -8,7 +8,7 @@ pub fn try_parse_required_nonzero_waglayla_as_sompi_u64<S: ToString + Display>(w
         let sompi_amount = waglayla_amount
             .to_string()
             .parse::<f64>()
-            .map_err(|_| Error::custom(format!("Supplied Kasapa amount is not valid: '{waglayla_amount}'")))?
+            .map_err(|_| Error::custom(format!("Supplied Waglayla amount is not valid: '{waglayla_amount}'")))?
             * SOMPI_PER_WAGLAYLA as f64;
         if sompi_amount < 0.0 {
             Err(Error::custom("Supplied Waglayla amount is not valid: '{waglayla_amount}'"))
@@ -30,7 +30,7 @@ pub fn try_parse_required_waglayla_as_sompi_u64<S: ToString + Display>(waglayla_
         let sompi_amount = waglayla_amount
             .to_string()
             .parse::<f64>()
-            .map_err(|_| Error::custom(format!("Supplied Kasapa amount is not valid: '{waglayla_amount}'")))?
+            .map_err(|_| Error::custom(format!("Supplied Waglayla amount is not valid: '{waglayla_amount}'")))?
             * SOMPI_PER_WAGLAYLA as f64;
         if sompi_amount < 0.0 {
             Err(Error::custom("Supplied Waglayla amount is not valid: '{waglayla_amount}'"))
@@ -47,7 +47,7 @@ pub fn try_parse_optional_waglayla_as_sompi_i64<S: ToString + Display>(waglayla_
         let sompi_amount = waglayla_amount
             .to_string()
             .parse::<f64>()
-            .map_err(|_e| Error::custom(format!("Supplied Kasapa amount is not valid: '{waglayla_amount}'")))?
+            .map_err(|_e| Error::custom(format!("Supplied Waglayla amount is not valid: '{waglayla_amount}'")))?
             * SOMPI_PER_WAGLAYLA as f64;
         if sompi_amount < 0.0 {
             Err(Error::custom("Supplied Waglayla amount is not valid: '{waglayla_amount}'"))

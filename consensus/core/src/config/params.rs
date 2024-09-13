@@ -77,7 +77,7 @@ pub struct Params {
     pub mass_per_sig_op: u64,
     pub max_block_mass: u64,
 
-    /// The parameter for scaling inverse KAS value to mass units (unpublished KIP-0009)
+    /// The parameter for scaling inverse WALA value to mass units (unpublished KIP-0009)
     pub storage_mass_parameter: u64,
 
     /// DAA score from which storage mass calculation and transaction mass field are activated as a consensus rule
@@ -295,8 +295,6 @@ pub const MAINNET_PARAMS: Params = Params {
     dns_seeders: &[
         "seeder1-mainnet.waglayla.com",
         "seeder2-mainnet.waglayla.com",
-        "seeder3-mainnet.waglayla.com",
-        "seeder4-mainnet.waglayla.com",
     ],
     net: NetworkId::new(NetworkType::Mainnet),
     genesis: GENESIS,
@@ -344,8 +342,8 @@ pub const MAINNET_PARAMS: Params = Params {
     // Half a year in seconds = 365.25 / 2 * 24 * 60 * 60 = 15778800
     // The network was down for three days shortly after launch
     // Three days in seconds = 3 * 24 * 60 * 60 = 259200
-    deflationary_phase_daa_score: 15778800 - 259200,
-    pre_deflationary_phase_base_subsidy: 1700000000,
+    deflationary_phase_daa_score: 7889400,
+    pre_deflationary_phase_base_subsidy: 50000000000,
     coinbase_maturity: 100,
     skip_proof_of_work: false,
     max_block_level: 225,
@@ -569,8 +567,8 @@ pub const DEVNET_PARAMS: Params = Params {
     // Half a year in seconds = 365.25 / 2 * 24 * 60 * 60 = 15778800
     // The network was down for three days shortly after launch
     // Three days in seconds = 3 * 24 * 60 * 60 = 259200
-    deflationary_phase_daa_score: 15778800 - 259200,
-    pre_deflationary_phase_base_subsidy: 1700000000,
+    deflationary_phase_daa_score: 7889400,
+    pre_deflationary_phase_base_subsidy: 50000000000,
     coinbase_maturity: 100,
     skip_proof_of_work: false,
     max_block_level: 250,

@@ -141,11 +141,11 @@ impl<const BPS: u64> Bps<BPS> {
     /// - The network was down for three days shortly after launch
     /// - Three days in seconds = 3 * 24 * 60 * 60 = 259200
     pub const fn deflationary_phase_daa_score() -> u64 {
-        BPS * (15778800 - 259200)
+        BPS * (7889400)
     }
 
     pub const fn pre_deflationary_phase_base_subsidy() -> u64 {
-        1700000000 / BPS
+        50000000000 / BPS
     }
 }
 

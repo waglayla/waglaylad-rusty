@@ -56,11 +56,11 @@ impl TryFrom<CpuMinerConfig> for Vec<String> {
 
         match network {
             NetworkType::Mainnet => {
-                argv.push("--port=13110");
+                argv.push("--port=12110");
             }
             NetworkType::Testnet => {
                 argv.push("--testnet");
-                argv.push("--port=16210");
+                argv.push("--port=12210");
             }
             _ => {
                 return Err(Error::Custom("network type is not suported by the CPU miner".to_string()));

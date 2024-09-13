@@ -74,7 +74,7 @@ impl Account {
                             ("account import legacy-data", "Import KDX keydata file or waglaylanet web wallet data on the same domain"),
                             (
                                 "account import mnemonic bip32",
-                                "Import Bip32 (12 or 24 word mnemonics used by waglaylawallet, kaspium, onekey, tangem etc.)",
+                                "Import Bip32 (12 or 24 word mnemonics used by waglaylawallet, web wallet, onekey, tangem etc.)",
                             ),
                             (
                                 "account import mnemonic legacy",
@@ -121,7 +121,7 @@ impl Account {
                                         if let Some(txid) = txid {
                                             tprintln!(
                                                 ctx_,
-                                                "Scan detected {} KAS at index {}; transfer txid: {}",
+                                                "Scan detected {} WALA at index {}; transfer txid: {}",
                                                 sompi_to_waglayla_string(balance),
                                                 processed,
                                                 txid
@@ -129,7 +129,7 @@ impl Account {
                                         } else if processed > 0 {
                                             tprintln!(
                                                 ctx_,
-                                                "Scanned {} derivations, found {} KAS",
+                                                "Scanned {} derivations, found {} WALA",
                                                 processed,
                                                 sompi_to_waglayla_string(balance)
                                             );
@@ -261,13 +261,13 @@ impl Account {
                     if let Some(txid) = txid {
                         tprintln!(
                             ctx_,
-                            "Scan detected {} KAS at index {}; transfer txid: {}",
+                            "Scan detected {} WALA at index {}; transfer txid: {}",
                             sompi_to_waglayla_string(balance),
                             processed,
                             txid
                         );
                     } else {
-                        tprintln!(ctx_, "Scanned {} derivations, found {} KAS", processed, sompi_to_waglayla_string(balance));
+                        tprintln!(ctx_, "Scanned {} derivations, found {} WALA", processed, sompi_to_waglayla_string(balance));
                     }
                 })),
             )
