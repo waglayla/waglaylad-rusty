@@ -1,30 +1,25 @@
-use std::{collections::HashMap, error::Error, fs, path::PathBuf, sync::Arc};
-
+#[cfg(feature = "devnet-prealloc")]
+use super::utxo_set_override::{set_genesis_utxo_commitment_from_config, set_initial_utxo_set};
+use super::{ctl::Ctl, Consensus};
+use crate::{model::stores::U64Key, pipeline::ProcessingCounters};
 use itertools::Itertools;
-use parking_lot::RwLock;
-use rocksdb::WriteBatch;
-use serde::{Deserialize, Serialize};
-
 use waglayla_consensus_core::config::Config;
-use waglayla_consensus_core::utxo::utxo_collection::UtxoCollection;
 use waglayla_consensus_notify::root::ConsensusNotificationRoot;
 use waglayla_consensusmanager::{ConsensusFactory, ConsensusInstance, DynConsensusCtl, SessionLock};
+use waglayla_core::{debug, time::unix_now, warn};
 use waglayla_database::{
     prelude::{
-        BatchDbWriter, CachedDbAccess, CachedDbItem, CachePolicy, DB, DirectDbWriter, StoreError, StoreResult, StoreResultExtensions,
+        BatchDbWriter, CachePolicy, CachedDbAccess, CachedDbItem, DirectDbWriter, StoreError, StoreResult, StoreResultExtensions, DB,
     },
     registry::DatabaseStorePrefixes,
 };
+
 use waglayla_txscript::caches::TxScriptCacheCounters;
 use waglayla_utils::mem_size::MemSizeEstimator;
-
-use crate::{model::stores::U64Key, pipeline::ProcessingCounters};
-
-use super::{Consensus, ctl::Ctl};
-#[cfg(feature = "devnet-prealloc")]
-use super::utxo_set_override::{set_genesis_utxo_commitment_from_config};
-
-use super::utxo_set_override::{set_initial_utxo_set};
+use parking_lot::RwLock;
+use rocksdb::WriteBatch;
+use serde::{Deserialize, Serialize};
+use std::{collections::HashMap, error::Error, fs, path::PathBuf, sync::Arc};
 
 #[derive(Serialize, Deserialize, Clone)]
 pub struct ConsensusEntry {
@@ -320,7 +315,6 @@ impl ConsensusFactory for Factory {
         if is_new_consensus {
             #[cfg(feature = "devnet-prealloc")]
             set_initial_utxo_set(&self.config.initial_utxo_set, consensus.clone(), self.config.params.genesis.hash);
-
             self.management_store.write().save_new_active_consensus(entry).unwrap();
         }
 
