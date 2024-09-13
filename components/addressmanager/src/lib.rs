@@ -31,7 +31,7 @@ const UPNP_DEADLINE_SEC: u64 = 2 * 60;
 const UPNP_EXTEND_PERIOD: u64 = UPNP_DEADLINE_SEC / 2;
 
 /// The name used as description when registering the UPnP service
-pub(crate) const UPNP_REGISTRATION_NAME: &str = "pyrin";
+pub(crate) const UPNP_REGISTRATION_NAME: &str = "waglayla";
 
 struct ExtendHelper {
     gateway: Gateway,

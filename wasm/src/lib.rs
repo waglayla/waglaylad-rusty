@@ -1,7 +1,7 @@
 /*!
-# `pyrin WASM32 bindings`
+# `waglayla WASM32 bindings`
 
-[<img alt="github" src="https://img.shields.io/badge/github-waglaylanet/rusty--waglayla-8da0cb?style=for-the-badge&labelColor=555555&color=8da0cb&logo=github" height="20">](https://github.com/Waglaylapyi/pyrin/tree/master/wasm)
+[<img alt="github" src="https://img.shields.io/badge/github-waglaylanet/rusty--waglayla-8da0cb?style=for-the-badge&labelColor=555555&color=8da0cb&logo=github" height="20">](https://https://github.dev/waglayla/waglaylad-rusty/tree/master/wasm)
 [<img alt="crates.io" src="https://img.shields.io/crates/v/waglayla-wasm.svg?maxAge=2592000&style=for-the-badge&color=fc8d62&logo=rust" height="20">](https://crates.io/crates/waglayla-wasm)
 [<img alt="docs.rs" src="https://img.shields.io/badge/docs.rs-waglayla--wasm-56c2a5?maxAge=2592000&style=for-the-badge&logo=docs.rs" height="20">](https://docs.rs/waglayla-wasm)
 <img alt="license" src="https://img.shields.io/crates/l/waglayla-wasm.svg?maxAge=2592000&color=6ac&style=for-the-badge&logoColor=fff" height="20">
@@ -46,13 +46,13 @@ the W3C WebSocket and due to this supports RPC.
 ## Examples
 
 JavaScript examples for using this framework can be found at:
-<https://github.com/Waglaylapyi/pyrin/tree/master/wasm/nodejs>
+<https://https://github.dev/waglayla/waglaylad-rusty/tree/master/wasm/nodejs>
 
 ## WASM32 Binaries
 
 For pre-built browser-compatible WASM32 redistributables of this
 framework please see the releases section of the Rusty Waglayla
-repository at <https://github.com/Waglaylapyi/pyrin/releases>.
+repository at <https://https://github.dev/waglayla/waglaylad-rusty/releases>.
 
 ## Using RPC
 

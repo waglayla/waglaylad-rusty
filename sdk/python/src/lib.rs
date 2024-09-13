@@ -11,12 +11,12 @@ use account::{PyAccount, PyBalance};
 use waglayla_wallet_core::utils::{waglayla_to_sompi, sompi_to_waglayla};
 
 #[pyfunction]
-fn to_leor(value: f64) -> PyResult<u64> {
+fn to_sompi(value: f64) -> PyResult<u64> {
     Ok(waglayla_to_sompi(value))
 }
 
 #[pyfunction]
-fn from_leor(value: u64) -> PyResult<f64> {
+fn from_sompi(value: u64) -> PyResult<f64> {
     Ok(sompi_to_waglayla(value))
 }
 
@@ -30,10 +30,10 @@ fn call_with_callback(callback: Py<PyFunction>, data: &PyAny) -> PyResult<()> {
 }
 
 #[pymodule]
-fn pyrin(_py: Python, m: &PyModule) -> PyResult<()> {
+fn waglayla(_py: Python, m: &PyModule) -> PyResult<()> {
 
-    m.add_function(wrap_pyfunction!(to_leor, m)?)?;
-    m.add_function(wrap_pyfunction!(from_leor, m)?)?;
+    m.add_function(wrap_pyfunction!(to_sompi, m)?)?;
+    m.add_function(wrap_pyfunction!(from_sompi, m)?)?;
 
     m.add_class::<wallet::Wallet>()?;
     m.add_class::<PyAccount>()?;

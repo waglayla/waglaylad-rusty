@@ -26,18 +26,18 @@ pub fn try_waglayla_str_to_sompi_i64<S: Into<String>>(s: S) -> Result<Option<i64
         return Ok(None);
     }
 
-    let amount = amount.parse::<f64>()? * LEOR_PER_PYRIN as f64;
+    let amount = amount.parse::<f64>()? * SOMPI_PER_WAGLAYLA as f64;
     Ok(Some(amount as i64))
 }
 
 #[inline]
 pub fn sompi_to_waglayla(sompi: u64) -> f64 {
-    sompi as f64 / LEOR_PER_PYRIN as f64
+    sompi as f64 / SOMPI_PER_WAGLAYLA as f64
 }
 
 #[inline]
 pub fn waglayla_to_sompi(waglayla: f64) -> u64 {
-    (waglayla * LEOR_PER_PYRIN as f64) as u64
+    (waglayla * SOMPI_PER_WAGLAYLA as f64) as u64
 }
 
 #[inline]
@@ -52,10 +52,10 @@ pub fn sompi_to_waglayla_string_with_trailing_zeroes(sompi: u64) -> String {
 
 pub fn waglayla_suffix(network_type: &NetworkType) -> &'static str {
     match network_type {
-        NetworkType::Mainnet => "PYI",
-        NetworkType::Testnet => "TPYI",
-        NetworkType::Simnet => "SPYI",
-        NetworkType::Devnet => "DPYI",
+        NetworkType::Mainnet => "WALA",
+        NetworkType::Testnet => "TWALA",
+        NetworkType::Simnet => "SWALA",
+        NetworkType::Devnet => "DWALA",
     }
 }
 
@@ -92,9 +92,9 @@ pub fn format_address_colors(address: &Address, range: Option<usize>) -> String 
 
 fn str_to_sompi(amount: &str) -> Result<u64> {
     let Some(dot_idx) = amount.find('.') else {
-        return Ok(amount.parse::<u64>()? * LEOR_PER_PYRIN);
+        return Ok(amount.parse::<u64>()? * SOMPI_PER_WAGLAYLA);
     };
-    let integer = amount[..dot_idx].parse::<u64>()? * LEOR_PER_PYRIN;
+    let integer = amount[..dot_idx].parse::<u64>()? * SOMPI_PER_WAGLAYLA;
     let decimal = &amount[dot_idx + 1..];
     let decimal_len = decimal.len();
     let decimal = if decimal_len == 0 {

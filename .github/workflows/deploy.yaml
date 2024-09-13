@@ -50,11 +50,11 @@ jobs:
       - name: Build on Linux
         if: runner.os == 'Linux'
         run: |
-          cargo build --bin pyrin --release
+          cargo build --bin waglayla --release
           mkdir bin || true
-          cp target/release/pyrin bin/
-          archive="bin/pyrin-${{ github.event.release.tag_name }}-linux-amd64.zip"
-          asset_name="pyrin-${{ github.event.release.tag_name }}-linux-amd64.zip"
+          cp target/release/waglayla bin/
+          archive="bin/waglayla-${{ github.event.release.tag_name }}-linux-amd64.zip"
+          asset_name="waglayla-${{ github.event.release.tag_name }}-linux-amd64.zip"
           zip -r "${archive}" ./bin/*
           echo "archive=${archive}" >> $GITHUB_ENV
           echo "asset_name=${asset_name}" >> $GITHUB_ENV
@@ -63,11 +63,11 @@ jobs:
         if: runner.os == 'Windows'
         shell: bash
         run: |
-          cargo build --bin pyrin --release
+          cargo build --bin waglayla --release
           mkdir bin || true
-          cp target/release/pyrin.exe bin/
-          archive="bin/pyrin-${{ github.event.release.tag_name }}-win64.zip"
-          asset_name="pyrin-${{ github.event.release.tag_name }}-win64.zip"
+          cp target/release/waglayla.exe bin/
+          archive="bin/waglayla-${{ github.event.release.tag_name }}-win64.zip"
+          asset_name="waglayla-${{ github.event.release.tag_name }}-win64.zip"
           powershell "Compress-Archive bin/* \"${archive}\""
           echo "archive=${archive}" >> $GITHUB_ENV
           echo "asset_name=${asset_name}" >> $GITHUB_ENV
@@ -75,11 +75,11 @@ jobs:
       - name: Build on MacOS
         if: runner.os == 'macOS'
         run: |
-          cargo build --bin pyrin --release
+          cargo build --bin waglayla --release
           mkdir bin || true
-          cp target/release/pyrin bin/
-          archive="bin/pyrin-${{ github.event.release.tag_name }}-osx.zip"
-          asset_name="pyrin-${{ github.event.release.tag_name }}-osx.zip"
+          cp target/release/waglayla bin/
+          archive="bin/waglayla-${{ github.event.release.tag_name }}-osx.zip"
+          asset_name="waglayla-${{ github.event.release.tag_name }}-osx.zip"
           zip -r "${archive}" ./bin/*
           echo "archive=${archive}" >> $GITHUB_ENV
           echo "asset_name=${asset_name}" >> $GITHUB_ENV

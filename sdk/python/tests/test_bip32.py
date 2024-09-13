@@ -1,10 +1,10 @@
 import unittest
-import pyrin
+import waglayla
 
 class TestBip32(unittest.TestCase):
 
     def test_mnemonic(self):
-        bip32 = pyrin.Bip32() # TODO: Convert to static class ?
+        bip32 = waglayla.Bip32() # TODO: Convert to static class ?
 
         # 24 words
         words = bip32.generate_mnemonic().split()
@@ -20,7 +20,7 @@ class TestBip32(unittest.TestCase):
 
 class TestAsyncBip32(unittest.IsolatedAsyncioTestCase):
     async def test_asd(self):
-        bip32 = pyrin.Bip32()
+        bip32 = waglayla.Bip32()
 
         len = await bip32.generate_mnemonicasd()
         print("len", len)

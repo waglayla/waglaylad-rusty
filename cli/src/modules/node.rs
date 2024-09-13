@@ -20,7 +20,7 @@ impl DefaultSettings for WaglayladSettings {
         let mut settings = vec![(Self::Mute, to_value(true).unwrap())];
 
         let root = nw_sys::app::folder();
-        if let Ok(binaries) = waglayla_daemon::locate_binaries(&root, "pyrin").await {
+        if let Ok(binaries) = waglayla_daemon::locate_binaries(&root, "waglayla").await {
             if let Some(path) = binaries.first() {
                 settings.push((Self::Location, to_value(path.to_string_lossy().to_string()).unwrap()));
             }
@@ -39,7 +39,7 @@ pub struct Node {
 impl Default for Node {
     fn default() -> Self {
         Node {
-            settings: SettingsStore::try_new("pyrin").expect("Failed to create node settings store"),
+            settings: SettingsStore::try_new("waglayla").expect("Failed to create node settings store"),
             mute: Arc::new(AtomicBool::new(true)),
             is_running: Arc::new(AtomicBool::new(false)),
         }
@@ -205,10 +205,10 @@ impl Node {
 
         match path {
             None => {
-                let binaries = waglayla_daemon::locate_binaries(root.as_str(), "pyrin").await?;
+                let binaries = waglayla_daemon::locate_binaries(root.as_str(), "waglayla").await?;
 
                 if binaries.is_empty() {
-                    tprintln!(ctx, "No pyrin binaries found");
+                    tprintln!(ctx, "No waglayla binaries found");
                 } else {
                     let binaries = binaries.iter().map(|p| p.display().to_string()).collect::<Vec<_>>();
                     if let Some(selection) = ctx.term().select("Please select a waglaylad binary", &binaries).await? {

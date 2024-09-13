@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Waglaylapyi/pyrin.git"
+    "url": "git+https://https://github.dev/waglayla/waglaylad-rusty.git"
   },
   "keywords": [
     "waglayla",
@@ -18,9 +18,9 @@
   "author": "Waglayla developers",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Waglaylapyi/pyrin/issues"
+    "url": "https://https://github.dev/waglayla/waglaylad-rusty/issues"
   },
-  "homepage": "https://github.com/Waglaylapyi/pyrin#readme",
+  "homepage": "https://https://github.dev/waglayla/waglaylad-rusty#readme",
   "dependencies": {
     "websocket": "1.0.34",
     "waglayla-wasm": "0.13.5"

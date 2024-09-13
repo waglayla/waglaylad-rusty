@@ -11,7 +11,7 @@ use crate::{
 use futures_util::future::join_all;
 use waglayla_addresses::Address;
 use waglayla_consensus::params::Params;
-use waglayla_consensus_core::{constants::LEOR_PER_PYRIN, network::NetworkType, tx::Transaction};
+use waglayla_consensus_core::{constants::SOMPI_PER_WAGLAYLA, network::NetworkType, tx::Transaction};
 use waglayla_core::{debug, info};
 use waglayla_notify::{
     listener::ListenerId,
@@ -87,7 +87,7 @@ async fn bench_bbt_latency() {
         enable_unsynced_mining: true,
         num_prealloc_utxos: Some(TX_LEVEL_WIDTH as u64 * CONTRACT_FACTOR),
         prealloc_address: Some(prealloc_address.to_string()),
-        prealloc_amount: 500 * LEOR_PER_PYRIN,
+        prealloc_amount: 500 * SOMPI_PER_WAGLAYLA,
         block_template_cache_lifetime: Some(0),
         ..Default::default()
     };

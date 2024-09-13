@@ -1,11 +1,11 @@
 import asyncio
 import unittest
-import pyrin
+import waglayla
 
 class TestWallet(unittest.IsolatedAsyncioTestCase):
 
     # async def test_wallet(self):
-    #     wallet = pyrin.Wallet()
+    #     wallet = waglayla.Wallet()
     #     r = await wallet.connect()
     #     account = await wallet.create_account()
     #
@@ -16,7 +16,7 @@ class TestWallet(unittest.IsolatedAsyncioTestCase):
     #     print(dir(account))
     #     print(account.receive_address)
     #
-    #     self.assertEqual(account.receive_address[:5], "pyrin")
+    #     self.assertEqual(account.receive_address[:5], "waglayla")
     #     self.assertEqual(account.receive_address[5], ":")
     #     self.assertEqual(len(account.receive_address[6:]), 61)
     #
@@ -37,16 +37,16 @@ class TestWallet(unittest.IsolatedAsyncioTestCase):
     #     print("r", r) # TODO:
 
     # async def test_wallet_import(self):
-    #     wallet = pyrin.Wallet()
+    #     wallet = waglayla.Wallet()
     #     success = await wallet.connect()
     #     account = await wallet.import_account("afraid taste gown fine special solve gun program thunder raise nest width core silk kidney post surround excuse endless laundry then keen sell fashion")
     #
     #     self.assertTrue(success)
     #     self.assertTrue(account is not None)
-    #     self.assertEqual(account.receive_address, "pyrin:qpf5v0na3tygxpfgr3ej2rzje7qflwnnlfa4exe5vjhx7kedcfljwrtcvze7j")
+    #     self.assertEqual(account.receive_address, "waglayla:qpf5v0na3tygxpfgr3ej2rzje7qflwnnlfa4exe5vjhx7kedcfljwrtcvze7j")
 
     # async def test_wallet_import(self):
-    #     wallet = pyrin.Wallet()
+    #     wallet = waglayla.Wallet()
     #     success = await wallet.connect()
     #     account = await wallet.import_account("salute breeze kangaroo sword candy grass zero tent beef happy nice embrace devote venture swift wasp game horror obvious deputy same deny cushion clap")
     #
@@ -60,7 +60,7 @@ class TestWallet(unittest.IsolatedAsyncioTestCase):
     #     fee = await account.estimate(0.1, 0.2)
     #     print("fee", fee)
     #
-    #     result = await account.send("pyrin:qpwx6a66j38gqgxcvc74ts77fkxhdzdunl6uhvdcplp0cgvvwrx86n2zl67u0", 0.1, 0.2)
+    #     result = await account.send("waglayla:qpwx6a66j38gqgxcvc74ts77fkxhdzdunl6uhvdcplp0cgvvwrx86n2zl67u0", 0.1, 0.2)
     #     print("aggregated_utxos", result.aggregated_utxos)
     #     print("aggregated_fees", result.aggregated_fees)
     #     print("number_of_generated_transactions", result.number_of_generated_transactions)
@@ -68,14 +68,14 @@ class TestWallet(unittest.IsolatedAsyncioTestCase):
     #     print("final_transaction_id", result.final_transaction_id)
 
     # async def test_wallet_account_change_address(self):
-    #     wallet = pyrin.Wallet()
+    #     wallet = waglayla.Wallet()
     #     success = await wallet.connect()
     #     account = await wallet.import_account("salute breeze kangaroo sword candy grass zero tent beef happy nice embrace devote venture swift wasp game horror obvious deputy same deny cushion clap")
     #
-    #     self.assertEqual(account.change_address(), "pyrin:qz75jx7g5kg7ceaml22e6sv07y4yafeesrl2mchs8sadg644d0shghguyy8yq")
+    #     self.assertEqual(account.change_address(), "waglayla:qz75jx7g5kg7ceaml22e6sv07y4yafeesrl2mchs8sadg644d0shghguyy8yq")
 
     async def testasd(self):
-        wallet = pyrin.Wallet()
+        wallet = waglayla.Wallet()
         success = await wallet.connect()
         account = await wallet.import_account("salute breeze kangaroo sword candy grass zero tent beef happy nice embrace devote venture swift wasp game horror obvious deputy same deny cushion clap")
 
@@ -94,14 +94,14 @@ class TestWallet(unittest.IsolatedAsyncioTestCase):
         def disconnect(url):
             print(f"Disconnected from {url}")
 
-        # pyrin.call_with_callback(my_callback, {"key": "value"})
+        # waglayla.call_with_callback(my_callback, {"key": "value"})
 
         await account.listen("dda-score", dda_score)
         await account.listen("balance", balance)
         await account.listen("sync-state", sync_state)
         await account.listen("disconnect", disconnect)
 
-        # await account.send("pyrin:qq5ckhmt8l3qt96sm2wpcnewv0ezkr09677w6kpe32u5ds4ztjpl7q4qks6uk", 0.1, 0.2)
+        # await account.send("waglayla:qq5ckhmt8l3qt96sm2wpcnewv0ezkr09677w6kpe32u5ds4ztjpl7q4qks6uk", 0.1, 0.2)
 
         while True:
             b = account.balance()

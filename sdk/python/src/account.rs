@@ -149,19 +149,19 @@ impl PyAccount {
         }
     }
 
-    pub fn send<'a>(&self, py: Python<'a>, address: String, priority_fee_pyi: f64, amount_pyi: f64) -> PyResult<&'a PyAny> {
+    pub fn send<'a>(&self, py: Python<'a>, address: String, priority_fee_wala: f64, amount_wala: f64) -> PyResult<&'a PyAny> {
         match &self.account {
             Some(account) => {
                 let account = account.clone();
-                let priority_fee_leor = waglayla_to_sompi(priority_fee_pyi);
-                let amount_leor = waglayla_to_sompi(amount_pyi);
+                let priority_fee_sompi = waglayla_to_sompi(priority_fee_wala);
+                let amount_sompi = waglayla_to_sompi(amount_wala);
 
                 pyo3_asyncio::tokio::future_into_py(py, async move {
                     let abortable = Abortable::default();
 
                     let summary = account.send(
-                        PaymentDestination::PaymentOutputs(PaymentOutputs::from((Address::try_from(address).unwrap(), amount_leor))),
-                        priority_fee_leor.into(),
+                        PaymentDestination::PaymentOutputs(PaymentOutputs::from((Address::try_from(address).unwrap(), amount_sompi))),
+                        priority_fee_sompi.into(),
                         None,
                         Secret::new(vec![]),
                         None,
@@ -182,21 +182,21 @@ impl PyAccount {
         }
     }
 
-    pub fn estimate<'a>(&self, py: Python<'a>, priority_fee_pyi: f64, amount_pyi: f64) -> PyResult<&'a PyAny> {
+    pub fn estimate<'a>(&self, py: Python<'a>, priority_fee_wala: f64, amount_wala: f64) -> PyResult<&'a PyAny> {
         match &self.account {
             Some(account) => {
                 let account = account.clone();
-                let priority_fee_leor = waglayla_to_sompi(priority_fee_pyi);
-                let amount_leor = waglayla_to_sompi(amount_pyi);
+                let priority_fee_sompi = waglayla_to_sompi(priority_fee_wala);
+                let amount_sompi = waglayla_to_sompi(amount_wala);
 
                 pyo3_asyncio::tokio::future_into_py(py, async move {
                     let abortable = Abortable::default();
 
                     // just use any address for an estimate (change address)
                     let change_address = account.clone().change_address().unwrap();
-                    let destination = PaymentDestination::PaymentOutputs(PaymentOutputs::from((change_address.clone(), amount_leor)));
-                    // let estimate = account.clone().estimate(destination, priority_fee_leor.into(), None, &abortable).await.unwrap();
-                    let estimate = account.clone().estimate(destination, priority_fee_leor.into(), None, &abortable).await.unwrap();
+                    let destination = PaymentDestination::PaymentOutputs(PaymentOutputs::from((change_address.clone(), amount_sompi)));
+                    // let estimate = account.clone().estimate(destination, priority_fee_sompi.into(), None, &abortable).await.unwrap();
+                    let estimate = account.clone().estimate(destination, priority_fee_sompi.into(), None, &abortable).await.unwrap();
 
                     Ok(estimate.aggregated_fees())
                 })

@@ -43,7 +43,7 @@ impl Drop for DbLifetime {
 
 pub fn get_waglayla_tempdir() -> TempDir {
     let global_tempdir = std::env::temp_dir();
-    let waglayla_tempdir = global_tempdir.join("pyrin");
+    let waglayla_tempdir = global_tempdir.join("waglayla");
     std::fs::create_dir_all(waglayla_tempdir.as_path()).unwrap();
     let db_tempdir = tempfile::tempdir_in(waglayla_tempdir.as_path()).unwrap();
     db_tempdir

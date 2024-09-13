@@ -1,19 +1,19 @@
 import asyncio
 import unittest
-import pyrin
+import waglayla
 
 class TestWallet(unittest.IsolatedAsyncioTestCase):
 
     @unittest.skip
     async def test_ping(self):
-        rpc = pyrin.RPC()
+        rpc = waglayla.RPC()
         success = await rpc.connect() # TODO: endpoint as param and test gRPC as well, also stop with False at connect failed with timeout ?
         self.assertTrue(success)
         await rpc.ping()
 
     @unittest.skip
     async def test_get_metrics(self):
-        rpc = pyrin.RPC()
+        rpc = waglayla.RPC()
         await rpc.connect()
         result = await rpc.get_metrics(True, True, True, True)
 
@@ -69,7 +69,7 @@ class TestWallet(unittest.IsolatedAsyncioTestCase):
 
     @unittest.skip
     async def test_get_server_info(self):
-        rpc = pyrin.RPC()
+        rpc = waglayla.RPC()
         await rpc.connect()
         result = await rpc.get_server_info()
 
@@ -81,19 +81,19 @@ class TestWallet(unittest.IsolatedAsyncioTestCase):
         print(result.virtual_daa_score) # 18944668
 
     async def test_get_sync_status(self):
-        rpc = pyrin.RPC()
+        rpc = waglayla.RPC()
         await rpc.connect()
         self.assertTrue(await rpc.get_sync_status())
 
     # @unittest.skip
     async def test_get_current_network(self):
-        rpc = pyrin.RPC()
+        rpc = waglayla.RPC()
         await rpc.connect()
         self.assertEqual(await rpc.get_current_network(), "mainnet")
 
     @unittest.skip # TODO:
     async def test_submit_block(self):
-        rpc = pyrin.RPC()
+        rpc = waglayla.RPC()
         await rpc.connect()
 
         dummy = {
@@ -153,7 +153,7 @@ class TestWallet(unittest.IsolatedAsyncioTestCase):
         # error = await rpc.submit_block(dummy, True) # allow_non_daa_blocks
 
         # Submit with RPC Block
-        result = await rpc.get_block_template("pyrin:qzn54t6vpasykvudztupcpwn2gelxf8y9p84szksr73me39mzf69uaalnymtx", [])
+        result = await rpc.get_block_template("waglayla:qzn54t6vpasykvudztupcpwn2gelxf8y9p84szksr73me39mzf69uaalnymtx", [])
         error = await rpc.submit_rpc_block(result.block, True) # allow_non_daa_blocks
 
         if error > 0:
@@ -165,9 +165,9 @@ class TestWallet(unittest.IsolatedAsyncioTestCase):
 
     # @unittest.skip # TODO:
     async def test_get_block_template(self):
-        rpc = pyrin.RPC()
+        rpc = waglayla.RPC()
         await rpc.connect()
-        result = await rpc.get_block_template("pyrin:qzn54t6vpasykvudztupcpwn2gelxf8y9p84szksr73me39mzf69uaalnymtx", [])
+        result = await rpc.get_block_template("waglayla:qzn54t6vpasykvudztupcpwn2gelxf8y9p84szksr73me39mzf69uaalnymtx", [])
         block = result.block
         is_synced = result.is_synced
         print("result:", block.transactions[0].version)
@@ -184,7 +184,7 @@ class TestWallet(unittest.IsolatedAsyncioTestCase):
 
     @unittest.skip
     async def test_get_peer_addresses(self):
-        rpc = pyrin.RPC()
+        rpc = waglayla.RPC()
         await rpc.connect()
         result = await rpc.get_peer_addresses()
         print("result.known_addresses:", result.known_addresses) # ["127.0.0.1:13111"]
@@ -192,28 +192,28 @@ class TestWallet(unittest.IsolatedAsyncioTestCase):
 
     @unittest.skip
     async def test_get_sink(self):
-        rpc = pyrin.RPC()
+        rpc = waglayla.RPC()
         await rpc.connect()
         result = await rpc.get_sink()
         print("result.sink:", result.sink) # 69c2ef342b17daddb222fe1cc94faab477f31b91f8f84496edfde430c41ca9cf
 
     @unittest.skip
     async def test_get_mempool_entry(self):
-        rpc = pyrin.RPC()
+        rpc = waglayla.RPC()
         await rpc.connect()
         result = await rpc.get_mempool_entry("a419045a31afad611c32344fa269e712499d3e97f74271e4a2deffa734ba9f71", True, True)
         print("result", result)
 
     @unittest.skip
     async def test_get_mempool_entries(self):
-        rpc = pyrin.RPC()
+        rpc = waglayla.RPC()
         await rpc.connect()
         result = await rpc.get_mempool_entries(True, True)
         print("get_mempool_entries", result)
 
     @unittest.skip
     async def test_get_connected_peer_info(self):
-        rpc = pyrin.RPC()
+        rpc = waglayla.RPC()
         await rpc.connect()
         result = await rpc.get_connected_peer_info()
         print("peer_info[0].id", result.peer_info[0].id) # sfdgabdb-4043-3e46-c333-adfasdfga6f4
@@ -221,20 +221,20 @@ class TestWallet(unittest.IsolatedAsyncioTestCase):
         print("peer_info[0].last_ping_duration", result.peer_info[0].last_ping_duration) # 80
         print("peer_info[0].is_outbound", result.peer_info[0].is_outbound) # True
         print("peer_info[0].time_offset", result.peer_info[0].time_offset) # 677
-        print("peer_info[0].user_agent", result.peer_info[0].user_agent) # /pyipad:0.13.4/pyipad:0.13.4/
+        print("peer_info[0].user_agent", result.peer_info[0].user_agent) # /waglaylad:0.13.4/waglaylad:0.13.4/
         print("peer_info[0].advertised_protocol_version", result.peer_info[0].advertised_protocol_version) # 5
         print("peer_info[0].time_connected", result.peer_info[0].time_connected) # 24211336
         print("peer_info[0].is_ibd_peer", result.peer_info[0].is_ibd_peer) # False
 
     @unittest.skip
     async def test_add_peer(self):
-        rpc = pyrin.RPC()
+        rpc = waglayla.RPC()
         await rpc.connect()
         await rpc.add_peer("192.168.1.2:13111", True)
 
     # @unittest.skip
     async def test_submit_transaction(self):
-        rpc = pyrin.RPC()
+        rpc = waglayla.RPC()
         await rpc.connect()
         await rpc.submit_transaction({
             "version": 0,
@@ -265,7 +265,7 @@ class TestWallet(unittest.IsolatedAsyncioTestCase):
 
     @unittest.skip
     async def test_get_block(self):
-        rpc = pyrin.RPC()
+        rpc = waglayla.RPC()
         await rpc.connect()
         block = await rpc.get_block("f269afa4a29dd7e751e15343d9edbb132e2e2f7daecb71b29908c9f6922ec165", True)
 
@@ -319,14 +319,14 @@ class TestWallet(unittest.IsolatedAsyncioTestCase):
 
     @unittest.skip
     async def test_get_subnetwork(self):
-        rpc = pyrin.RPC()
+        rpc = waglayla.RPC()
         await rpc.connect()
         subnetwork = await rpc.get_subnetwork("0000000000000000000000000000000000000000")
         print("subnetwork.gas:", subnetwork.gas)
 
     @unittest.skip
     async def test_get_virtual_chain_from_block(self):
-        rpc = pyrin.RPC()
+        rpc = waglayla.RPC()
         await rpc.connect()
         virtual_chain = await rpc.get_virtual_chain_from_block("f269afa4a29dd7e751e15343d9edbb132e2e2f7daecb71b29908c9f6922ec165", True)
         print("virtual_chain.removed_chain_block_hashes:", virtual_chain.removed_chain_block_hashes)
@@ -336,7 +336,7 @@ class TestWallet(unittest.IsolatedAsyncioTestCase):
 
     @unittest.skip
     async def test_get_blocks(self):
-        rpc = pyrin.RPC()
+        rpc = waglayla.RPC()
         await rpc.connect()
         blocks = await rpc.get_blocks("f269afa4a29dd7e751e15343d9edbb132e2e2f7daecb71b29908c9f6922ec165", True, True)
         print("blocks.block_hashes", len(blocks.block_hashes))
@@ -344,7 +344,7 @@ class TestWallet(unittest.IsolatedAsyncioTestCase):
 
     @unittest.skip
     async def test_get_block_count(self):
-        rpc = pyrin.RPC()
+        rpc = waglayla.RPC()
         await rpc.connect()
         block_count = await rpc.get_block_count()
         print("block_count.header_count:", block_count.header_count)
@@ -352,7 +352,7 @@ class TestWallet(unittest.IsolatedAsyncioTestCase):
 
     @unittest.skip
     async def test_get_block_dag_info(self):
-        rpc = pyrin.RPC()
+        rpc = waglayla.RPC()
         await rpc.connect()
         block_dag_info = await rpc.get_block_dag_info()
         print("block_dag_info.network:", block_dag_info.network)
@@ -368,43 +368,43 @@ class TestWallet(unittest.IsolatedAsyncioTestCase):
 
     @unittest.skip
     async def test_resolve_finality_conflict(self):
-        rpc = pyrin.RPC()
+        rpc = waglayla.RPC()
         await rpc.connect()
         await rpc.resolve_finality_conflict("f269afa4a29dd7e751e15343d9edbb132e2e2f7daecb71b29908c9f6922ec165")
 
     @unittest.skip
     async def test_shutdown(self):
-        rpc = pyrin.RPC()
+        rpc = waglayla.RPC()
         await rpc.connect()
         await rpc.shutdown()
 
     @unittest.skip
     async def test_get_headers(self):
-        rpc = pyrin.RPC()
+        rpc = waglayla.RPC()
         await rpc.connect()
         headers = await rpc.get_headers("f269afa4a29dd7e751e15343d9edbb132e2e2f7daecb71b29908c9f6922ec165", 1000, True)
         print("headers", headers)
 
     @unittest.skip
     async def test_get_balance_by_address(self):
-        rpc = pyrin.RPC()
+        rpc = waglayla.RPC()
         await rpc.connect()
-        balance = await rpc.get_balance_by_address("pyrin:qzn54t6vpasykvudztupcpwn2gelxf8y9p84szksr73me39mzf69uaalnymtx")
+        balance = await rpc.get_balance_by_address("waglayla:qzn54t6vpasykvudztupcpwn2gelxf8y9p84szksr73me39mzf69uaalnymtx")
         print("balance:", balance)
 
     @unittest.skip
     async def test_get_balances_by_addresses(self):
-        rpc = pyrin.RPC()
+        rpc = waglayla.RPC()
         await rpc.connect()
-        balances = await rpc.get_balances_by_addresses(["pyrin:qzn54t6vpasykvudztupcpwn2gelxf8y9p84szksr73me39mzf69uaalnymtx"])
+        balances = await rpc.get_balances_by_addresses(["waglayla:qzn54t6vpasykvudztupcpwn2gelxf8y9p84szksr73me39mzf69uaalnymtx"])
         print("balances.address:", balances[0].address)
         print("balances.balance:", balances[0].balance)
 
     @unittest.skip
     async def test_get_utxos_by_addresses(self):
-        rpc = pyrin.RPC()
+        rpc = waglayla.RPC()
         await rpc.connect()
-        utxos = await rpc.get_utxos_by_addresses(["pyrin:qzn54t6vpasykvudztupcpwn2gelxf8y9p84szksr73me39mzf69uaalnymtx"])
+        utxos = await rpc.get_utxos_by_addresses(["waglayla:qzn54t6vpasykvudztupcpwn2gelxf8y9p84szksr73me39mzf69uaalnymtx"])
         print("utxos:", len(utxos))
         print("utxos[0].address", utxos[0].address)
         print("utxos[0].outpoint.transaction_id", utxos[0].outpoint.transaction_id)
@@ -416,26 +416,26 @@ class TestWallet(unittest.IsolatedAsyncioTestCase):
 
     @unittest.skip
     async def test_get_sink_blue_score(self):
-        rpc = pyrin.RPC()
+        rpc = waglayla.RPC()
         await rpc.connect()
         sink_blue_score = await rpc.get_sink_blue_score()
         print("sink_blue_score:", sink_blue_score)
 
     @unittest.skip
     async def test_ban(self):
-        rpc = pyrin.RPC()
+        rpc = waglayla.RPC()
         await rpc.connect()
         await rpc.ban("192.168.1.2")
 
     @unittest.skip
     async def test_unban(self):
-        rpc = pyrin.RPC()
+        rpc = waglayla.RPC()
         await rpc.connect()
         await rpc.unban("192.168.1.2")
 
     @unittest.skip
     async def test_get_info(self):
-        rpc = pyrin.RPC()
+        rpc = waglayla.RPC()
         await rpc.connect()
         info = await rpc.get_info()
 
@@ -449,7 +449,7 @@ class TestWallet(unittest.IsolatedAsyncioTestCase):
 
     @unittest.skip
     async def test_estimate_network_hashes_per_second(self):
-        rpc = pyrin.RPC()
+        rpc = waglayla.RPC()
         await rpc.connect()
         # window_size: u32, start_hash: Option<RpcHash>
         hashes_per_second = await rpc.estimate_network_hashes_per_second(1000)
@@ -457,7 +457,7 @@ class TestWallet(unittest.IsolatedAsyncioTestCase):
 
     @unittest.skip
     async def test_notifier(self):
-        rpc = pyrin.RPC()
+        rpc = waglayla.RPC()
         success = await rpc.connect()
 
         await rpc.on_block_added(lambda block: print(f"block-added: {block.header.hash}"))
@@ -471,7 +471,7 @@ class TestWallet(unittest.IsolatedAsyncioTestCase):
         def on_utxos_changed(added, removed):
             print(f"utxos-changed: {added[0].address}, {removed}")
 
-        await rpc.on_utxos_changed(on_utxos_changed, ["pyrin:qqd9p8w75xqe80fx05qs0v3g0fmplztxays0f8x9l0asnn0apanlu9dd79gev"])
+        await rpc.on_utxos_changed(on_utxos_changed, ["waglayla:qqd9p8w75xqe80fx05qs0v3g0fmplztxays0f8x9l0asnn0apanlu9dd79gev"])
 
         def on_virtual_chain(added_chain_block_hashes, removed_chain_block_hashes, accepted_transaction_ids):
             print(f"virtual-chain: {added_chain_block_hashes}, {removed_chain_block_hashes}, {accepted_transaction_ids}")

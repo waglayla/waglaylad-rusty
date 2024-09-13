@@ -1,10 +1,10 @@
 [package]
-name = "pyrin-sdk"
+name = "waglayla-sdk"
 version = "0.1.9"
 edition = "2021"
 
 [lib]
-name = "pyrin"
+name = "waglayla"
 crate-type = ["cdylib"]
 
 [dependencies]

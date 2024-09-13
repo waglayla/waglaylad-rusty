@@ -977,7 +977,7 @@ mod test {
     use crate::opcodes::{OpCodeExecution, OpCodeImplementation};
     use crate::{opcodes, pay_to_address_script, TxScriptEngine, TxScriptError, LOCK_TIME_THRESHOLD};
     use waglayla_addresses::{Address, Prefix, Version};
-    use waglayla_consensus_core::constants::{LEOR_PER_PYRIN, TX_VERSION};
+    use waglayla_consensus_core::constants::{SOMPI_PER_WAGLAYLA, TX_VERSION};
     use waglayla_consensus_core::hashing::sighash::SigHashReusedValues;
     use waglayla_consensus_core::subnets::SUBNETWORK_ID_NATIVE;
     use waglayla_consensus_core::tx::{
@@ -2720,7 +2720,7 @@ mod test {
 
         let addr = Address::new(Prefix::Testnet, Version::PubKey, &addr_hash);
         let dummy_script_public_key = pay_to_address_script(&addr);
-        let dummy_tx_out = TransactionOutput::new(LEOR_PER_PYRIN, dummy_script_public_key);
+        let dummy_tx_out = TransactionOutput::new(SOMPI_PER_WAGLAYLA, dummy_script_public_key);
 
         let tx = VerifiableTransactionMock(Transaction::new(
             TX_VERSION + 1,

@@ -274,7 +274,7 @@ const SUBSIDY_BY_MONTH_TABLE: [u64; 366] = [
 mod tests {
     use waglayla_consensus_core::{
         config::params::{Params, TESTNET11_PARAMS},
-        constants::LEOR_PER_PYRIN,
+        constants::SOMPI_PER_WAGLAYLA,
         network::NetworkId,
         tx::scriptvec,
     };
@@ -304,9 +304,9 @@ mod tests {
 
         let delta = total_high_bps_rewards as i64 - total_rewards as i64;
 
-        println!("Total rewards: {} sompi => {} KAS", total_rewards, total_rewards / LEOR_PER_PYRIN);
-        println!("Total high bps rewards: {} sompi => {} KAS", total_high_bps_rewards, total_high_bps_rewards / LEOR_PER_PYRIN);
-        println!("Delta: {} sompi => {} KAS", delta, delta / LEOR_PER_PYRIN as i64);
+        println!("Total rewards: {} sompi => {} KAS", total_rewards, total_rewards / SOMPI_PER_WAGLAYLA);
+        println!("Total high bps rewards: {} sompi => {} KAS", total_high_bps_rewards, total_high_bps_rewards / SOMPI_PER_WAGLAYLA);
+        println!("Delta: {} sompi => {} KAS", delta, delta / SOMPI_PER_WAGLAYLA as i64);
     }
 
     #[test]

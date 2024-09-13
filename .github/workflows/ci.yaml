@@ -375,4 +375,4 @@ jobs:
         # We're using musl to make the binaries statically linked and portable
         run: |
           cargo install cargo-zigbuild
-          cargo --verbose zigbuild --bin pyrin --bin simpa --bin rothschild --release --target x86_64-unknown-linux-gnu.2.27 # Use an older glibc version
+          cargo --verbose zigbuild --bin waglayla --bin simpa --bin rothschild --release --target x86_64-unknown-linux-gnu.2.27 # Use an older glibc version

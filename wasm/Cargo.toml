@@ -1,6 +1,6 @@
 [package]
 name = "waglayla-wasm"
-description = "KASPA WASM bindings"
+description = "Waglayla WASM bindings"
 rust-version.workspace = true
 version.workspace = true
 edition.workspace = true

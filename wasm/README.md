@@ -1,7 +1,7 @@
 
 ## WASM32 bindings for Rusty Waglayla SDK
 
-[<img alt="github" src="https://img.shields.io/badge/github-waglaylanet/rusty--waglayla-8da0cb?style=for-the-badge&labelColor=555555&color=8da0cb&logo=github" height="20">](https://github.com/Waglaylapyi/pyrin/tree/master/wasm)
+[<img alt="github" src="https://img.shields.io/badge/github-waglaylanet/rusty--waglayla-8da0cb?style=for-the-badge&labelColor=555555&color=8da0cb&logo=github" height="20">](https://https://github.dev/waglayla/waglaylad-rusty/tree/master/wasm)
 [<img alt="crates.io" src="https://img.shields.io/crates/v/waglayla-wasm.svg?maxAge=2592000&style=for-the-badge&color=fc8d62&logo=rust" height="20">](https://crates.io/crates/waglayla-wasm)
 [<img alt="docs.rs" src="https://img.shields.io/badge/docs.rs-waglayla--wasm-56c2a5?maxAge=2592000&style=for-the-badge&logo=docs.rs" height="20">](https://docs.rs/waglayla-wasm)
 <img alt="license" src="https://img.shields.io/crates/l/waglayla-wasm.svg?maxAge=2592000&color=6ac&style=for-the-badge&logoColor=fff" height="20">
@@ -65,7 +65,7 @@ file in a web browser.
 ## Building from Source
 
 To build the WASM32 SDK from source, you need to have the Rust environment installed. To do that,
-follow instructions in the [Rusty Waglayla README](https://github.com/Waglaylapyi/pyrin).
+follow instructions in the [Rusty Waglayla README](https://https://github.dev/waglayla/waglaylad-rusty).
 
 Once you have Rust installed, you can build the WASM32 SDK as follows:
 
@@ -80,7 +80,7 @@ Please note that to build from source, you need to have TypeDoc installed global
 
 **IMPORTANT:** To view web examples, you need to serve them from a local web server and
 serve them from the root of the SDK folder (`waglayla-wasm32-sdk` if using a redistributable or
-`pyrin/wasm` if building from source). This is because examples use relative paths.
+`waglayla/wasm` if building from source). This is because examples use relative paths.
 WASM32 currently can not be loaded using the `file://` protocol.
 
 You can use any web server of your choice. If you don't have one, you can run one as follows:

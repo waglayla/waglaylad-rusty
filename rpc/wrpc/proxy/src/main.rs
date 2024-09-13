@@ -63,7 +63,7 @@ async fn main() -> Result<()> {
         NetworkType::Mainnet
     };
 
-    let pyrin_port = network_type.default_rpc_port();
+    let waglayla_port = network_type.default_rpc_port();
 
     let encoding: Encoding = encoding.unwrap_or_else(|| "borsh".to_owned()).parse()?;
     let proxy_port = match encoding {
@@ -73,7 +73,7 @@ async fn main() -> Result<()> {
 
     let options = Arc::new(Options {
         listen_address: interface.unwrap_or_else(|| format!("wrpc://127.0.0.1:{proxy_port}")),
-        grpc_proxy_address: Some(grpc_proxy_address.unwrap_or_else(|| format!("grpc://127.0.0.1:{pyrin_port}"))),
+        grpc_proxy_address: Some(grpc_proxy_address.unwrap_or_else(|| format!("grpc://127.0.0.1:{waglayla_port}"))),
         verbose,
         // ..Options::default()
     });

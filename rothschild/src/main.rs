@@ -5,7 +5,7 @@ use itertools::Itertools;
 use waglayla_addresses::{Address, Prefix, Version};
 use waglayla_consensus_core::{
     config::params::{TESTNET11_PARAMS, TESTNET_PARAMS},
-    constants::{LEOR_PER_PYRIN, TX_VERSION},
+    constants::{SOMPI_PER_WAGLAYLA, TX_VERSION},
     sign::sign,
     subnets::SUBNETWORK_ID_NATIVE,
     tx::{MutableTransaction, Transaction, TransactionInput, TransactionOutpoint, TransactionOutput, UtxoEntry},
@@ -20,7 +20,7 @@ use rayon::prelude::*;
 use secp256k1::{rand::thread_rng, Keypair};
 use tokio::time::{interval, MissedTickBehavior};
 
-const DEFAULT_SEND_AMOUNT: u64 = 10 * LEOR_PER_PYRIN;
+const DEFAULT_SEND_AMOUNT: u64 = 10 * SOMPI_PER_WAGLAYLA;
 const FEE_PER_MASS: u64 = 10;
 const MILLIS_PER_TICK: u64 = 10;
 const ADDRESS_PREFIX: Prefix = Prefix::Testnet;
