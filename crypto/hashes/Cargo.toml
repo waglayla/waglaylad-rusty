@@ -11,6 +11,7 @@ repository.workspace = true
 
 [features]
 no-asm = ["keccak"]
+no-asm = ["rayon"]
 
 [dependencies]
 blake3.workspace = true
