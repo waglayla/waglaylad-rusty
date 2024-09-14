@@ -10,7 +10,7 @@ license.workspace = true
 repository.workspace = true
 
 [features]
-no-asm = ["keccak", "rayon"]
+no-asm = ["keccak"]
 
 [dependencies]
 blake3.workspace = true
