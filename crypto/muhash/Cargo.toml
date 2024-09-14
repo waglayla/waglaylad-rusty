@@ -9,6 +9,9 @@ include.workspace = true
 license.workspace = true
 repository.workspace = true
 
+[features]
+no-asm = ["keccak"]
+
 [dependencies]
 waglayla-hashes.workspace = true
 waglayla-math.workspace = true
