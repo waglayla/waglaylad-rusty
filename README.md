@@ -1,8 +1,6 @@
 
 #### Waglayla Node
 
-Waglayla node built on rust, based on [rusty-waglayla](https://github.com/waglayla/rusty-waglayla)
-
 ## Installation
   <details>
   <summary>Building on Linux</summary>
