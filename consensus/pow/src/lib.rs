@@ -49,8 +49,8 @@ impl State {
         sha3_hasher.update(bl3_hash_bytes);
         let sha3_hash = sha3_hasher.finalize();
         let sha3_hash_bytes: [u8; 32] = sha3_hash.as_slice().try_into().expect("SHA-3 output length mismatch");
-        let hash = self.matrix.heavy_hash(hash, sha3_hash);
-        Uint256::from_le_bytes(hash.as_bytes())
+        let final_hash = self.matrix.heavy_hash(waglayla_hashes::Hash::from(sha3_hash_bytes));
+        Uint256::from_le_bytes(final_hash.as_bytes())
     }
 
     #[inline]
@@ -68,7 +68,7 @@ pub fn calc_block_level(header: &Header, max_block_level: BlockLevel) -> BlockLe
     }
 
     let state = State::new(header);
-    let (_, pow) = state.check_pow(header.nonce, header.daa_score > MAINNET_PARAMS.hf_relaunch_daa_score);
+    let (_, pow) = state.check_pow(header.nonce);
     let signed_block_level = max_block_level as i64 - pow.bits() as i64;
     max(signed_block_level, 0) as BlockLevel
 }
