@@ -13,6 +13,8 @@ repository.workspace = true
 wasm32-sdk = []
 
 [dependencies]
+sha3.workspace = true
+blake3.workspace = true
 js-sys.workspace = true
 waglayla-consensus-core.workspace = true
 waglayla-consensus-client.workspace = true
