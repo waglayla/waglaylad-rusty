@@ -98,7 +98,7 @@ impl Matrix {
         rank
     }
 
-    pub fn heavy_hash(&self, hash: Hash, algo_updated: bool) -> Hash {
+    pub fn heavy_hash(&self, hash: Hash) -> Hash {
         // SAFETY: An uninitialized MaybrUninit is always safe.
         let mut vec: [MaybeUninit<u8>; 64] = unsafe { MaybeUninit::uninit().assume_init() };
         for (i, element) in hash.as_bytes().into_iter().enumerate() {
@@ -116,11 +116,9 @@ impl Matrix {
                 sum1 += self.0[2 * i][j] * (elem as u16);
                 sum2 += self.0[2 * i + 1][j] * (elem as u16);
             }
-            if algo_updated {
+            
                 (((sum1 & 0xF) ^ ((sum1 >> 4) & 0xF) ^ ((sum1 >> 8) & 0xF)) << 4) as u8 | ((sum2 & 0xF) ^ ((sum2 >> 4) & 0xF) ^ ((sum2 >> 8) & 0xF)) as u8
-            } else {
-                ((sum1 >> 10) << 4) as u8 | (sum2 >> 10) as u8
-            }
+              
         });
 
         // Concatenate 4 LSBs back to 8 bit xor with sum1
