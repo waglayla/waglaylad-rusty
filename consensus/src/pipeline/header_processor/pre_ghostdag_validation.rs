@@ -10,7 +10,6 @@ use waglayla_consensus_core::BlockLevel;
 use waglayla_core::time::unix_now;
 use waglayla_database::prelude::StoreResultExtensions;
 use std::cmp::max;
-use waglayla_consensus_core::config::params::MAINNET_PARAMS;
 
 impl HeaderProcessor {
     /// Validates the header in isolation including pow check against header declared bits.
