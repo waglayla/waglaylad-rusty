@@ -31,7 +31,6 @@ use waglayla_hashes::Hash;
 use waglayla_pow::calc_block_level;
 use waglayla_utils::{binary_heap::BinaryHeapExtensions, vec::VecExtensions};
 use thiserror::Error;
-use waglayla_consensus_core::config::params::MAINNET_PARAMS;
 use crate::{
     consensus::{
         services::{DbDagTraversalManager, DbGhostdagManager, DbParentsManager, DbWindowManager},
