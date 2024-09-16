@@ -10,7 +10,6 @@ use std::cmp::max;
 
 use crate::matrix::Matrix;
 use waglayla_consensus_core::{hashing, header::Header, BlockLevel};
-use waglayla_consensus_core::config::params::MAINNET_PARAMS;
 use waglayla_hashes::PowHash;
 use waglayla_math::Uint256;
 use blake3;
