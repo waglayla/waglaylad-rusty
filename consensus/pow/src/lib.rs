@@ -13,6 +13,8 @@ use waglayla_consensus_core::{hashing, header::Header, BlockLevel};
 use waglayla_consensus_core::config::params::MAINNET_PARAMS;
 use waglayla_hashes::PowHash;
 use waglayla_math::Uint256;
+use blake3;
+use sha3::{Digest, Sha3_256};
 
 /// State is an intermediate data structure with pre-computed values to speed up mining.
 pub struct State {
@@ -41,7 +43,13 @@ impl State {
     pub fn calculate_pow(&self, nonce: u64, algo_updated: bool) -> Uint256 {
         // Hasher already contains PRE_POW_HASH || TIME || 32 zero byte padding; so only the NONCE is missing
         let hash = self.hasher.clone().finalize_with_nonce(nonce);
-        let hash = self.matrix.heavy_hash(hash, algo_updated);
+        let bl3_hash = blake3::hash(&hash.as_bytes());
+        let bl3_hash_bytes: [u8; 32] = *bl3_hash.as_bytes();
+        let mut sha3_hasher = Sha3_256::new();
+        sha3_hasher.update(bl3_hash_bytes);
+        let sha3_hash = sha3_hasher.finalize();
+        let sha3_hash_bytes: [u8; 32] = sha3_hash.as_slice().try_into().expect("SHA-3 output length mismatch");
+        let hash = self.matrix.heavy_hash(hash, sha3_hash, algo_updated);
         Uint256::from_le_bytes(hash.as_bytes())
     }
 
