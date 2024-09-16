@@ -300,7 +300,7 @@ impl PruningProofManager {
         for header in proof.iter().flatten().cloned() {
             if let Vacant(e) = dag.entry(header.hash) {
                 let state = waglayla_pow::State::new(&header);
-                let (_, pow) = state.check_pow(header.nonce, header.daa_score > MAINNET_PARAMS.hf_relaunch_daa_score); // TODO: Check if pow passes
+                let (_, pow) = state.check_pow(header.nonce); // TODO: Check if pow passes
                 let signed_block_level = self.max_block_level as i64 - pow.bits() as i64;
                 let block_level = max(signed_block_level, 0) as BlockLevel;
                 self.headers_store.insert(header.hash, header.clone(), block_level).unwrap();
