@@ -343,14 +343,14 @@ pub const MAINNET_PARAMS: Params = Params {
     // Half a year in seconds = 365.25 / 2 * 24 * 60 * 60 = 15778800
     // The network was down for three days shortly after launch
     // Three days in seconds = 3 * 24 * 60 * 60 = 259200
-    deflationary_phase_daa_score: 3944700,
+    deflationary_phase_daa_score: 7889400,
     pre_deflationary_phase_base_subsidy: 50000000000,
     coinbase_maturity: 100,
     skip_proof_of_work: false,
     max_block_level: 225,
     pruning_proof_m: 1000,
 
-    hf_relaunch_daa_score: 27_037_930, // Hardfork at GMT Thursday, September 12, 2024 8:00:00 PM
+    hf_relaunch_daa_score: u64::MAX,
 };
 
 pub const TESTNET_PARAMS: Params = Params {
