@@ -336,7 +336,7 @@ mod tests {
     #[test]
     fn subsidy_test() {
         const PRE_DEFLATIONARY_PHASE_BASE_SUBSIDY: u64 = 50000000000;
-        const DEFLATIONARY_PHASE_INITIAL_SUBSIDY: u64 = 50000000000;
+        const DEFLATIONARY_PHASE_INITIAL_SUBSIDY: u64 = 47193715634;
         const SECONDS_PER_MONTH: u64 = 2629800;
         const SECONDS_PER_HALVING: u64 = SECONDS_PER_MONTH * 12;
 
@@ -415,7 +415,7 @@ mod tests {
         let extra_data = [2u8, 3];
         let data = CoinbaseData {
             blue_score: 56,
-            subsidy: 50000000000,
+            subsidy: 47193715634,
             miner_data: MinerData {
                 script_public_key: ScriptPublicKey::new(0, ScriptVec::from_slice(&script_data)),
                 extra_data: &extra_data as &[u8],
@@ -459,7 +459,7 @@ mod tests {
         let extra_data = [2u8, 3, 23, 98];
         let data = CoinbaseData {
             blue_score: 56345,
-            subsidy: 50000000000,
+            subsidy: 47193715634,
             miner_data: MinerData {
                 script_public_key: ScriptPublicKey::new(0, ScriptVec::from_slice(&script_data)),
                 extra_data: &extra_data,
