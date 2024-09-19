@@ -295,6 +295,7 @@ pub const MAINNET_PARAMS: Params = Params {
     dns_seeders: &[
         "seeder1-mainnet.waglayla.com",
         "seeder2-mainnet.waglayla.com",
+        "seeder3-mainnet.waglayla.com",
     ],
     net: NetworkId::new(NetworkType::Mainnet),
     genesis: GENESIS,
@@ -342,7 +343,7 @@ pub const MAINNET_PARAMS: Params = Params {
     // Half a year in seconds = 365.25 / 2 * 24 * 60 * 60 = 15778800
     // The network was down for three days shortly after launch
     // Three days in seconds = 3 * 24 * 60 * 60 = 259200
-    deflationary_phase_daa_score: 7889400,
+    deflationary_phase_daa_score: 3944700,
     pre_deflationary_phase_base_subsidy: 50000000000,
     coinbase_maturity: 100,
     skip_proof_of_work: false,
