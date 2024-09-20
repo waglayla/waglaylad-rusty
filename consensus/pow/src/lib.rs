@@ -42,6 +42,7 @@ impl State {
     pub fn calculate_pow(&self, nonce: u64) -> Uint256 {
         // Hasher already contains PRE_POW_HASH || TIME || 32 zero byte padding; so only the NONCE is missing
         let hash = self.hasher.clone().finalize_with_nonce(nonce);
+        let bl3_hash = blake3::hash(&hash.as_bytes());
         let bl3_hash_bytes: [u8; 32] = *bl3_hash.as_bytes();
         let mut sha3_hasher = Sha3_256::new();
         sha3_hasher.update(bl3_hash_bytes);
