@@ -22,7 +22,7 @@ const MIN_PAYLOAD_LENGTH: usize =
 // SECONDS_PER_MONTH = 30.4375 * 24 * 60 * 60
 const SECONDS_PER_MONTH: u64 = 2629800;
 
-pub const SUBSIDY_BY_MONTH_TABLE_SIZE: usize = 366;
+pub const SUBSIDY_BY_MONTH_TABLE_SIZE: usize = 270;
 pub type SubsidyByMonthTable = [u64; SUBSIDY_BY_MONTH_TABLE_SIZE];
 
 #[derive(Clone)]
