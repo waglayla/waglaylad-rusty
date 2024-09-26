@@ -29,8 +29,14 @@
       ```
   3. Install the [rust toolchain](https://rustup.rs/)
      
-     If you already have rust installed, update it by running: `rustup update` 
-  4. Install wasm-pack
+     If you already have rust installed, update it by running: `rustup update`
+
+     ```
+     curl https://sh.rustup.rs -sSf | sh
+     source $HOME/.cargo/env
+     rustup component add rustfmt
+     ```
+  5. Install wasm-pack
       ```bash
       cargo install wasm-pack
       ```
