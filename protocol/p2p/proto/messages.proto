@@ -5,7 +5,7 @@ option go_package = "github.com/kaspanet/kaspad/protowire";
 
 import "p2p.proto";
 
-message WaglayladMessage {
+message KaspadMessage {
   uint32 response_id = 101;
   uint32 request_id = 102;
   oneof payload {
@@ -56,5 +56,5 @@ message WaglayladMessage {
 }
 
 service P2P {
-  rpc MessageStream (stream WaglayladMessage) returns (stream WaglayladMessage) {}
+  rpc MessageStream (stream KaspadMessage) returns (stream KaspadMessage) {}
 }

@@ -1,7 +1,7 @@
 use crate::core::hub::HubEvent;
 use crate::pb::RejectMessage;
-use crate::pb::{waglaylad_message::Payload as WaglayladMessagePayload, WaglayladMessage};
-use crate::{common::ProtocolError, WaglayladMessagePayloadType};
+use crate::pb::{waglaylad_message::Payload as KaspadMessagePayload, KaspadMessage};
+use crate::{common::ProtocolError, KaspadMessagePayloadType};
 use crate::{make_message, Peer};
 use waglayla_core::{debug, error, info, trace, warn};
 use waglayla_utils::networking::PeerId;
@@ -22,7 +22,7 @@ use tonic::Streaming;
 use super::peer::{PeerKey, PeerProperties};
 
 pub struct IncomingRoute {
-    rx: MpscReceiver<WaglayladMessage>,
+    rx: MpscReceiver<KaspadMessage>,
     id: u32,
 }
 
@@ -33,7 +33,7 @@ pub const BLANK_ROUTE_ID: u32 = 0;
 static ROUTE_ID: AtomicU32 = AtomicU32::new(BLANK_ROUTE_ID + 1);
 
 impl IncomingRoute {
-    pub fn new(rx: MpscReceiver<WaglayladMessage>) -> Self {
+    pub fn new(rx: MpscReceiver<KaspadMessage>) -> Self {
         let id = ROUTE_ID.fetch_add(1, Ordering::SeqCst);
         Self { rx, id }
     }
@@ -44,7 +44,7 @@ impl IncomingRoute {
 }
 
 impl Deref for IncomingRoute {
-    type Target = MpscReceiver<WaglayladMessage>;
+    type Target = MpscReceiver<KaspadMessage>;
 
     fn deref(&self) -> &Self::Target {
         &self.rx
@@ -65,7 +65,7 @@ impl SharedIncomingRoute {
         Self(Arc::new(tokio::sync::Mutex::new(incoming_route)))
     }
 
-    pub async fn recv(&mut self) -> Option<WaglayladMessage> {
+    pub async fn recv(&mut self) -> Option<KaspadMessage> {
         self.0.lock().await.recv().await
     }
 }
@@ -79,11 +79,11 @@ pub enum IncomingRouteOverflowPolicy {
     Disconnect,
 }
 
-impl From<WaglayladMessagePayloadType> for IncomingRouteOverflowPolicy {
-    fn from(msg_type: WaglayladMessagePayloadType) -> Self {
+impl From<KaspadMessagePayloadType> for IncomingRouteOverflowPolicy {
+    fn from(msg_type: KaspadMessagePayloadType) -> Self {
         match msg_type {
             // Inv messages are unique in the sense that no harm is done if some of them are dropped
-            WaglayladMessagePayloadType::InvTransactions | WaglayladMessagePayloadType::InvRelayBlock => IncomingRouteOverflowPolicy::Drop,
+            KaspadMessagePayloadType::InvTransactions | KaspadMessagePayloadType::InvRelayBlock => IncomingRouteOverflowPolicy::Drop,
             _ => IncomingRouteOverflowPolicy::Disconnect,
         }
     }
@@ -127,12 +127,12 @@ pub struct Router {
     connection_started: Instant,
 
     /// Routing map for mapping messages to subscribed flows
-    routing_map_by_type: RwLock<HashMap<WaglayladMessagePayloadType, MpscSender<WaglayladMessage>>>,
+    routing_map_by_type: RwLock<HashMap<KaspadMessagePayloadType, MpscSender<KaspadMessage>>>,
 
-    routing_map_by_id: RwLock<HashMap<u32, MpscSender<WaglayladMessage>>>,
+    routing_map_by_id: RwLock<HashMap<u32, MpscSender<KaspadMessage>>>,
 
     /// The outgoing route for sending messages to this peer
-    outgoing_route: MpscSender<WaglayladMessage>,
+    outgoing_route: MpscSender<KaspadMessage>,
 
     /// A channel sender for internal event management. Used to send information from each router to a central hub object
     hub_sender: MpscSender<HubEvent>,
@@ -166,10 +166,10 @@ impl From<&Router> for Peer {
     }
 }
 
-fn message_summary(msg: &WaglayladMessage) -> impl Debug {
+fn message_summary(msg: &KaspadMessage) -> impl Debug {
     // TODO (low priority): display a concise summary of the message. Printing full messages
     // overflows the logs and is hardly useful, hence we currently only return the type
-    msg.payload.as_ref().map(std::convert::Into::<WaglayladMessagePayloadType>::into)
+    msg.payload.as_ref().map(std::convert::Into::<KaspadMessagePayloadType>::into)
 }
 
 impl Router {
@@ -177,8 +177,8 @@ impl Router {
         net_address: SocketAddr,
         is_outbound: bool,
         hub_sender: MpscSender<HubEvent>,
-        mut incoming_stream: Streaming<WaglayladMessage>,
-        outgoing_route: MpscSender<WaglayladMessage>,
+        mut incoming_stream: Streaming<KaspadMessage>,
+        outgoing_route: MpscSender<KaspadMessage>,
     ) -> Arc<Self> {
         let (start_sender, start_receiver) = oneshot_channel();
         let (shutdown_sender, mut shutdown_receiver) = oneshot_channel();
@@ -312,14 +312,14 @@ impl Router {
     /// Subscribe to specific message types.
     ///
     /// This should be used by `ConnectionInitializer` instances to register application-specific flows
-    pub fn subscribe(&self, msg_types: Vec<WaglayladMessagePayloadType>) -> IncomingRoute {
+    pub fn subscribe(&self, msg_types: Vec<KaspadMessagePayloadType>) -> IncomingRoute {
         self.subscribe_with_capacity(msg_types, Self::incoming_flow_baseline_channel_size())
     }
 
     /// Subscribe to specific message types with a specific channel capacity.
     ///
     /// This should be used by `ConnectionInitializer` instances to register application-specific flows.
-    pub fn subscribe_with_capacity(&self, msg_types: Vec<WaglayladMessagePayloadType>, capacity: usize) -> IncomingRoute {
+    pub fn subscribe_with_capacity(&self, msg_types: Vec<KaspadMessagePayloadType>, capacity: usize) -> IncomingRoute {
         let (sender, receiver) = mpsc_channel(capacity);
         let incoming_route = IncomingRoute::new(receiver);
         let mut map_by_type = self.routing_map_by_type.write();
@@ -362,15 +362,15 @@ impl Router {
     }
 
     /// Routes a message coming from the network to the corresponding registered flow
-    pub fn route_to_flow(&self, msg: WaglayladMessage) -> Result<(), ProtocolError> {
+    pub fn route_to_flow(&self, msg: KaspadMessage) -> Result<(), ProtocolError> {
         if msg.payload.is_none() {
             debug!("P2P, Route to flow got empty payload, peer: {}", self);
             return Err(ProtocolError::Other("received waglaylad p2p message with empty payload"));
         }
-        let msg_type: WaglayladMessagePayloadType = msg.payload.as_ref().expect("payload was just verified").into();
+        let msg_type: KaspadMessagePayloadType = msg.payload.as_ref().expect("payload was just verified").into();
         // Handle the special case of a reject message ending the connection
-        if msg_type == WaglayladMessagePayloadType::Reject {
-            let Some(WaglayladMessagePayload::Reject(reject)) = msg.payload else { unreachable!() };
+        if msg_type == KaspadMessagePayloadType::Reject {
+            let Some(KaspadMessagePayload::Reject(reject)) = msg.payload else { unreachable!() };
             return Err(ProtocolError::from_reject_message(reject.reason));
         }
 
@@ -400,7 +400,7 @@ impl Router {
     }
 
     /// Enqueues a locally-originated message to be sent to the network peer
-    pub async fn enqueue(&self, msg: WaglayladMessage) -> Result<(), ProtocolError> {
+    pub async fn enqueue(&self, msg: KaspadMessage) -> Result<(), ProtocolError> {
         assert!(msg.payload.is_some(), "Waglayla P2P message should always have a value");
         match self.outgoing_route.try_send(msg) {
             Ok(_) => Ok(()),
@@ -414,7 +414,7 @@ impl Router {
         if err.can_send_outgoing_message() {
             // Send an explicit reject message for easier tracing of logical bugs causing protocol errors.
             // No need to handle errors since we are closing anyway
-            let _ = self.enqueue(make_message!(WaglayladMessagePayload::Reject, RejectMessage { reason: err.to_reject_message() })).await;
+            let _ = self.enqueue(make_message!(KaspadMessagePayload::Reject, RejectMessage { reason: err.to_reject_message() })).await;
         }
     }
 

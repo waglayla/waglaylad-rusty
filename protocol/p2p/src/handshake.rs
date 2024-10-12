@@ -2,7 +2,7 @@ use std::time::Duration;
 
 use crate::pb::{waglaylad_message::Payload, ReadyMessage, VerackMessage, VersionMessage};
 use crate::{common::ProtocolError, dequeue_with_timeout, make_message};
-use crate::{IncomingRoute, WaglayladMessagePayloadType, Router};
+use crate::{IncomingRoute, KaspadMessagePayloadType, Router};
 use waglayla_core::debug;
 
 /// Implements the Waglayla peer-to-peer handshake protocol
@@ -18,9 +18,9 @@ impl<'a> WaglayladHandshake<'a> {
     pub fn new(router: &'a Router) -> Self {
         Self {
             router,
-            version_receiver: router.subscribe(vec![WaglayladMessagePayloadType::Version]),
-            verack_receiver: router.subscribe(vec![WaglayladMessagePayloadType::Verack]),
-            ready_receiver: router.subscribe(vec![WaglayladMessagePayloadType::Ready]),
+            version_receiver: router.subscribe(vec![KaspadMessagePayloadType::Version]),
+            verack_receiver: router.subscribe(vec![KaspadMessagePayloadType::Verack]),
+            ready_receiver: router.subscribe(vec![KaspadMessagePayloadType::Ready]),
         }
     }
 
