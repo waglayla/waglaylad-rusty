@@ -4,7 +4,7 @@ use waglayla_consensus_core::tx::TransactionId;
 use waglayla_core::debug;
 use waglayla_p2p_lib::{
     make_message,
-    pb::{waglaylad_message::Payload, InvTransactionsMessage, KaspadMessage},
+    pb::{waglaylad_message::Payload, InvTransactionsMessage, WaglayladMessage},
     Hub,
 };
 use std::time::{Duration, Instant};
@@ -95,7 +95,7 @@ impl TransactionsSpread {
         self.last_broadcast_time = Instant::now();
     }
 
-    async fn broadcast(&self, msg: KaspadMessage, should_throttle: bool) {
+    async fn broadcast(&self, msg: WaglayladMessage, should_throttle: bool) {
         if should_throttle {
             // TODO: Figure out a better number
             self.hub.broadcast_to_some_peers(msg, 8).await
