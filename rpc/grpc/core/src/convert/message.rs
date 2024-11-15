@@ -415,6 +415,35 @@ from!(item: RpcResult<&waglayla_rpc_core::GetMetricsResponse>, protowire::GetMet
         error: None,
     }
 });
+
+from!(item: &kaspa_rpc_core::GetConnectionsRequest, protowire::GetConnectionsRequestMessage, {
+  Self {
+      include_profile_data : item.include_profile_data,
+  }
+});
+from!(item: RpcResult<&kaspa_rpc_core::GetConnectionsResponse>, protowire::GetConnectionsResponseMessage, {
+  Self {
+      clients: item.clients,
+      peers: item.peers as u32,
+      profile_data: item.profile_data.as_ref().map(|x| x.into()),
+      error: None,
+  }
+});
+
+from!(&kaspa_rpc_core::GetSystemInfoRequest, protowire::GetSystemInfoRequestMessage);
+from!(item: RpcResult<&kaspa_rpc_core::GetSystemInfoResponse>, protowire::GetSystemInfoResponseMessage, {
+  Self {
+      version : item.version.clone(),
+      system_id : item.system_id.as_ref().map(|system_id|system_id.to_hex()).unwrap_or_default(),
+      git_hash : item.git_hash.as_ref().map(|git_hash|git_hash.to_hex()).unwrap_or_default(),
+      total_memory : item.total_memory,
+      core_num : item.cpu_physical_cores as u32,
+      fd_limit : item.fd_limit,
+      proxy_socket_limit_per_cpu_core : item.proxy_socket_limit_per_cpu_core.unwrap_or_default(),
+      error: None,
+  }
+});
+
 from!(&waglayla_rpc_core::GetServerInfoRequest, protowire::GetServerInfoRequestMessage);
 from!(item: RpcResult<&waglayla_rpc_core::GetServerInfoResponse>, protowire::GetServerInfoResponseMessage, {
     Self {
@@ -805,6 +834,30 @@ try_from!(item: &protowire::GetMetricsResponseMessage, RpcResult<waglayla_rpc_co
         bandwidth_metrics: item.bandwidth_metrics.as_ref().map(|x| x.try_into()).transpose()?,
         consensus_metrics: item.consensus_metrics.as_ref().map(|x| x.try_into()).transpose()?,
     }
+});
+
+try_from!(item: &protowire::GetConnectionsRequestMessage, kaspa_rpc_core::GetConnectionsRequest, {
+  Self { include_profile_data : item.include_profile_data }
+});
+try_from!(item: &protowire::GetConnectionsResponseMessage, RpcResult<kaspa_rpc_core::GetConnectionsResponse>, {
+  Self {
+      clients: item.clients,
+      peers: item.peers as u16,
+      profile_data: item.profile_data.as_ref().map(|x| x.try_into()).transpose()?,
+  }
+});
+
+try_from!(&protowire::GetSystemInfoRequestMessage, kaspa_rpc_core::GetSystemInfoRequest);
+try_from!(item: &protowire::GetSystemInfoResponseMessage, RpcResult<kaspa_rpc_core::GetSystemInfoResponse>, {
+  Self {
+      version: item.version.clone(),
+      system_id: (!item.system_id.is_empty()).then(|| FromHex::from_hex(&item.system_id)).transpose()?,
+      git_hash: (!item.git_hash.is_empty()).then(|| FromHex::from_hex(&item.git_hash)).transpose()?,
+      total_memory: item.total_memory,
+      cpu_physical_cores: item.core_num as u16,
+      fd_limit: item.fd_limit,
+      proxy_socket_limit_per_cpu_core : (item.proxy_socket_limit_per_cpu_core > 0).then_some(item.proxy_socket_limit_per_cpu_core),
+  }
 });
 
 try_from!(&protowire::GetServerInfoRequestMessage, waglayla_rpc_core::GetServerInfoRequest);
