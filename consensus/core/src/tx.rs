@@ -268,6 +268,11 @@ impl Transaction {
     pub fn mass(&self) -> u64 {
         self.mass.0.load(SeqCst)
     }
+
+    pub fn with_mass(self, mass: u64) -> Self {
+        self.set_mass(mass);
+        self
+    }
 }
 
 /// Represents any kind of transaction which has populated UTXO entry data and can be verified/signed etc

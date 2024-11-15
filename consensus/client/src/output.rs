@@ -26,6 +26,22 @@ export interface ITransactionOutputVerboseData {
 }
 "#;
 
+#[wasm_bindgen]
+extern "C" {
+    /// WASM (TypeScript) type representing `ITransactionOutput | TransactionOutput`
+    /// @category Consensus
+    #[wasm_bindgen(typescript_type = "ITransactionOutput | TransactionOutput")]
+    pub type TransactionOutputT;
+    /// WASM (TypeScript) type representing `ITransactionOutput[] | TransactionOutput[]`
+    /// @category Consensus
+    #[wasm_bindgen(typescript_type = "(ITransactionOutput | TransactionOutput)[]")]
+    pub type TransactionOutputArrayAsArgT;
+    /// WASM (TypeScript) type representing `TransactionOutput[]`
+    /// @category Consensus
+    #[wasm_bindgen(typescript_type = "TransactionOutput[]")]
+    pub type TransactionOutputArrayAsResultT;
+}
+
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct TransactionOutputInner {

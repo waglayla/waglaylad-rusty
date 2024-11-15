@@ -101,6 +101,12 @@ impl UtxoEntry {
     }
 }
 
+impl AsRef<UtxoEntry> for UtxoEntry {
+  fn as_ref(&self) -> &UtxoEntry {
+      self
+  }
+}
+
 impl From<&UtxoEntry> for cctx::UtxoEntry {
     fn from(utxo: &UtxoEntry) -> Self {
         cctx::UtxoEntry {
@@ -113,6 +119,8 @@ impl From<&UtxoEntry> for cctx::UtxoEntry {
     }
 }
 
+/// [`Arc`] reference to a [`UtxoEntry`] used by the wallet subsystems.
+///
 /// @category Wallet SDK
 #[derive(Clone, Debug, Serialize, Deserialize, CastFromJs)]
 #[wasm_bindgen(inspectable)]
@@ -159,6 +167,11 @@ impl UtxoEntryReference {
     #[wasm_bindgen(getter, js_name = "blockDaaScore")]
     pub fn block_daa_score(&self) -> u64 {
         self.utxo.block_daa_score
+    }
+
+    #[wasm_bindgen(getter, js_name = "scriptPublicKey")]
+    pub fn script_public_key(&self) -> ScriptPublicKey {
+        self.utxo.script_public_key.clone()
     }
 }
 

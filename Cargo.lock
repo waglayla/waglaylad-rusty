@@ -5481,6 +5481,7 @@ dependencies = [
  "sha2",
  "subtle",
  "thiserror 1.0.63",
+ "waglayla-consensus-core",
  "waglayla-utils",
  "wasm-bindgen",
  "workflow-wasm",
@@ -6228,6 +6229,7 @@ dependencies = [
  "log",
  "paste",
  "pyo3",
+ "rand 0.8.5",
  "serde",
  "serde-wasm-bindgen",
  "serde_json",
@@ -6250,6 +6252,7 @@ dependencies = [
  "waglayla-utils",
  "wasm-bindgen",
  "workflow-core",
+ "workflow-serializer",
  "workflow-wasm",
 ]
 
@@ -7421,6 +7424,17 @@ dependencies = [
  "proc-macro2",
  "quote",
  "syn 1.0.109",
+]
+
+[[package]]
+name = "workflow-serializer"
+version = "0.18.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "64679db6856852a472caff4ce869e3ecebe291fbccc9406e9643eb5951a0904a"
+dependencies = [
+ "ahash 0.8.11",
+ "borsh 1.5.3",
+ "serde",
 ]
 
 [[package]]

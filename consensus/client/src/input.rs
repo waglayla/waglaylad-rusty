@@ -33,15 +33,25 @@ export interface ITransactionInputVerboseData { }
 
 #[wasm_bindgen]
 extern "C" {
-    #[wasm_bindgen(typescript_type = "ITransactionInput")]
-    pub type ITransactionInput;
+    /// WASM (TypeScript) type representing `ITransactionInput | TransactionInput`
+    /// @category Consensus
+    #[wasm_bindgen(typescript_type = "ITransactionInput | TransactionInput")]
+    pub type TransactionInputT;
+    /// WASM (TypeScript) type representing `ITransactionInput[] | TransactionInput[]`
+    /// @category Consensus
+    #[wasm_bindgen(typescript_type = "(ITransactionInput | TransactionInput)[]")]
+    pub type TransactionInputArrayAsArgT;
+    /// WASM (TypeScript) type representing `TransactionInput[]`
+    /// @category Consensus
+    #[wasm_bindgen(typescript_type = "TransactionInput[]")]
+    pub type TransactionInputArrayAsResultT;
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct TransactionInputInner {
     pub previous_outpoint: TransactionOutpoint,
-    pub signature_script: Vec<u8>,
+    pub signature_script: Option<Vec<u8>>,
     pub sequence: u64,
     pub sig_op_count: u8,
     pub utxo: Option<UtxoEntryReference>,
@@ -50,7 +60,7 @@ pub struct TransactionInputInner {
 impl TransactionInputInner {
     pub fn new(
         previous_outpoint: TransactionOutpoint,
-        signature_script: Vec<u8>,
+        signature_script: Option<Vec<u8>>,
         sequence: u64,
         sig_op_count: u8,
         utxo: Option<UtxoEntryReference>,
@@ -70,7 +80,7 @@ pub struct TransactionInput {
 impl TransactionInput {
     pub fn new(
         previous_outpoint: TransactionOutpoint,
-        signature_script: Vec<u8>,
+        signature_script: Option<Vec<u8>>,
         sequence: u64,
         sig_op_count: u8,
         utxo: Option<UtxoEntryReference>,
@@ -78,7 +88,6 @@ impl TransactionInput {
         let inner = TransactionInputInner::new(previous_outpoint, signature_script, sequence, sig_op_count, utxo);
         Self { inner: Arc::new(Mutex::new(inner)) }
     }
-
     pub fn new_with_inner(inner: TransactionInputInner) -> Self {
         Self { inner: Arc::new(Mutex::new(inner)) }
     }
@@ -91,6 +100,10 @@ impl TransactionInput {
         self.inner().sig_op_count
     }
 
+    pub fn signature_script_length(&self) -> usize {
+        self.inner().signature_script.as_ref().map(|signature_script| signature_script.len()).unwrap_or_default()
+    }
+
     pub fn utxo(&self) -> Option<UtxoEntryReference> {
         self.inner().utxo.clone()
     }
@@ -99,7 +112,7 @@ impl TransactionInput {
 #[wasm_bindgen]
 impl TransactionInput {
     #[wasm_bindgen(constructor)]
-    pub fn constructor(value: &ITransactionInput) -> Result<TransactionInput> {
+    pub fn constructor(value: &TransactionInputT) -> Result<TransactionInput> {
         Self::try_owned_from(value)
     }
 
@@ -120,8 +133,8 @@ impl TransactionInput {
     }
 
     #[wasm_bindgen(getter = signatureScript)]
-    pub fn get_signature_script_as_hex(&self) -> String {
-        self.inner().signature_script.to_hex()
+    pub fn get_signature_script_as_hex(&self) -> Option<String> {
+        self.inner().signature_script.as_ref().map(|script| script.to_hex())
     }
 
     #[wasm_bindgen(setter = signatureScript)]
@@ -163,7 +176,7 @@ impl TransactionInput {
 
 impl TransactionInput {
     pub fn set_signature_script(&self, signature_script: Vec<u8>) {
-        self.inner().signature_script = signature_script;
+        self.inner().signature_script.replace(signature_script);
     }
 
     pub fn script_public_key(&self) -> Option<ScriptPublicKey> {
@@ -202,7 +215,7 @@ impl From<cctx::TransactionInput> for TransactionInput {
     fn from(tx_input: cctx::TransactionInput) -> Self {
         TransactionInput::new(
             tx_input.previous_outpoint.into(),
-            tx_input.signature_script,
+            Some(tx_input.signature_script),
             tx_input.sequence,
             tx_input.sig_op_count,
             None,
@@ -210,12 +223,14 @@ impl From<cctx::TransactionInput> for TransactionInput {
     }
 }
 
+
 impl From<&TransactionInput> for cctx::TransactionInput {
     fn from(tx_input: &TransactionInput) -> Self {
         let inner = tx_input.inner();
         cctx::TransactionInput::new(
             inner.previous_outpoint.clone().into(),
-            inner.signature_script.clone(),
+            // TODO - discuss: should this unwrap_or_default or return an error?
+            inner.signature_script.clone().unwrap_or_default(),
             inner.sequence,
             inner.sig_op_count,
         )

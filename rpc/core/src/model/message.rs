@@ -10,6 +10,7 @@ use std::{
     fmt::{Display, Formatter},
     sync::Arc,
 };
+use pyo3::{pymethods, pyclass};
 
 #[cfg(not(target_family = "wasm"))]
 use workflow_serializer::prelude::*;

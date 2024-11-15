@@ -77,3 +77,10 @@ export interface ISerializableTransaction {
 }
 
 "#;
+
+#[wasm_bindgen]
+extern "C" {
+    /// WASM (TypeScript) representation of the `ISerializableTransaction` interface.
+    #[wasm_bindgen(extends = js_sys::Array, typescript_type = "ISerializableTransaction")]
+    pub type SerializableTransactionT;
+}
