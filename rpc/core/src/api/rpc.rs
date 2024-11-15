@@ -28,6 +28,28 @@ pub trait RpcApi: Sync + Send + AnySync {
 
     // ---
 
+    async fn get_system_info(&self) -> RpcResult<GetSystemInfoResponse> {
+        Ok(self.get_system_info_call(None, GetSystemInfoRequest {}).await?)
+    }
+    async fn get_system_info_call(
+        &self,
+        connection: Option<&DynRpcConnection>,
+        request: GetSystemInfoRequest,
+    ) -> RpcResult<GetSystemInfoResponse>;
+
+    // ---
+
+    async fn get_connections(&self, include_profile_data: bool) -> RpcResult<GetConnectionsResponse> {
+        self.get_connections_call(None, GetConnectionsRequest { include_profile_data }).await
+    }
+    async fn get_connections_call(
+        &self,
+        connection: Option<&DynRpcConnection>,
+        request: GetConnectionsRequest,
+    ) -> RpcResult<GetConnectionsResponse>;
+
+    // ---
+
     async fn get_metrics(
         &self,
         process_metrics: bool,
