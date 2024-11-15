@@ -6021,11 +6021,9 @@ dependencies = [
 name = "waglayla-pow"
 version = "0.14.5"
 dependencies = [
- "blake3",
  "criterion",
  "js-sys",
  "num",
- "sha3",
  "waglayla-consensus-client",
  "waglayla-consensus-core",
  "waglayla-hashes",
