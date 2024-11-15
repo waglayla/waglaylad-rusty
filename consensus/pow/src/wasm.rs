@@ -5,6 +5,7 @@ use waglayla_consensus_core::hashing;
 use waglayla_hashes::Hash;
 use waglayla_hashes::PowHash;
 use waglayla_math::Uint256;
+use waglayla_utils::hex::FromHex;
 use waglayla_utils::hex::ToHex;
 use num::Float;
 use wasm_bindgen::prelude::*;

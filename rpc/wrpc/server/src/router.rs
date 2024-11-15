@@ -4,6 +4,7 @@ use waglayla_rpc_core::{api::ops::RpcApiOps, prelude::*};
 use waglayla_rpc_macros::build_wrpc_server_interface;
 use std::sync::Arc;
 use workflow_rpc::server::prelude::*;
+use workflow_serializer::prelude::*;
 
 /// A wrapper that creates an [`Interface`] instance and initializes
 /// RPC methods and notifications against this interface. The interface
@@ -32,6 +33,7 @@ impl Router {
             Connection,
             RpcApiOps,
             [
+                Ping,
                 AddPeer,
                 Ban,
                 EstimateNetworkHashesPerSecond,
@@ -45,7 +47,6 @@ impl Router {
                 GetCoinSupply,
                 GetConnectedPeerInfo,
                 GetDaaScoreTimestampEstimate,
-                GetServerInfo,
                 GetCurrentNetwork,
                 GetHeaders,
                 GetInfo,
@@ -53,11 +54,14 @@ impl Router {
                 GetMempoolEntries,
                 GetMempoolEntriesByAddresses,
                 GetMempoolEntry,
-                GetPeerAddresses,
                 GetMetrics,
+                GetConnections,
+                GetPeerAddresses,
+                GetServerInfo,
                 GetSink,
                 GetSubnetwork,
                 GetSyncStatus,
+                GetSystemInfo,
                 GetUtxosByAddresses,
                 GetSinkBlueScore,
                 GetVirtualChainFromBlock,

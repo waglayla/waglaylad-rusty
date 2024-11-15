@@ -1,6 +1,7 @@
 //! Core server implementation for ClientAPI
 
 use super::collector::{CollectorFromConsensus, CollectorFromIndex};
+// use crate::converter::feerate_estimate::{FeeEstimateConverter, FeeEstimateVerboseConverter}; TODO
 use crate::converter::{consensus::ConsensusConverter, index::IndexConverter, protocol::ProtocolConverter};
 use crate::service::NetworkType::{Mainnet, Testnet};
 use async_trait::async_trait;
@@ -34,6 +35,7 @@ use waglayla_index_core::{
     connection::IndexChannelConnection, indexed_utxos::UtxoSetByScriptPublicKey, notification::Notification as IndexNotification,
     notifier::IndexNotifier,
 };
+// use waglayla_mining::feerate::FeeEstimateVerbose; TODO
 use waglayla_mining::model::tx_query::TransactionQuery;
 use waglayla_mining::{manager::MiningManagerProxy, mempool::tx::Orphan};
 use waglayla_notify::listener::ListenerLifespan;
@@ -53,6 +55,7 @@ use waglayla_p2p_lib::common::ProtocolError;
 use waglayla_perf_monitor::{counters::CountersSnapshot, Monitor as PerfMonitor};
 use waglayla_rpc_core::{
     api::{
+        connection::DynRpcConnection,
         ops::RPC_API_VERSION,
         rpc::{RpcApi, MAX_SAFE_WINDOW_SIZE},
     },
@@ -61,6 +64,8 @@ use waglayla_rpc_core::{
     Notification, RpcError, RpcResult,
 };
 use waglayla_txscript::{extract_script_pub_key_address, pay_to_address_script};
+// use waglayla_utils::expiring_cache::ExpiringCache; TODO
+use waglayla_utils::sysinfo::SystemInfo;
 use waglayla_utils::{channel::Channel, triggers::SingleTrigger};
 use waglayla_utils_tower::counters::TowerConnectionCounters;
 use waglayla_utxoindex::api::UtxoIndexProxy;
@@ -91,24 +96,27 @@ use workflow_rpc::server::WebSocketCounters as WrpcServerCounters;
 /// by adding respectively to the registered service a Collector and a
 /// Subscriber.
 pub struct RpcCoreService {
-    consensus_manager: Arc<ConsensusManager>,
-    notifier: Arc<Notifier<Notification, ChannelConnection>>,
-    mining_manager: MiningManagerProxy,
-    flow_context: Arc<FlowContext>,
-    utxoindex: Option<UtxoIndexProxy>,
-    config: Arc<Config>,
-    consensus_converter: Arc<ConsensusConverter>,
-    index_converter: Arc<IndexConverter>,
-    protocol_converter: Arc<ProtocolConverter>,
-    core: Arc<Core>,
-    processing_counters: Arc<ProcessingCounters>,
-    wrpc_borsh_counters: Arc<WrpcServerCounters>,
-    wrpc_json_counters: Arc<WrpcServerCounters>,
-    shutdown: SingleTrigger,
-    core_shutdown_request: SingleTrigger,
-    perf_monitor: Arc<PerfMonitor<Arc<TickService>>>,
-    p2p_tower_counters: Arc<TowerConnectionCounters>,
-    grpc_tower_counters: Arc<TowerConnectionCounters>,
+  consensus_manager: Arc<ConsensusManager>,
+  notifier: Arc<Notifier<Notification, ChannelConnection>>,
+  mining_manager: MiningManagerProxy,
+  flow_context: Arc<FlowContext>,
+  utxoindex: Option<UtxoIndexProxy>,
+  config: Arc<Config>,
+  consensus_converter: Arc<ConsensusConverter>,
+  index_converter: Arc<IndexConverter>,
+  protocol_converter: Arc<ProtocolConverter>,
+  core: Arc<Core>,
+  processing_counters: Arc<ProcessingCounters>,
+  wrpc_borsh_counters: Arc<WrpcServerCounters>,
+  wrpc_json_counters: Arc<WrpcServerCounters>,
+  shutdown: SingleTrigger,
+  core_shutdown_request: SingleTrigger,
+  perf_monitor: Arc<PerfMonitor<Arc<TickService>>>,
+  p2p_tower_counters: Arc<TowerConnectionCounters>,
+  grpc_tower_counters: Arc<TowerConnectionCounters>,
+  system_info: SystemInfo,
+  // fee_estimate_cache: ExpiringCache<RpcFeeEstimate>,
+  // fee_estimate_verbose_cache: ExpiringCache<kaspa_mining::errors::MiningManagerResult<GetFeeEstimateExperimentalResponse>>,
 }
 
 const RPC_CORE: &str = "rpc-core";
@@ -133,6 +141,7 @@ impl RpcCoreService {
         perf_monitor: Arc<PerfMonitor<Arc<TickService>>>,
         p2p_tower_counters: Arc<TowerConnectionCounters>,
         grpc_tower_counters: Arc<TowerConnectionCounters>,
+        system_info: SystemInfo,
     ) -> Self {
         // This notifier UTXOs subscription granularity to index-processor or consensus notifier
         let policies = match index_notifier {
@@ -208,6 +217,9 @@ impl RpcCoreService {
             perf_monitor,
             p2p_tower_counters,
             grpc_tower_counters,
+            system_info,
+            // fee_estimate_cache: ExpiringCache::new(Duration::from_millis(500), Duration::from_millis(1000)),
+            // fee_estimate_verbose_cache: ExpiringCache::new(Duration::from_millis(500), Duration::from_millis(1000)),
         }
     }
 
@@ -792,6 +804,24 @@ NOTE: This error usually indicates an RPC conversion error between the node and 
         Err(RpcError::NotImplemented)
     }
 
+    async fn get_connections_call(
+        &self,
+        // _connection: Option<&DynRpcConnection>,
+        req: GetConnectionsRequest,
+    ) -> RpcResult<GetConnectionsResponse> {
+        let clients = (self.wrpc_borsh_counters.active_connections.load(Ordering::Relaxed)
+            + self.wrpc_json_counters.active_connections.load(Ordering::Relaxed)) as u32;
+        let peers = self.flow_context.hub().active_peers_len() as u16;
+
+        let profile_data = req.include_profile_data.then(|| {
+            let CountersSnapshot { resident_set_size: memory_usage, cpu_usage, .. } = self.perf_monitor.snapshot();
+
+            ConnectionsProfileData { cpu_usage: cpu_usage as f32, memory_usage }
+        });
+
+        Ok(GetConnectionsResponse { clients, peers, profile_data })
+    }
+
     async fn get_metrics_call(&self, req: GetMetricsRequest) -> RpcResult<GetMetricsResponse> {
         let CountersSnapshot {
             resident_set_size,
@@ -875,7 +905,7 @@ NOTE: This error usually indicates an RPC conversion error between the node and 
 
     async fn get_system_info_call(
         &self,
-        _connection: Option<&DynRpcConnection>,
+        // _connection: Option<&DynRpcConnection>,
         _request: GetSystemInfoRequest,
     ) -> RpcResult<GetSystemInfoResponse> {
         let response = GetSystemInfoResponse {
@@ -890,6 +920,7 @@ NOTE: This error usually indicates an RPC conversion error between the node and 
 
         Ok(response)
     }
+
 
     async fn get_server_info_call(&self, _request: GetServerInfoRequest) -> RpcResult<GetServerInfoResponse> {
         let session = self.consensus_manager.consensus().unguarded_session();

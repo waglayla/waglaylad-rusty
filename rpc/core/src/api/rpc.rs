@@ -4,6 +4,7 @@
 //! All data provided by the RCP server can be trusted by the client
 //! No data submitted by the client to the server can be trusted
 
+use crate::api::connection::DynRpcConnection;
 use crate::{model::*, notify::connection::ChannelConnection, RpcResult};
 use async_trait::async_trait;
 use downcast::{downcast_sync, AnySync};
@@ -29,22 +30,22 @@ pub trait RpcApi: Sync + Send + AnySync {
     // ---
 
     async fn get_system_info(&self) -> RpcResult<GetSystemInfoResponse> {
-        Ok(self.get_system_info_call(None, GetSystemInfoRequest {}).await?)
+        Ok(self.get_system_info_call(GetSystemInfoRequest {}).await?)
     }
     async fn get_system_info_call(
         &self,
-        connection: Option<&DynRpcConnection>,
+        // connection: Option<&DynRpcConnection>,
         request: GetSystemInfoRequest,
     ) -> RpcResult<GetSystemInfoResponse>;
 
     // ---
 
     async fn get_connections(&self, include_profile_data: bool) -> RpcResult<GetConnectionsResponse> {
-        self.get_connections_call(None, GetConnectionsRequest { include_profile_data }).await
+        self.get_connections_call(GetConnectionsRequest { include_profile_data }).await
     }
     async fn get_connections_call(
         &self,
-        connection: Option<&DynRpcConnection>,
+        // connection: Option<&DynRpcConnection>,
         request: GetConnectionsRequest,
     ) -> RpcResult<GetConnectionsResponse>;
 

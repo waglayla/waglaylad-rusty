@@ -6,6 +6,14 @@ use waglayla_rpc_core::RpcError;
 // rpc_core to protowire
 // ----------------------------------------------------------------------------
 
+from!(item: &waglayla_rpc_core::ConnectionsProfileData, protowire::ConnectionsProfileData, {
+    Self {
+        cpu_usage: item.cpu_usage as f64,
+        memory_usage: item.memory_usage,
+
+    }
+});
+
 from!(item: &waglayla_rpc_core::ProcessMetrics, protowire::ProcessMetrics, {
     Self {
         resident_set_size: item.resident_set_size,
@@ -66,9 +74,19 @@ from!(item: &waglayla_rpc_core::ConsensusMetrics, protowire::ConsensusMetrics, {
     }
 });
 
+// from!(item: &waglayla_rpc_core::StorageMetrics, protowire::StorageMetrics, {
+//   Self {
+//       storage_size_bytes: item.storage_size_bytes,
+//   }
+// });
+
 // ----------------------------------------------------------------------------
 // protowire to rpc_core
 // ----------------------------------------------------------------------------
+
+try_from!(item: &protowire::ConnectionsProfileData, waglayla_rpc_core::ConnectionsProfileData, {
+  Self { cpu_usage : item.cpu_usage as f32, memory_usage : item.memory_usage }
+});
 
 try_from!(item: &protowire::ProcessMetrics, waglayla_rpc_core::ProcessMetrics, {
     Self {
@@ -129,3 +147,9 @@ try_from!(item: &protowire::ConsensusMetrics, waglayla_rpc_core::ConsensusMetric
         network_virtual_daa_score: item.virtual_daa_score,
     }
 });
+
+// try_from!(item: &protowire::StorageMetrics, waglayla_rpc_core::StorageMetrics, {
+//   Self {
+//       storage_size_bytes: item.storage_size_bytes,
+//   }
+// });

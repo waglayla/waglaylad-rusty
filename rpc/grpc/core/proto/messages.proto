@@ -59,6 +59,8 @@ message WaglayladRequest {
     GetServerInfoRequestMessage getServerInfoRequest = 1092;
     GetSyncStatusRequestMessage getSyncStatusRequest = 1094;
     GetDaaScoreTimestampEstimateRequestMessage GetDaaScoreTimestampEstimateRequest = 1096;
+    GetConnectionsRequestMessage getConnectionsRequest = 1102;
+    GetSystemInfoRequestMessage getSystemInfoRequest = 1104;
   }
 }
 

@@ -26,6 +26,7 @@ use waglayla_rpc_core::{
     RpcContextualPeerAddress, RpcError, RpcExtraData, RpcHash, RpcIpAddress, RpcNetworkType, RpcPeerAddress, RpcResult,
     SubmitBlockRejectReason, SubmitBlockReport,
 };
+use waglayla_utils::hex::*;
 use std::str::FromStr;
 
 macro_rules! from {
@@ -416,12 +417,12 @@ from!(item: RpcResult<&waglayla_rpc_core::GetMetricsResponse>, protowire::GetMet
     }
 });
 
-from!(item: &kaspa_rpc_core::GetConnectionsRequest, protowire::GetConnectionsRequestMessage, {
+from!(item: &waglayla_rpc_core::GetConnectionsRequest, protowire::GetConnectionsRequestMessage, {
   Self {
       include_profile_data : item.include_profile_data,
   }
 });
-from!(item: RpcResult<&kaspa_rpc_core::GetConnectionsResponse>, protowire::GetConnectionsResponseMessage, {
+from!(item: RpcResult<&waglayla_rpc_core::GetConnectionsResponse>, protowire::GetConnectionsResponseMessage, {
   Self {
       clients: item.clients,
       peers: item.peers as u32,
@@ -430,8 +431,8 @@ from!(item: RpcResult<&kaspa_rpc_core::GetConnectionsResponse>, protowire::GetCo
   }
 });
 
-from!(&kaspa_rpc_core::GetSystemInfoRequest, protowire::GetSystemInfoRequestMessage);
-from!(item: RpcResult<&kaspa_rpc_core::GetSystemInfoResponse>, protowire::GetSystemInfoResponseMessage, {
+from!(&waglayla_rpc_core::GetSystemInfoRequest, protowire::GetSystemInfoRequestMessage);
+from!(item: RpcResult<&waglayla_rpc_core::GetSystemInfoResponse>, protowire::GetSystemInfoResponseMessage, {
   Self {
       version : item.version.clone(),
       system_id : item.system_id.as_ref().map(|system_id|system_id.to_hex()).unwrap_or_default(),
@@ -836,10 +837,10 @@ try_from!(item: &protowire::GetMetricsResponseMessage, RpcResult<waglayla_rpc_co
     }
 });
 
-try_from!(item: &protowire::GetConnectionsRequestMessage, kaspa_rpc_core::GetConnectionsRequest, {
+try_from!(item: &protowire::GetConnectionsRequestMessage, waglayla_rpc_core::GetConnectionsRequest, {
   Self { include_profile_data : item.include_profile_data }
 });
-try_from!(item: &protowire::GetConnectionsResponseMessage, RpcResult<kaspa_rpc_core::GetConnectionsResponse>, {
+try_from!(item: &protowire::GetConnectionsResponseMessage, RpcResult<waglayla_rpc_core::GetConnectionsResponse>, {
   Self {
       clients: item.clients,
       peers: item.peers as u16,
@@ -847,8 +848,8 @@ try_from!(item: &protowire::GetConnectionsResponseMessage, RpcResult<kaspa_rpc_c
   }
 });
 
-try_from!(&protowire::GetSystemInfoRequestMessage, kaspa_rpc_core::GetSystemInfoRequest);
-try_from!(item: &protowire::GetSystemInfoResponseMessage, RpcResult<kaspa_rpc_core::GetSystemInfoResponse>, {
+try_from!(&protowire::GetSystemInfoRequestMessage, waglayla_rpc_core::GetSystemInfoRequest);
+try_from!(item: &protowire::GetSystemInfoResponseMessage, RpcResult<waglayla_rpc_core::GetSystemInfoResponse>, {
   Self {
       version: item.version.clone(),
       system_id: (!item.system_id.is_empty()).then(|| FromHex::from_hex(&item.system_id)).transpose()?,

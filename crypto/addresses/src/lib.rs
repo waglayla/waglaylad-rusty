@@ -120,6 +120,7 @@ impl TryFrom<&str> for Prefix {
 /// @category Address
 #[derive(PartialEq, Eq, PartialOrd, Ord, Clone, Copy, Debug, Hash, Serialize, Deserialize, BorshSerialize, BorshDeserialize)]
 #[repr(u8)]
+#[borsh(use_discriminant = true)]
 #[wasm_bindgen(js_name = "AddressVersion")]
 pub enum Version {
     /// PubKey addresses always have the version byte set to 0
@@ -291,11 +292,10 @@ impl BorshSerialize for Address {
 }
 
 impl BorshDeserialize for Address {
-    fn deserialize(buf: &mut &[u8]) -> std::io::Result<Self> {
-        // Deserialize into vec first since we have no custom smallvec support
-        let prefix: Prefix = borsh::BorshDeserialize::deserialize(buf)?;
-        let version: Version = borsh::BorshDeserialize::deserialize(buf)?;
-        let payload: Vec<u8> = borsh::BorshDeserialize::deserialize(buf)?;
+    fn deserialize_reader<R: std::io::Read>(reader: &mut R) -> std::io::Result<Self> {
+        let prefix: Prefix = borsh::BorshDeserialize::deserialize_reader(reader)?;
+        let version: Version = borsh::BorshDeserialize::deserialize_reader(reader)?;
+        let payload: Vec<u8> = borsh::BorshDeserialize::deserialize_reader(reader)?;
         Ok(Self::new(prefix, version, &payload))
     }
 }

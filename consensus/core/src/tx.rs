@@ -177,8 +177,8 @@ impl Clone for TransactionMass {
 }
 
 impl BorshDeserialize for TransactionMass {
-    fn deserialize(buf: &mut &[u8]) -> std::io::Result<Self> {
-        let mass: u64 = borsh::BorshDeserialize::deserialize(buf)?;
+    fn deserialize_reader<R: std::io::Read>(reader: &mut R) -> std::io::Result<Self> {
+        let mass: u64 = borsh::BorshDeserialize::deserialize_reader(reader)?;
         Ok(Self(AtomicU64::new(mass)))
     }
 }
@@ -203,7 +203,6 @@ pub struct Transaction {
     pub payload: Vec<u8>,
 
     #[serde(default)]
-    #[borsh_skip] // TODO: skipped for now as it is only required for consensus storage and miner grpc
     mass: TransactionMass,
 
     // A field that is used to cache the transaction ID.

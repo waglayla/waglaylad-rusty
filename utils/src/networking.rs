@@ -190,7 +190,7 @@ impl Deref for IpAddress {
 //
 
 impl BorshSerialize for IpAddress {
-    fn serialize<W: borsh::maybestd::io::Write>(&self, writer: &mut W) -> ::core::result::Result<(), borsh::maybestd::io::Error> {
+    fn serialize<W: std::io::Write>(&self, writer: &mut W) -> ::core::result::Result<(), std::io::Error> {
         let variant_idx: u8 = match self.0 {
             IpAddr::V4(..) => 0u8,
             IpAddr::V6(..) => 1u8,
@@ -209,20 +209,20 @@ impl BorshSerialize for IpAddress {
 }
 
 impl BorshDeserialize for IpAddress {
-    fn deserialize(buf: &mut &[u8]) -> ::core::result::Result<Self, borsh::maybestd::io::Error> {
-        let variant_idx: u8 = BorshDeserialize::deserialize(buf)?;
+    fn deserialize_reader<R: std::io::Read>(reader: &mut R) -> ::core::result::Result<Self, borsh::io::Error> {
+        let variant_idx: u8 = BorshDeserialize::deserialize_reader(reader)?;
         let ip = match variant_idx {
             0u8 => {
-                let octets: [u8; 4] = BorshDeserialize::deserialize(buf)?;
+                let octets: [u8; 4] = BorshDeserialize::deserialize_reader(reader)?;
                 IpAddr::V4(Ipv4Addr::from(octets))
             }
             1u8 => {
-                let octets: [u8; 16] = BorshDeserialize::deserialize(buf)?;
+                let octets: [u8; 16] = BorshDeserialize::deserialize_reader(reader)?;
                 IpAddr::V6(Ipv6Addr::from(octets))
             }
             _ => {
-                let msg = borsh::maybestd::format!("Unexpected variant index: {:?}", variant_idx);
-                return Err(borsh::maybestd::io::Error::new(borsh::maybestd::io::ErrorKind::InvalidInput, msg));
+                let msg = format!("Unexpected variant index: {:?}", variant_idx);
+                return Err(std::io::Error::new(std::io::ErrorKind::InvalidInput, msg));
             }
         };
         Ok(Self(ip))
@@ -407,15 +407,15 @@ impl Deref for PeerId {
 //
 
 impl BorshSerialize for PeerId {
-    fn serialize<W: borsh::maybestd::io::Write>(&self, writer: &mut W) -> ::core::result::Result<(), borsh::maybestd::io::Error> {
+    fn serialize<W: std::io::Write>(&self, writer: &mut W) -> ::core::result::Result<(), std::io::Error> {
         borsh::BorshSerialize::serialize(&self.0.as_bytes(), writer)?;
         Ok(())
     }
 }
 
 impl BorshDeserialize for PeerId {
-    fn deserialize(buf: &mut &[u8]) -> ::core::result::Result<Self, borsh::maybestd::io::Error> {
-        let bytes: uuid::Bytes = BorshDeserialize::deserialize(buf)?;
+    fn deserialize_reader<R: std::io::Read>(reader: &mut R) -> ::core::result::Result<Self, std::io::Error> {
+        let bytes: uuid::Bytes = BorshDeserialize::deserialize_reader(reader)?;
         Ok(Self::new(Uuid::from_bytes(bytes)))
     }
 }

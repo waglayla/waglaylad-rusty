@@ -16,12 +16,17 @@ use workflow_core::enums::Describe;
 pub const RPC_API_VERSION: [u16; 4] = [0, 1, 0, 0];
 
 #[derive(Describe, Clone, Copy, Debug, PartialEq, Eq, Hash, BorshSerialize, BorshDeserialize, Serialize, Deserialize)]
+#[borsh(use_discriminant=true)]
 #[serde(rename_all = "camelCase")]
 pub enum RpcApiOps {
     /// Ping the node to check if connection is alive
     Ping = 0,
     /// Get metrics for consensus information and node performance
     GetMetrics,
+    /// Get system information (RAM available, number of cores, available file descriptors)
+    GetSystemInfo,
+    /// Get current number of active TCP connections
+    GetConnections,
     /// Get state information on the node
     GetServerInfo,
     /// Get the current sync status of the node

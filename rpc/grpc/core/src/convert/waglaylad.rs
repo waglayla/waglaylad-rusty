@@ -54,6 +54,8 @@ pub mod waglaylad_request_convert {
     impl_into_waglaylad_request!(GetCoinSupply);
     impl_into_waglaylad_request!(Ping);
     impl_into_waglaylad_request!(GetMetrics);
+    impl_into_waglaylad_request!(GetConnections);
+    impl_into_waglaylad_request!(GetSystemInfo);
     impl_into_waglaylad_request!(GetServerInfo);
     impl_into_waglaylad_request!(GetSyncStatus);
     impl_into_waglaylad_request!(GetDaaScoreTimestampEstimate);
@@ -185,6 +187,8 @@ pub mod waglaylad_response_convert {
     impl_into_waglaylad_response!(GetCoinSupply);
     impl_into_waglaylad_response!(Ping);
     impl_into_waglaylad_response!(GetMetrics);
+    impl_into_waglaylad_response!(GetConnections);
+    impl_into_waglaylad_response!(GetSystemInfo);
     impl_into_waglaylad_response!(GetServerInfo);
     impl_into_waglaylad_response!(GetSyncStatus);
     impl_into_waglaylad_response!(GetDaaScoreTimestampEstimate);
