@@ -355,7 +355,7 @@ pub const MAINNET_PARAMS: Params = Params {
 
 pub const TESTNET_PARAMS: Params = Params {
     dns_seeders: &[
-        "arcadoom.net",
+        "seeder1-testnet.waglayla.com",
     ],
     net: NetworkId::with_suffix(NetworkType::Testnet, 10),
     genesis: TESTNET_GENESIS,
