@@ -873,6 +873,24 @@ NOTE: This error usually indicates an RPC conversion error between the node and 
         Ok(response)
     }
 
+    async fn get_system_info_call(
+        &self,
+        _connection: Option<&DynRpcConnection>,
+        _request: GetSystemInfoRequest,
+    ) -> RpcResult<GetSystemInfoResponse> {
+        let response = GetSystemInfoResponse {
+            version: self.system_info.version.clone(),
+            system_id: self.system_info.system_id.clone(),
+            git_hash: self.system_info.git_short_hash.clone(),
+            cpu_physical_cores: self.system_info.cpu_physical_cores,
+            total_memory: self.system_info.total_memory,
+            fd_limit: self.system_info.fd_limit,
+            proxy_socket_limit_per_cpu_core: self.system_info.proxy_socket_limit_per_cpu_core,
+        };
+
+        Ok(response)
+    }
+
     async fn get_server_info_call(&self, _request: GetServerInfoRequest) -> RpcResult<GetServerInfoResponse> {
         let session = self.consensus_manager.consensus().unguarded_session();
         let is_synced: bool = self.has_sufficient_peer_connectivity() && session.async_is_nearly_synced().await;
