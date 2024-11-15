@@ -1,6 +1,7 @@
 use alloc::borrow::Cow;
 use borsh::{BorshDeserialize, BorshSerialize};
 use core::fmt::Formatter;
+use js_sys::Object;
 use waglayla_utils::{
     hex::{FromHex, ToHex},
     serde_bytes::FromHexVisitor,
