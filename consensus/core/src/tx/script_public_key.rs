@@ -379,10 +379,27 @@ impl BorshDeserialize for ScriptPublicKey {
 type CastError = workflow_wasm::error::Error;
 impl TryCastFromJs for ScriptPublicKey {
     type Error = workflow_wasm::error::Error;
-    fn try_cast_from(value: impl AsRef<JsValue>) -> Result<Cast<Self>, Self::Error> {
-        Self::resolve(&value, || {
+    fn try_cast_from<'a, R>(value: &'a R) -> Result<Cast<Self>, Self::Error>
+    where
+        R: AsRef<JsValue> + 'a,
+    {
+        Self::resolve(value, || {
             if let Some(hex_str) = value.as_ref().as_string() {
                 Ok(Self::from_str(&hex_str).map_err(CastError::custom)?)
+            } else if let Some(object) = Object::try_from(value.as_ref()) {
+                let version = object.try_get_value("version")?.ok_or(CastError::custom(
+                    "ScriptPublicKey must be a hex string or an object with 'version' and 'script' properties",
+                ))?;
+
+                let version = if let Ok(version) = version.try_as_u16() {
+                    version
+                } else {
+                    return Err(CastError::custom("Invalid version value '{version:?}'"));
+                };
+
+                let script = object.get_vec_u8("script")?;
+
+                Ok(ScriptPublicKey::from_vec(version, script))
             } else {
                 Err(CastError::custom(format!("Unable to convert ScriptPublicKey from: {:?}", value.as_ref())))
             }
