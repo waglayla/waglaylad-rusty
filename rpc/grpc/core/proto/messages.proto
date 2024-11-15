@@ -120,8 +120,6 @@ message WaglayladResponse {
     GetDaaScoreTimestampEstimateResponseMessage GetDaaScoreTimestampEstimateResponse = 1097;
     GetConnectionsResponseMessage getConnectionsResponse= 1103;
     GetSystemInfoResponseMessage getSystemInfoResponse= 1105;
-    GetFeeEstimateResponseMessage getFeeEstimateResponse = 1107;
-    GetFeeEstimateExperimentalResponseMessage getFeeEstimateExperimentalResponse = 1109;
   }
 }
 
