@@ -279,6 +279,7 @@ workflow-log = { version = "0.12.1" }
 workflow-node = { version = "0.12.1" }
 workflow-nw = { version = "0.12.1" }
 workflow-rpc = { version = "0.12.1" }
+workflow-serializer = { version = "0.18.0" }
 workflow-store = { version = "0.12.1" }
 workflow-terminal = { version = "0.12.1" }
 workflow-wasm = { version = "0.12.1" }
