@@ -3,14 +3,16 @@ use borsh::{BorshDeserialize, BorshSerialize};
 use waglayla_consensus_core::api::stats::BlockCount;
 use waglayla_core::debug;
 use waglayla_notify::subscription::{context::SubscriptionContext, single::UtxosChangedSubscription, Command};
+use waglayla_utils::hex::ToHex;
 use serde::{Deserialize, Serialize};
+use std::collections::HashMap;
 use std::{
     fmt::{Display, Formatter},
     sync::Arc,
 };
 
 #[cfg(not(target_family = "wasm"))]
-use pyo3::prelude::*;
+use workflow_serializer::prelude::*;
 
 pub type RpcExtraData = Vec<u8>;
 
