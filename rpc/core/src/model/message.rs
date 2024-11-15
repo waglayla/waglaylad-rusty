@@ -849,9 +849,169 @@ impl GetCoinSupplyResponse {
 #[serde(rename_all = "camelCase")]
 pub struct PingRequest {}
 
+impl Serializer for PingRequest {
+  fn serialize<W: std::io::Write>(&self, _writer: &mut W) -> std::io::Result<()> {
+      Ok(())
+  }
+}
+
+impl Deserializer for PingRequest {
+  fn deserialize<R: std::io::Read>(_reader: &mut R) -> std::io::Result<Self> {
+      Ok(Self {})
+  }
+}
+
 #[derive(Clone, Debug, Serialize, Deserialize, BorshSerialize, BorshDeserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct PingResponse {}
+
+impl Serializer for PingResponse {
+  fn serialize<W: std::io::Write>(&self, writer: &mut W) -> std::io::Result<()> {
+      store!(u8, &1, writer)?;
+      Ok(())
+  }
+}
+
+impl Deserializer for PingResponse {
+  fn deserialize<R: std::io::Read>(reader: &mut R) -> std::io::Result<Self> {
+      let _version = load!(u8, reader)?;
+      Ok(Self {})
+  }
+}
+
+#[derive(Clone, Debug, Serialize, Deserialize, BorshSerialize, BorshDeserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct ConnectionsProfileData {
+    pub cpu_usage: f32,
+    pub memory_usage: u64,
+}
+
+#[derive(Clone, Debug, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct GetConnectionsRequest {
+    pub include_profile_data: bool,
+}
+
+impl Serializer for GetConnectionsRequest {
+    fn serialize<W: std::io::Write>(&self, writer: &mut W) -> std::io::Result<()> {
+        store!(u8, &1, writer)?;
+        store!(bool, &self.include_profile_data, writer)?;
+        Ok(())
+    }
+}
+
+impl Deserializer for GetConnectionsRequest {
+    fn deserialize<R: std::io::Read>(reader: &mut R) -> std::io::Result<Self> {
+        let _version = load!(u8, reader)?;
+        let include_profile_data = load!(bool, reader)?;
+        Ok(Self { include_profile_data })
+    }
+}
+
+#[derive(Clone, Debug, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct GetConnectionsResponse {
+    pub clients: u32,
+    pub peers: u16,
+    pub profile_data: Option<ConnectionsProfileData>,
+}
+
+impl Serializer for GetConnectionsResponse {
+    fn serialize<W: std::io::Write>(&self, writer: &mut W) -> std::io::Result<()> {
+        store!(u16, &1, writer)?;
+        store!(u32, &self.clients, writer)?;
+        store!(u16, &self.peers, writer)?;
+        store!(Option<ConnectionsProfileData>, &self.profile_data, writer)?;
+        Ok(())
+    }
+}
+
+impl Deserializer for GetConnectionsResponse {
+    fn deserialize<R: std::io::Read>(reader: &mut R) -> std::io::Result<Self> {
+        let _version = load!(u16, reader)?;
+        let clients = load!(u32, reader)?;
+        let peers = load!(u16, reader)?;
+        let extra = load!(Option<ConnectionsProfileData>, reader)?;
+        Ok(Self { clients, peers, profile_data: extra })
+    }
+}
+
+#[derive(Clone, Debug, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct GetSystemInfoRequest {}
+
+impl Serializer for GetSystemInfoRequest {
+    fn serialize<W: std::io::Write>(&self, writer: &mut W) -> std::io::Result<()> {
+        store!(u16, &1, writer)?;
+
+        Ok(())
+    }
+}
+
+impl Deserializer for GetSystemInfoRequest {
+    fn deserialize<R: std::io::Read>(reader: &mut R) -> std::io::Result<Self> {
+        let _version = load!(u16, reader)?;
+
+        Ok(Self {})
+    }
+}
+
+#[derive(Clone, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct GetSystemInfoResponse {
+    pub version: String,
+    pub system_id: Option<Vec<u8>>,
+    pub git_hash: Option<Vec<u8>>,
+    pub cpu_physical_cores: u16,
+    pub total_memory: u64,
+    pub fd_limit: u32,
+    pub proxy_socket_limit_per_cpu_core: Option<u32>,
+}
+
+impl std::fmt::Debug for GetSystemInfoResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.debug_struct("GetSystemInfoResponse")
+            .field("version", &self.version)
+            .field("system_id", &self.system_id.as_ref().map(|id| id.to_hex()))
+            .field("git_hash", &self.git_hash.as_ref().map(|hash| hash.to_hex()))
+            .field("cpu_physical_cores", &self.cpu_physical_cores)
+            .field("total_memory", &self.total_memory)
+            .field("fd_limit", &self.fd_limit)
+            .field("proxy_socket_limit_per_cpu_core", &self.proxy_socket_limit_per_cpu_core)
+            .finish()
+    }
+}
+
+impl Serializer for GetSystemInfoResponse {
+    fn serialize<W: std::io::Write>(&self, writer: &mut W) -> std::io::Result<()> {
+        store!(u16, &2, writer)?;
+        store!(String, &self.version, writer)?;
+        store!(Option<Vec<u8>>, &self.system_id, writer)?;
+        store!(Option<Vec<u8>>, &self.git_hash, writer)?;
+        store!(u16, &self.cpu_physical_cores, writer)?;
+        store!(u64, &self.total_memory, writer)?;
+        store!(u32, &self.fd_limit, writer)?;
+        store!(Option<u32>, &self.proxy_socket_limit_per_cpu_core, writer)?;
+
+        Ok(())
+    }
+}
+
+impl Deserializer for GetSystemInfoResponse {
+    fn deserialize<R: std::io::Read>(reader: &mut R) -> std::io::Result<Self> {
+        let payload_version = load!(u16, reader)?;
+        let version = load!(String, reader)?;
+        let system_id = load!(Option<Vec<u8>>, reader)?;
+        let git_hash = load!(Option<Vec<u8>>, reader)?;
+        let cpu_physical_cores = load!(u16, reader)?;
+        let total_memory = load!(u64, reader)?;
+        let fd_limit = load!(u32, reader)?;
+
+        let proxy_socket_limit_per_cpu_core = if payload_version > 1 { load!(Option<u32>, reader)? } else { None };
+
+        Ok(Self { version, system_id, git_hash, cpu_physical_cores, total_memory, fd_limit, proxy_socket_limit_per_cpu_core })
+    }
+}
 
 // TODO - custom wRPC commands (need review and implementation in gRPC)
 
