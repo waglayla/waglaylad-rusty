@@ -398,7 +398,7 @@ impl TryCastFromJs for Blake2Hash {
     where
         R: AsRef<JsValue> + 'a,
     {
-        Self::resolve(&value, || {
+        Self::resolve(value, || {
             let bytes = value.as_ref().try_as_vec_u8()?;
             Ok(Blake2Hash(
                 <[u8; HASH_SIZE]>::try_from(bytes)
